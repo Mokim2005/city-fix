@@ -4,6 +4,10 @@ import RootLayout from "../Layout/RootLayout";
 import Error from "../Pages/Error";
 import AllIssus from "../Pages/AllIssus";
 
+import Login from "../Pages/Auth/Login";
+import Register from "../Pages/Auth/Register";
+import AuthLayout from "../Layout/AuthLayout";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,8 +20,23 @@ const router = createBrowserRouter([
       {
         path: '/all-issus',
         Component: AllIssus
-      }
+      },
+
     ],
+  },
+  {
+    path:'/',
+    element: <AuthLayout />,
+    children: [
+        {
+            path: 'login',
+            Component: Login
+        },
+        {
+            path: 'register',
+            Component: Register
+        }
+    ]
   },
   {
     path: "*", 

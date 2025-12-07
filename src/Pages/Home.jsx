@@ -1,11 +1,18 @@
-import React from 'react';
+import React from "react";
+import BannerSlider from "../Components/BannerSlider";
+import Banner from "../Components/Banner";
+import ExploreBanner from "../Components/ExploreBanner";
+import BannerReport from "../Components/BannerReport";
 
 const Home = () => {
-    return (
-        <div>
-            <h1>home</h1>
-        </div>
-    );
+  return (
+    <div className="bg-gradient-to-b from-[#1a132f] to-[#2b2250] min-h-screen">
+      <Banner />
+      <ExploreBanner></ExploreBanner>
+      <BannerSlider />
+      <BannerReport></BannerReport>
+    </div>
+  );
 };
 
 export default Home;
