@@ -17,14 +17,15 @@ const Navbar = () => {
       <li className="text-lg font-medium">
         <NavLink to="/">Home</NavLink>
       </li>
+
       <li className="text-lg font-medium">
-        <NavLink to="/all-issues">All Issues</NavLink>
+        <NavLink to="/issus-form">Issus Form</NavLink>
       </li>
       <li className="text-lg font-medium">
-        <NavLink to="/extra1">Extra Page 1</NavLink>
+        <NavLink to="/all-issus">All Issues</NavLink>
       </li>
       <li className="text-lg font-medium">
-        <NavLink to="/extra2">Extra Page 2</NavLink>
+        <NavLink to="/my-issus">My Issus</NavLink>
       </li>
 
       {user && (

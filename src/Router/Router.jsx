@@ -1,12 +1,15 @@
-import { createBrowserRouter } from "react-router-dom"; 
+import { createBrowserRouter } from "react-router-dom";
 import Home from "../Pages/Home";
 import RootLayout from "../Layout/RootLayout";
 import Error from "../Pages/Error";
 import AllIssus from "../Pages/AllIssus";
-
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import AuthLayout from "../Layout/AuthLayout";
+import PrivetRout from "../Routs/PrivetRouts";
+import IssueForm from "../Pages/IssusFrom";
+import MyIssus from "../Pages/MyIssus";
+
 
 const router = createBrowserRouter([
   {
@@ -15,32 +18,48 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />, 
+        element: <Home />,
       },
       {
-        path: '/all-issus',
-        Component: AllIssus
+        path: "/all-issus",
+        Component: AllIssus,
+      },
+      {
+        path: "/issus-form",
+        element: (
+          <PrivetRout>
+            <IssueForm></IssueForm>
+          </PrivetRout>
+        ),
+      },
+      {
+        path: "/my-issus",
+        element: (
+          <PrivetRout>
+            <MyIssus></MyIssus>
+          </PrivetRout>
+        ),
       },
 
     ],
   },
   {
-    path:'/',
+    path: "/",
     element: <AuthLayout />,
     children: [
-        {
-            path: 'login',
-            Component: Login
-        },
-        {
-            path: 'register',
-            Component: Register
-        }
-    ]
+      {
+        path: "login",
+        Component: Login,
+      },
+      {
+        path: "register",
+        Component: Register,
+      },
+    ],
   },
   {
-    path: "*", 
-    element: <Error />, 
+    path: "*",
+    element: <Error />,
   },
 ]);
 

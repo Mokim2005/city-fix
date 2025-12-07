@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import UserAuth from "../../Hooks/UserAuth";
 import SocialLogin from "./SocialLogin";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Login = () => {
   const {
@@ -12,10 +12,15 @@ const Login = () => {
   } = useForm();
 
   const { signInUser } = UserAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLogin = (data) => {
     signInUser(data.email, data.password)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        navigate(location?.state || '/');
+      })
       .catch((error) => console.log(error));
   };
 
@@ -86,6 +91,7 @@ const Login = () => {
           <p className="text-purple-200 text-center mt-2">
             New to City Fix?{" "}
             <Link
+            state={location?.state}
               to="/register"
               className="text-green-300 hover:text-green-200"
             >

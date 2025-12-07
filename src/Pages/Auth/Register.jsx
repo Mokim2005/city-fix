@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import UserAuth from "../../Hooks/UserAuth";
 import SocialLogin from "./SocialLogin";
 import axios from "axios";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Register = () => {
   const {
@@ -12,13 +12,15 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  const location = useLocation();
+  const navigate = useNavigate();
   const { registeUser, updateUserProfile } = UserAuth();
 
   const handleRegistration = (data) => {
     const profileImg = data.photo[0];
 
     registeUser(data.email, data.password)
-      .then((res) => {
+      .then(() => {
         const formData = new FormData();
         formData.append("image", profileImg);
 
@@ -31,7 +33,11 @@ const Register = () => {
             displayName: data.name,
             photoURL: res.data?.data?.display_url,
           };
-          updateUserProfile(userProfile).catch((err) => console.log(err));
+          updateUserProfile(userProfile)
+            .then(() => {
+              navigate(location?.state || "/");
+            })
+            .catch((err) => console.log(err));
         });
       })
       .catch((error) => {
@@ -132,7 +138,11 @@ const Register = () => {
 
           <p className="text-purple-200 text-center mt-2">
             Already have an account?{" "}
-            <Link to="/login" className="text-green-300 hover:text-green-200">
+            <Link
+              to="/login"
+              state={location?.state}
+              className="text-green-300 hover:text-green-200"
+            >
               Login
             </Link>
           </p>

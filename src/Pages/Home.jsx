@@ -3,6 +3,7 @@ import BannerSlider from "../Components/BannerSlider";
 import Banner from "../Components/Banner";
 import ExploreBanner from "../Components/ExploreBanner";
 import BannerReport from "../Components/BannerReport";
+import FeaturesSection from "../Components/Feature";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <ExploreBanner></ExploreBanner>
       <BannerSlider />
       <BannerReport></BannerReport>
+      <FeaturesSection></FeaturesSection>
     </div>
   );
 };
