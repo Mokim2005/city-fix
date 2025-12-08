@@ -35,7 +35,7 @@ const Navbar = () => {
       )}
 
       <li className="text-lg font-medium">
-        <NavLink to="/about">About Us</NavLink>
+        <NavLink to="/dashboard/my-report">My Reports</NavLink>
       </li>
     </>
   );

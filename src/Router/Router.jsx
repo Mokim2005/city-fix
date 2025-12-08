@@ -9,6 +9,8 @@ import AuthLayout from "../Layout/AuthLayout";
 import PrivetRout from "../Routs/PrivetRouts";
 import IssueForm from "../Pages/IssusFrom";
 import MyIssus from "../Pages/MyIssus";
+import DashboardLayout from "../Layout/DashboardLayout";
+import MyReports from "../Pages/Dashboard/MyReports";
 
 
 const router = createBrowserRouter([
@@ -56,6 +58,16 @@ const router = createBrowserRouter([
         Component: Register,
       },
     ],
+  },
+  {
+    path:'dashboard',
+    element: <PrivetRout><DashboardLayout></DashboardLayout></PrivetRout>,
+    children:[
+      {
+        path: 'my-report',
+        element:<MyReports></MyReports>
+      }
+    ]
   },
   {
     path: "*",

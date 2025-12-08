@@ -41,27 +41,29 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, profile);
   };
 
-  //observe user state
+  // observe user
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currenUser) => {
       setUser(currenUser);
       setLoading(false);
     });
-    return () => {
-      unSubscribe();
-    };
+
+    return () => unSubscribe();
   }, []);
 
   const authInfo = {
     user,
+    loading,
     registeUser,
     signInUser,
     signInGoogle,
     logOut,
-    updateUserProfile
+    updateUserProfile,
   };
 
-  return <AuthContext value={authInfo}>{children}</AuthContext>;
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

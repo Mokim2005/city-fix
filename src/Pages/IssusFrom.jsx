@@ -1,14 +1,69 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { useForm } from "react-hook-form";
+import UseAxiosSecure from "../Hooks/UseAxiosSecure";
+import Swal from "sweetalert2";
+import UserAuth from "../Hooks/UserAuth";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router";
 
 const IssueForm = () => {
   const [imagePreview, setImagePreview] = useState("");
+  const { user, updateUserProfile } = UserAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const axiosSecure = UseAxiosSecure();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImagePreview(URL.createObjectURL(file));
     }
+  };
+
+  const handleSendIssus = (data) => {
+    console.log("FORM SUBMIT DATA:", data);
+    data.email = user?.email;
+
+    const issueImage = data.image[0];
+    const formData = new FormData();
+    formData.append("image", issueImage);
+
+    const imgApiUrl = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_image_host_key
+    }`;
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "report is sending!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Send report!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // 1️⃣ Image Upload
+        axios.post(imgApiUrl, formData).then((imgRes) => {
+          const imageUrl = imgRes.data?.data?.display_url;
+
+          // 2️⃣ Add image URL to data
+          data.image = imageUrl;
+
+          // 3️⃣ Send to backend
+          axiosSecure.post("/citizen", data).then((res) => {
+            console.log("Saved issue:", res.data);
+            Swal.fire("Success!", "Issue reported successfully", "success");
+          });
+        });
+      }
+    });
   };
 
   return (
@@ -18,13 +73,17 @@ const IssueForm = () => {
           Report a New Issue
         </h2>
 
-        <form className="grid grid-cols-1 gap-6">
+        <form
+          onSubmit={handleSubmit(handleSendIssus)}
+          className="grid grid-cols-1 gap-6"
+        >
           {/* Title */}
           <div>
             <label className="block text-gray-200 mb-2 font-semibold">
               Issue Title
             </label>
             <input
+              {...register("title")}
               type="text"
               placeholder="Enter issue title"
               className="w-full p-3 bg-[#1a132f] text-white border border-purple-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
@@ -37,6 +96,7 @@ const IssueForm = () => {
               Description
             </label>
             <textarea
+              {...register("description")}
               placeholder="Write issue details"
               className="w-full p-3 bg-[#1a132f] text-white border border-purple-500 rounded-lg h-32 focus:outline-none focus:ring-2 focus:ring-purple-600"
             ></textarea>
@@ -47,7 +107,10 @@ const IssueForm = () => {
             <label className="block text-gray-200 mb-2 font-semibold">
               Category
             </label>
-            <select className="w-full p-3 bg-[#1a132f] text-white border border-purple-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+            <select
+              {...register("category")}
+              className="w-full p-3 bg-[#1a132f] text-white border border-purple-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            >
               <option value="">Select Category</option>
               <option value="Road">Road Issue</option>
               <option value="Electricity">Electricity</option>
@@ -64,6 +127,7 @@ const IssueForm = () => {
               Location
             </label>
             <input
+              {...register("location")}
               type="text"
               placeholder="Enter Location"
               className="w-full p-3 bg-[#1a132f] text-white border border-purple-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
@@ -77,6 +141,7 @@ const IssueForm = () => {
             </label>
 
             <input
+              {...register("image")}
               type="file"
               onChange={handleImageChange}
               className="w-full p-3 bg-[#1a132f] text-white border border-purple-500 rounded-lg cursor-pointer"
@@ -92,13 +157,13 @@ const IssueForm = () => {
           </div>
 
           {/* Submit Button */}
-          <Link
-            to="/my-issus"
+
+          <button
             type="submit"
             className="mt-4 text-center bg-purple-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-purple-700 shadow-lg transition-all"
           >
             Submit Issue
-          </Link>
+          </button>
         </form>
       </div>
     </div>
