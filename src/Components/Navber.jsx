@@ -23,20 +23,18 @@ const Navbar = () => {
       </li>
       <li className="text-lg font-medium">
         <NavLink to="/all-issus">All Issues</NavLink>
-      </li>
-      <li className="text-lg font-medium">
-        <NavLink to="/my-issus">My Issus</NavLink>
-      </li>
+    </li>
 
       {user && (
-        <li className="text-lg font-medium">
-          <NavLink to="/dashboard">Dashboard</NavLink>
-        </li>
+        <>
+          <li className="text-lg font-medium">
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+          <li className="text-lg font-medium">
+            <NavLink to="dashboard/my-issus">My Issus</NavLink>
+          </li>
+        </>
       )}
-
-      <li className="text-lg font-medium">
-        <NavLink to="/dashboard/my-report">My Reports</NavLink>
-      </li>
     </>
   );
 

@@ -60,6 +60,7 @@ const IssueForm = () => {
           axiosSecure.post("/citizen", data).then((res) => {
             console.log("Saved issue:", res.data);
             Swal.fire("Success!", "Issue reported successfully", "success");
+            window.location.reload();
           });
         });
       }

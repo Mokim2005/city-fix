@@ -1,9 +1,11 @@
 import React from "react";
-import { Link, Outlet } from "react-router";
+import { FaCircleUser } from "react-icons/fa6";
+import { TbMessageReportFilled } from "react-icons/tb";
+import { Link, NavLink, Outlet } from "react-router";
 
 const DashboardLayout = () => {
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open max-w-7xl mx-auto">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
@@ -48,8 +50,8 @@ const DashboardLayout = () => {
             {/* List item */}
 
             <li>
-              <Link 
-              to='/'
+              <Link
+                to="/"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
@@ -69,6 +71,28 @@ const DashboardLayout = () => {
                 </svg>
                 <span className="is-drawer-close:hidden">Homepage</span>
               </Link>
+            </li>
+
+            {/* our dashboard links */}
+            <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="MyIssus"
+                to="/dashboard/my-issus"
+              >
+                <TbMessageReportFilled />
+                <span className="is-drawer-close:hidden">My Issus</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="MyProfile"
+                to="/dashboard/my-profile"
+              >
+                <FaCircleUser />
+                <span className="is-drawer-close:hidden">My Profile</span>
+              </NavLink>
             </li>
 
             {/* List item */}

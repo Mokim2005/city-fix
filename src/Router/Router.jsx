@@ -8,10 +8,12 @@ import Register from "../Pages/Auth/Register";
 import AuthLayout from "../Layout/AuthLayout";
 import PrivetRout from "../Routs/PrivetRouts";
 import IssueForm from "../Pages/IssusFrom";
-import MyIssus from "../Pages/MyIssus";
+import MyIssus from "../Pages/Dashboard/MyIssus";
 import DashboardLayout from "../Layout/DashboardLayout";
-import MyReports from "../Pages/Dashboard/MyReports";
-
+import MyProfile from "../Pages/Dashboard/MyProfile";
+import Payment from "../Pages/Dashboard/Payment";
+import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
+import PaymentCanceld from "../Pages/Dashboard/PaymentCanceld";
 
 const router = createBrowserRouter([
   {
@@ -34,15 +36,6 @@ const router = createBrowserRouter([
           </PrivetRout>
         ),
       },
-      {
-        path: "/my-issus",
-        element: (
-          <PrivetRout>
-            <MyIssus></MyIssus>
-          </PrivetRout>
-        ),
-      },
-
     ],
   },
   {
@@ -60,19 +53,38 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:'dashboard',
-    element: <PrivetRout><DashboardLayout></DashboardLayout></PrivetRout>,
-    children:[
+    path: "dashboard",
+    element: (
+      <PrivetRout>
+        <DashboardLayout></DashboardLayout>
+      </PrivetRout>
+    ),
+    children: [
       {
-        path: 'my-report',
-        element:<MyReports></MyReports>
-      }
-    ]
+        path: "my-issus",
+        element: <MyIssus></MyIssus>,
+      },
+      {
+        path: "my-profile",
+        element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "payment-cancelled",
+        Component: PaymentCanceld,
+      },
+    ],
   },
   {
     path: "*",
     element: <Error />,
   },
 ]);
-
 export default router;
