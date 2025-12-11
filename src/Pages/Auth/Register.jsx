@@ -4,6 +4,7 @@ import UserAuth from "../../Hooks/UserAuth";
 import SocialLogin from "./SocialLogin";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
 const Register = () => {
   const {
@@ -15,6 +16,7 @@ const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { registeUser, updateUserProfile } = UserAuth();
+  const axiosSecure = UseAxiosSecure();
 
   const handleRegistration = (data) => {
     const profileImg = data.photo[0];
@@ -28,21 +30,27 @@ const Register = () => {
           import.meta.env.VITE_image_host_key
         }`;
 
-        axios.post(image_API_URL, formData).then((res) => {
+        axios.post(image_API_URL, formData).then(async (res) => {
+          const photoURL = res.data?.data?.display_url;
+
           const userProfile = {
             displayName: data.name,
-            photoURL: res.data?.data?.display_url,
+            photoURL: photoURL,
           };
-          updateUserProfile(userProfile)
-            .then(() => {
-              navigate(location?.state || "/");
-            })
-            .catch((err) => console.log(err));
+
+          await updateUserProfile(userProfile);
+
+          // ⭐ DB তে save — এখানে যোগ করো
+          await axiosSecure.post("/users", {
+            displayName: data.name,
+            email: data.email,
+            photoURL: photoURL,
+          });
+
+          navigate(location?.state || "/");
         });
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.log(error.message));
   };
 
   return (

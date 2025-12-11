@@ -13,7 +13,7 @@ const MyProfile = () => {
   useEffect(() => {
     if (user?.email) {
       axiosSecure
-        .get(`/citizen/email/${user.email}`)
+        .get(`/users/email/${user.email}`)
         .then((res) => {
           console.log("Mongo user:", res.data);
           setCurrentUser(res.data);
@@ -22,19 +22,21 @@ const MyProfile = () => {
     }
   }, [user]);
 
+  console.log("user are hare", currentUser);
+
   const handleSubscribe = async () => {
     if (!currentUser?._id) {
       return Swal.fire("Error", "User not loaded!", "error");
     }
 
-    const response = await axiosSecure.patch(
-      `/citizen/${currentUser._id}/subscribe`,
-      { amount: 1000 }
-    );
+    try {
+      setIsLoading(true);
 
-    if (response.data.success) {
-      setCurrentUser({ ...currentUser, isPremium: true });
-      Swal.fire("Success!", "You are now Premium!", "success");
+    
+    } catch (error) {
+      Swal.fire("Error", "Payment failed!", "error");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,7 +54,7 @@ const MyProfile = () => {
             {" "}
             {currentUser.name || user.displayName}
           </h2>
-          <p className="text-gray-300">{currentUser.email}</p>
+          <p>{currentUser.email || user.email}</p>
 
           {/* Premium Badge */}
           {currentUser.isPremium && (

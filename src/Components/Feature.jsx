@@ -19,7 +19,7 @@ const FeaturesSection = () => {
       icon: <FaUsers size={40} className="text-purple-400 mb-4" />,
       title: "Community Engagement",
       description:
-        "Join a community of citizens helping improve city infrastructure and safety together.",
+        "Join a community of issuss helping improve city infrastructure and safety together.",
     },
     {
       icon: <FaChartLine size={40} className="text-purple-400 mb-4" />,

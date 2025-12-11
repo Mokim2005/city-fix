@@ -11,10 +11,10 @@ const MyIssus = () => {
   const { user } = UserAuth();
   const axiosSecure = UseAxiosSecure();
 
-  const { data: reports = [] , refetch} = useQuery({
+  const { data: reports = [], refetch } = useQuery({
     queryKey: ["myParcels", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/citizen?email=${user.email}`);
+      const res = await axiosSecure.get(`/issus?email=${user.email}`);
       return res.data;
     },
   });
@@ -31,11 +31,11 @@ const MyIssus = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/citizen/${id}`).then((res) => {
+        axiosSecure.delete(`/issus/${id}`).then((res) => {
           console.log(res.data);
 
           if (res.data.deletedCount) {
-            refetch()
+            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your Report request has been deleted.",

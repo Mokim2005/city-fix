@@ -4,13 +4,12 @@ import UseAxiosSecure from "../Hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
 import UserAuth from "../Hooks/UserAuth";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router";
+
 
 const IssueForm = () => {
   const [imagePreview, setImagePreview] = useState("");
-  const { user, updateUserProfile } = UserAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { user, } = UserAuth();
+  
 
   const {
     register,
@@ -57,7 +56,7 @@ const IssueForm = () => {
           data.image = imageUrl;
 
           // 3️⃣ Send to backend
-          axiosSecure.post("/citizen", data).then((res) => {
+          axiosSecure.post("/issus", data).then((res) => {
             console.log("Saved issue:", res.data);
             Swal.fire("Success!", "Issue reported successfully", "success");
             window.location.reload();
