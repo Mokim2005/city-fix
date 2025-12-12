@@ -8,7 +8,7 @@ const MyProfile = () => {
   const { user } = UserAuth();
   const axiosSecure = UseAxiosSecure();
   const [currentUser, setCurrentUser] = useState(user);
-  const [isLoading, setIsLoading] = useState(false); // Loading state for button
+  const [isLoading, setIsLoading] = useState(false); 
 
   useEffect(() => {
     if (user?.email) {
@@ -76,7 +76,7 @@ const MyProfile = () => {
           <Link to="/dashboard/payment">
             <button
               onClick={handleSubscribe}
-              disabled={isLoading} // Disable button while processing
+              disabled={isLoading} 
               className={`mt-6 w-full ${
                 isLoading
                   ? "bg-gray-500 cursor-not-allowed"

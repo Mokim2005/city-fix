@@ -14,6 +14,7 @@ import MyProfile from "../Pages/Dashboard/MyProfile";
 import Payment from "../Pages/Dashboard/Payment";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import PaymentCanceld from "../Pages/Dashboard/PaymentCanceld";
+import IssusDetails from "../Pages/IssusDetails";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: "/all-issus",
         Component: AllIssus,
+      },
+      {
+        path: "/Issus-details/:id",
+        element: (
+          <PrivetRout>
+            <IssusDetails></IssusDetails>
+          </PrivetRout>
+        ),
       },
       {
         path: "/issus-form",

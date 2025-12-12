@@ -34,17 +34,15 @@ const Payment = () => {
         plan: "premium",
       };
 
-      // ⭐ STEP 1 — Save to subscribeCollection (isPremium = false)
       const subRes = await axiosSecure.post("/subscribe", paymentInfo);
       console.log("Saved subscription:", subRes.data);
 
-      // ⭐ STEP 2 — Create Stripe Checkout Session
       const sessionRes = await axiosSecure.post(
         "/create-checkout-session",
         paymentInfo
       );
 
-      // Redirect user to Stripe
+
       window.location.href = sessionRes.data.url;
     } catch (err) {
       console.error(err);
