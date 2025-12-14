@@ -21,6 +21,7 @@ const IssueDetails = () => {
   if (!issue) return <p className="text-center text-white">Loading...</p>;
 
   const isOwner = issue.email === user?.email;
+  const isPriority = issue.priority == "Normal";
 
   // 🗑 Delete Issue
   const handleDelete = () => {
@@ -125,7 +126,6 @@ const IssueDetails = () => {
               Edit
             </Link>
           )}
-
           {/* Delete */}
           {isOwner && (
             <button
@@ -135,9 +135,9 @@ const IssueDetails = () => {
               Delete
             </button>
           )}
-
-          {/* Boost */}
-          {isOwner && (
+          Boost
+          {/* console.log(object) */}
+          {isPriority && (
             <button
               onClick={handleBoost}
               className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"

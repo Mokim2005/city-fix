@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 const Payment = () => {
   const { user } = UserAuth();
   const axiosSecure = UseAxiosSecure();
-  
 
   const { isLoading, data: issuss = [] } = useQuery({
     queryKey: ["issus"],
@@ -22,19 +21,19 @@ const Payment = () => {
     return <Loading />;
   }
   // console.log(currentUser.email)
-  console.log('user info', user.email)
-
+  console.log("user info", user.email);
 
   const handlePayment = async () => {
     try {
       const paymentInfo = {
-        email:user.email,
+        email: user.email,
         name: user.displayName,
         amount: 1000,
         plan: "premium",
+        purpose: "subscribe",
       };
 
-      console.log("this is payment info",paymentInfo)
+      console.log("this is payment info", paymentInfo);
       const subRes = await axiosSecure.post("/subscribe", paymentInfo);
       console.log("Saved subscription:", subRes.data);
 
@@ -42,7 +41,6 @@ const Payment = () => {
         "/create-checkout-session",
         paymentInfo
       );
-
 
       window.location.href = sessionRes.data.url;
     } catch (err) {

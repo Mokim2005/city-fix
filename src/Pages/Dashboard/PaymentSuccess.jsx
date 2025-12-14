@@ -14,11 +14,11 @@ const PaymentSuccess = () => {
 
     const verifyPayment = async () => {
       try {
-        const res = await axiosSecure.patch("/payment-success", { sessionId });
+        const res = await axiosSecure.post("/payment-success", { sessionId });
 
         if (res.data.purpose === "boost") {
           Swal.fire("Success!", "Issue boosted successfully!", "success");
-          navigate(`/Issus-details/${res.data.issueId}`);
+          // navigate(/Issus-details/${issueId});
         }
 
         if (res.data.purpose === "subscribe") {
