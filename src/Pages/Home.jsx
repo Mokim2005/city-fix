@@ -5,6 +5,8 @@ import ExploreBanner from "../Components/ExploreBanner";
 import BannerReport from "../Components/BannerReport";
 import FeaturesSection from "../Components/Feature";
 
+import LatestResolvedIssues from "../Components/HomePreview";
+
 const Home = () => {
   return (
     <div className="bg-gradient-to-b from-[#1a132f] to-[#2b2250] min-h-screen">
@@ -12,6 +14,7 @@ const Home = () => {
       <ExploreBanner></ExploreBanner>
       <BannerSlider />
       <BannerReport></BannerReport>
+      {/* <LatestResolvedIssues></LatestResolvedIssues> */}
       <FeaturesSection></FeaturesSection>
     </div>
   );

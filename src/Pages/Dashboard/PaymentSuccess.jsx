@@ -1,51 +1,40 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
 const PaymentSuccess = () => {
-  const [searchParams] = useSearchParams();
-
-  const sessionId = searchParams.get("session_id");
-  console.log(sessionId);
-  //   const [paymentInfo, setPaymentInfo] = useState(null);
+  const [params] = useSearchParams();
+  const sessionId = params.get("session_id");
   const axiosSecure = UseAxiosSecure();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (sessionId) {
-      axiosSecure
-        .post(`/payment-success`, { sessionId })
-        .then((res) => {
-          console.log("server response:", res.data);
+    if (!sessionId) return;
 
-          // setPaymentInfo({
-          //   transactionId: res.data.transactionId,
-          //   email: res.data.email,
-          //   amount: res.data.amount,
-          //   plan: res.data.plan,
-          //   isPremium: res.data.isPremium,
-          // });
-        })
-        .catch((err) => {
-          console.error("Error:", err);
-        });
-    }
-  }, [sessionId]);
+    const verifyPayment = async () => {
+      try {
+        const res = await axiosSecure.patch("/payment-success", { sessionId });
 
-  // if (!paymentInfo) {
-  //   return <h2 className="text-3xl">Loading payment result...</h2>;
-  // }
+        if (res.data.purpose === "boost") {
+          Swal.fire("Success!", "Issue boosted successfully!", "success");
+          navigate(`/Issus-details/${res.data.issueId}`);
+        }
 
-  return (
-    <div>
-      <h2 className="text-4xl">Payment Successful</h2>
-      {/* <p>Transaction ID: {paymentInfo.transactionId}</p>
-      <p>Email: {paymentInfo.email}</p>
-      <p>Amount: {paymentInfo.amount} BDT</p>
-      <p>Plan: {paymentInfo.plan}</p>
-      <p>Premium Status: {paymentInfo.isPremium ? "Active" : "Failed"}</p> */}
-    </div>
-  );
+        if (res.data.purpose === "subscribe") {
+          Swal.fire("Subscribed!", "Premium activated!", "success");
+          navigate("/dashboard/my-profile");
+        }
+      } catch (err) {
+        Swal.fire("Error", "Payment verification failed", "error");
+        navigate("/");
+      }
+    };
+
+    verifyPayment();
+  }, [sessionId, axiosSecure, navigate]);
+
+  return <p className="text-center mt-20">Processing payment...</p>;
 };
 
 export default PaymentSuccess;

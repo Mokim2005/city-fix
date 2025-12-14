@@ -37,6 +37,7 @@ const router = createBrowserRouter([
           </PrivetRout>
         ),
       },
+
       {
         path: "/issus-form",
         element: (
@@ -83,11 +84,11 @@ const router = createBrowserRouter([
       },
       {
         path: "payment-success",
-        Component: PaymentSuccess,
+        element: <PaymentSuccess />,
       },
       {
         path: "payment-cancelled",
-        Component: PaymentCanceld,
+        element: <PaymentCanceld />,
       },
     ],
   },

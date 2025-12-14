@@ -42,30 +42,22 @@ const IssueDetails = () => {
   };
 
   // 🚀 Boost Priority (Payment Simulation)
-  const handleBoost = () => {
+  const handleBoost = async () => {
     Swal.fire({
       title: "Boost Priority?",
-      text: "This will cost 100 BDT",
+      text: "You need to pay 100 BDT",
       icon: "info",
       showCancelButton: true,
       confirmButtonText: "Pay 100 BDT",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/issus/boost/${id}`).then((res) => {
-          Swal.fire("Boosted!", "Priority upgraded to HIGH", "success");
-
-          setIssue((prev) => ({
-            ...prev,
-            priority: "High",
-            timeline: [
-              ...prev.timeline,
-              {
-                text: "Priority boosted manually",
-                date: new Date().toISOString(),
-              },
-            ],
-          }));
+        const res = await axiosSecure.post("/create-checkout-session", {
+          email: user.email,
+          issueId: issue._id,
+          purpose: "boost",
         });
+
+        window.location.href = res.data.url;
       }
     });
   };

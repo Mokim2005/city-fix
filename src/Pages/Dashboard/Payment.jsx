@@ -34,6 +34,7 @@ const Payment = () => {
         plan: "premium",
       };
 
+      console.log("this is payment info",paymentInfo)
       const subRes = await axiosSecure.post("/subscribe", paymentInfo);
       console.log("Saved subscription:", subRes.data);
 
