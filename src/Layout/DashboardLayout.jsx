@@ -2,8 +2,13 @@ import React from "react";
 import { FaCircleUser } from "react-icons/fa6";
 import { TbMessageReportFilled } from "react-icons/tb";
 import { Link, NavLink, Outlet } from "react-router";
+import UseRole from "../Hooks/UseRole";
+import logo from "../assets/logo.png";
 
 const DashboardLayout = () => {
+  const { role } = UseRole();
+  console.log("this is role", role);
+
   return (
     <div className="drawer lg:drawer-open max-w-7xl mx-auto">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -53,7 +58,18 @@ const DashboardLayout = () => {
               <Link
                 to="/"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Homepage"
+                data-tip="Home"
+              >
+                {/* Home icon */}
+                <img className="w-[70px]" src={logo} alt="" />
+                <span className="is-drawer-close:hidden">Homepage</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/dashboard"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Dashboard Home"
               >
                 {/* Home icon */}
                 <svg

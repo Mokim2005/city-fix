@@ -15,6 +15,7 @@ import Payment from "../Pages/Dashboard/Payment";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import PaymentCanceld from "../Pages/Dashboard/PaymentCanceld";
 import IssusDetails from "../Pages/IssusDetails";
+import DashbordHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       </PrivetRout>
     ),
     children: [
+      {
+        index: true,
+        Component: DashbordHome,
+      },
       {
         path: "my-issus",
         element: <MyIssus></MyIssus>,

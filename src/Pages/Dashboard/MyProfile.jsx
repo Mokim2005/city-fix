@@ -3,12 +3,14 @@ import Swal from "sweetalert2";
 import UserAuth from "../../Hooks/UserAuth";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router";
+import UseRole from "../../Hooks/UseRole";
 
 const MyProfile = () => {
   const { user } = UserAuth();
+  const {role} = UseRole()
   const axiosSecure = UseAxiosSecure();
   const [currentUser, setCurrentUser] = useState(user);
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (user?.email) {
@@ -31,8 +33,6 @@ const MyProfile = () => {
 
     try {
       setIsLoading(true);
-
-    
     } catch (error) {
       Swal.fire("Error", "Payment failed!", "error");
     } finally {
@@ -50,6 +50,7 @@ const MyProfile = () => {
             alt="Profile"
             className="w-32 h-32 rounded-full border-4 border-purple-500 mb-4"
           />
+          <button className="bg-purple-600 px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-purple-700 transition-colors">{role}</button>
           <h2 className="text-2xl font-bold">
             {" "}
             {currentUser.name || user.displayName}
@@ -76,7 +77,7 @@ const MyProfile = () => {
           <Link to="/dashboard/payment">
             <button
               onClick={handleSubscribe}
-              disabled={isLoading} 
+              disabled={isLoading}
               className={`mt-6 w-full ${
                 isLoading
                   ? "bg-gray-500 cursor-not-allowed"

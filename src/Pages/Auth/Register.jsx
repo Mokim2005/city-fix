@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import UserAuth from "../../Hooks/UserAuth";
 import SocialLogin from "./SocialLogin";
@@ -17,6 +17,7 @@ const Register = () => {
   const navigate = useNavigate();
   const { registeUser, updateUserProfile } = UserAuth();
   const axiosSecure = UseAxiosSecure();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegistration = (data) => {
     const profileImg = data.photo[0];
@@ -40,11 +41,11 @@ const Register = () => {
 
           await updateUserProfile(userProfile);
 
-          // ⭐ DB তে save — এখানে যোগ করো
           await axiosSecure.post("/users", {
             displayName: data.name,
             email: data.email,
             photoURL: photoURL,
+            role: "user",
           });
 
           navigate(location?.state || "/");
@@ -112,16 +113,27 @@ const Register = () => {
               <p className="text-red-400 text-sm mt-1">Email is required</p>
             )}
           </div>
-
           {/* Password */}
           <div>
             <label className="label text-purple-200">Password</label>
-            <input
-              type="password"
-              {...register("password", { required: true, minLength: 6 })}
-              className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300"
-              placeholder="Password"
-            />
+
+            <div className="flex items-center gap-2">
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("password", { required: true, minLength: 6 })}
+                className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300"
+                placeholder="Password"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="btn btn-sm bg-purple-600 hover:bg-purple-700 text-white"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+
             {errors.password?.type === "required" && (
               <p className="text-red-400 text-sm mt-1">Password is required</p>
             )}
