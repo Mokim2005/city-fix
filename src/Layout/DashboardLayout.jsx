@@ -6,7 +6,13 @@ import UseRole from "../Hooks/UseRole";
 import logo from "../assets/logo.png";
 import { FaHome, FaUsers } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
-import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
+import {
+  MdManageAccounts,
+  MdOutlineAppBlocking,
+  MdOutlineAssignmentTurnedIn,
+  MdOutlineViewCarousel,
+} from "react-icons/md";
+import { RiSecurePaymentFill } from "react-icons/ri";
 
 const DashboardLayout = () => {
   const { role } = UseRole();
@@ -71,7 +77,7 @@ const DashboardLayout = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip=" View All Issues"
                   >
-                    <TbMessageReportFilled />
+                    <MdOutlineViewCarousel />
                     <span className="is-drawer-close:hidden">
                       View All Issues
                     </span>
@@ -80,12 +86,12 @@ const DashboardLayout = () => {
 
                 <li>
                   <NavLink
-                    to="/dashboard/admin/assign-staff"
+                    to="/dashboard/manage-staff"
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Assign staff"
+                    data-tip="Manage staff"
                   >
-                    <TbMessageReportFilled />
-                    <span className="is-drawer-close:hidden">Assign Staff</span>
+                    <MdManageAccounts />
+                    <span className="is-drawer-close:hidden">Manage Staff</span>
                   </NavLink>
                 </li>
                 <li>
@@ -101,12 +107,14 @@ const DashboardLayout = () => {
 
                 <li>
                   <NavLink
-                    to="/dashboard/admin/manage-staff"
+                    to="/dashboard/user-block-manage"
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Manage Staff"
+                    data-tip="User Block Manage"
                   >
-                    <FaCircleUser />
-                    <span className="is-drawer-close:hidden">Manage Staff</span>
+                    <MdOutlineAppBlocking />
+                    <span className="is-drawer-close:hidden">
+                      User Block Manage
+                    </span>
                   </NavLink>
                 </li>
 
@@ -124,8 +132,12 @@ const DashboardLayout = () => {
                 </li>
 
                 <li>
-                  <NavLink to="/dashboard/admin/payments">
-                    <TbMessageReportFilled />
+                  <NavLink
+                    to="/dashboard/view-payments"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="View Payments"
+                  >
+                    <RiSecurePaymentFill />
                     <span className="is-drawer-close:hidden">
                       View Payments
                     </span>

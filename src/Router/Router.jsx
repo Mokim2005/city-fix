@@ -24,6 +24,9 @@ import StaffOverview from "../Pages/Dashboard/Staff/StaffOverview";
 import AssignedIssues from "../Pages/Dashboard/Staff/AssignedIssues";
 import DashboardOverview from "../Pages/Dashboard/Staff/DashboardOverview";
 import AllIssusTable from "../Pages/Dashboard/Admin/AllIssusTable";
+import UserBlockManage from "../Pages/Dashboard/Admin/UserBlockManage";
+import ManageStaff from "../Pages/Dashboard/Admin/ManageStaff";
+import ViewPayments from "../Pages/Dashboard/Admin/ViewPayment";
 
 const router = createBrowserRouter([
   {
@@ -116,7 +119,31 @@ const router = createBrowserRouter([
         path: "all-issus-table",
         element: (
           <AdminRouts>
-           <AllIssusTable></AllIssusTable>
+            <AllIssusTable></AllIssusTable>
+          </AdminRouts>
+        ),
+      },
+      {
+        path: "user-block-manage",
+        element: (
+          <AdminRouts>
+            <UserBlockManage></UserBlockManage>
+          </AdminRouts>
+        ),
+      },
+      {
+        path: "manage-staff",
+        element: (
+          <AdminRouts>
+            <ManageStaff></ManageStaff>
+          </AdminRouts>
+        ),
+      },
+      {
+        path: "view-payments",
+        element: (
+          <AdminRouts>
+            <ViewPayments></ViewPayments>
           </AdminRouts>
         ),
       },
