@@ -16,6 +16,14 @@ import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import PaymentCanceld from "../Pages/Dashboard/PaymentCanceld";
 import IssusDetails from "../Pages/IssusDetails";
 import DashbordHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
+import UsersManagement from "../Pages/Dashboard/Admin/UserManagement";
+import AdminRouts from "../Routs/AdminRouts";
+import StaffRouts from "../Routs/StaffRouts";
+
+import StaffOverview from "../Pages/Dashboard/Staff/StaffOverview";
+import AssignedIssues from "../Pages/Dashboard/Staff/AssignedIssues";
+import DashboardOverview from "../Pages/Dashboard/Staff/DashboardOverview";
+import AllIssusTable from "../Pages/Dashboard/Admin/AllIssusTable";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +102,48 @@ const router = createBrowserRouter([
       {
         path: "payment-cancelled",
         element: <PaymentCanceld />,
+      },
+      //admin only routs
+      {
+        path: "user-management",
+        element: (
+          <AdminRouts>
+            <UsersManagement></UsersManagement>
+          </AdminRouts>
+        ),
+      },
+      {
+        path: "all-issus-table",
+        element: (
+          <AdminRouts>
+           <AllIssusTable></AllIssusTable>
+          </AdminRouts>
+        ),
+      },
+      //staff only routs
+      {
+        path: "assigned-issues",
+        element: (
+          <StaffRouts>
+            <AssignedIssues />
+          </StaffRouts>
+        ),
+      },
+      {
+        path: "staff-overview",
+        element: (
+          <StaffRouts>
+            <StaffOverview></StaffOverview>
+          </StaffRouts>
+        ),
+      },
+      {
+        path: "dashboard-overview",
+        element: (
+          <StaffRouts>
+            <DashboardOverview></DashboardOverview>
+          </StaffRouts>
+        ),
       },
     ],
   },

@@ -1,12 +1,56 @@
-import axios from 'axios';
-import React from 'react';
+// src/Hooks/UseAxiosSecure.js
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import UserAuth from "./UserAuth";
+
 
 const axiosSecure = axios.create({
-    baseURL:"http://localhost:3000"
-})
+ baseURL: "http://localhost:5000"
+});
 
 const UseAxiosSecure = () => {
-    return axiosSecure
+  const { user, logOut } = UserAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const requestInterceptor = axiosSecure.interceptors.request.use(
+      async (config) => {  // <--- async করা জরুরি
+        if (user) {
+          try {
+            const token = await user.getIdToken(); // <--- await অবশ্যই দিতে হবে!
+            console.log("✅ Token successfully added (length:", token.length + ")");
+
+            config.headers.Authorization = `Bearer ${token}`;
+          } catch (error) {
+            console.error("❌ Failed to get Firebase token:", error);
+          }
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+
+    const responseInterceptor = axiosSecure.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          console.log("Unauthorized – logging out");
+          await logOut();
+          navigate("/login", { replace: true });
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    // Cleanup
+    return () => {
+      axiosSecure.interceptors.request.eject(requestInterceptor);
+      axiosSecure.interceptors.response.eject(responseInterceptor);
+    };
+  }, [user, logOut, navigate]);
+
+  return axiosSecure;
 };
 
 export default UseAxiosSecure;

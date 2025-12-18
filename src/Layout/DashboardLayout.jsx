@@ -1,9 +1,12 @@
 import React from "react";
 import { FaCircleUser } from "react-icons/fa6";
-import { TbMessageReportFilled } from "react-icons/tb";
-import { Link, NavLink, Outlet } from "react-router";
+import { TbMessageReportFilled, TbReportSearch } from "react-icons/tb";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import UseRole from "../Hooks/UseRole";
 import logo from "../assets/logo.png";
+import { FaHome, FaUsers } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
 
 const DashboardLayout = () => {
   const { role } = UseRole();
@@ -12,130 +15,254 @@ const DashboardLayout = () => {
   return (
     <div className="drawer lg:drawer-open max-w-7xl mx-auto">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+
+      {/* CONTENT */}
       <div className="drawer-content">
-        {/* Navbar */}
         <nav className="navbar w-full bg-base-300">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
             className="btn btn-square btn-ghost"
           >
-            {/* Sidebar toggle icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2"
-              fill="none"
-              stroke="currentColor"
-              className="my-1.5 inline-block size-4"
-            >
-              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-              <path d="M9 4v16"></path>
-              <path d="M14 10l2 2l-2 2"></path>
-            </svg>
+            ☰
           </label>
-          <div className="px-4">City Fix Dashboared</div>
+          <div className="px-4">City Fix Dashboard</div>
         </nav>
-        {/* Page content here */}
-        <Outlet></Outlet>
-        <div className="p-4">Page Content</div>
+
+        <Outlet />
+        <div className="p-4" />
       </div>
 
+      {/* SIDEBAR */}
       <div className="drawer-side is-drawer-close:overflow-visible">
-        <label
-          htmlFor="my-drawer-4"
-          aria-label="close sidebar"
-          className="drawer-overlay"
-        ></label>
-        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-          {/* Sidebar content here */}
-          <ul className="menu w-full grow">
-            {/* List item */}
+        <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
+        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+          <ul className="menu w-full grow">
+            {/* HOME */}
             <li>
               <Link
                 to="/"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Home"
+                data-tip="Homepage"
               >
-                {/* Home icon */}
-                <img className="w-[70px]" src={logo} alt="" />
+                <img className="w-[70px]" src={logo} alt="logo" />
                 <span className="is-drawer-close:hidden">Homepage</span>
               </Link>
             </li>
+
             <li>
-              <Link
+              <NavLink
                 to="/dashboard"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Dashboard Home"
               >
-                {/* Home icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-                <span className="is-drawer-close:hidden">Homepage</span>
-              </Link>
-            </li>
-
-            {/* our dashboard links */}
-            <li>
-              <NavLink
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="MyIssus"
-                to="/dashboard/my-issus"
-              >
-                <TbMessageReportFilled />
-                <span className="is-drawer-close:hidden">My Issus</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="MyProfile"
-                to="/dashboard/my-profile"
-              >
-                <FaCircleUser />
-                <span className="is-drawer-close:hidden">My Profile</span>
+                <FaHome></FaHome>
+                <span className="is-drawer-close:hidden">Dashboard Home</span>
               </NavLink>
             </li>
 
-            {/* List item */}
-            <li>
-              <button
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Settings"
-              >
-                {/* Settings icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M20 7h-9"></path>
-                  <path d="M14 17H5"></path>
-                  <circle cx="17" cy="17" r="3"></circle>
-                  <circle cx="7" cy="7" r="3"></circle>
-                </svg>
-                <span className="is-drawer-close:hidden">Settings</span>
-              </button>
-            </li>
+            {/* ================= ADMIN ================= */}
+            {role === "admin" && (
+              <>
+                <li>
+                  <NavLink
+                    to="/dashboard/all-issus-table"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip=" View All Issues"
+                  >
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">
+                      View All Issues
+                    </span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/admin/assign-staff"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign staff"
+                  >
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">Assign Staff</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/my-profile"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                  >
+                    <ImProfile />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/admin/manage-staff"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Staff"
+                  >
+                    <FaCircleUser />
+                    <span className="is-drawer-close:hidden">Manage Staff</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/user-management"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="User Management"
+                  >
+                    <FaUsers />
+                    <span className="is-drawer-close:hidden">
+                      User Management
+                    </span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/dashboard/admin/payments">
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">
+                      View Payments
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+
+            {/* ================= STAFF ================= */}
+            {role === "staff" && (
+              <>
+                <li>
+                  <NavLink
+                    to="/dashboard/assigned-issues"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assigned Issues"
+                  >
+                    <MdOutlineAssignmentTurnedIn />
+                    <span className="is-drawer-close:hidden">
+                      Assigned Issues
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/dashboard-overview"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Dashoard Overview"
+                  >
+                    <MdOutlineAssignmentTurnedIn />
+                    <span className="is-drawer-close:hidden">
+                      Dashboard Overview
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/staff-overview"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Staff Overview"
+                  >
+                    <TbMessageReportFilled />{" "}
+                    <span className="is-drawer-close:hidden">
+                      Staff Overview
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/my-profile"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                  >
+                    <ImProfile />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/dashboard/staff/progress">
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">
+                      Progress Updates
+                    </span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/dashboard/staff/resolved">
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">
+                      Mark as Resolved
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+
+            {/* ================= CITIZEN ================= */}
+            {role === "user" && (
+              <>
+                <li>
+                  <NavLink to="/dashboard/citizen/submit">
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">Submit Issue</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/my-issus"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Issus"
+                  >
+                    <TbReportSearch />
+                    <span className="is-drawer-close:hidden">My Issues</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/my-profile"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                  >
+                    <ImProfile />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/dashboard/citizen/boost">
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">
+                      Boost Priority
+                    </span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/dashboard/citizen/subscription">
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">
+                      Premium Subscription
+                    </span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/dashboard/citizen/activity">
+                    <TbMessageReportFilled />
+                    <span className="is-drawer-close:hidden">
+                      Track Activity
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

@@ -15,7 +15,7 @@ const DashbordHome = () => {
     return <Loading></Loading>;
   } else if (role === "admin") {
     return <AdminDashboardHome></AdminDashboardHome>;
-  } else if (role === "stuff") {
+  } else if (role === "staff") {
     return <StafDashboardHome></StafDashboardHome>;
   } else {
     return <UserDashboardHome></UserDashboardHome>;
