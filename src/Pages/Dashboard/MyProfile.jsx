@@ -151,7 +151,6 @@ const MyProfile = () => {
           </div>
 
           {!isEditMode ? (
-            // VIEW MODE
             <div className="text-center mt-8">
               <div className="relative inline-block">
                 <img

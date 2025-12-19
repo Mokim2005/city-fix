@@ -15,7 +15,7 @@ const Home = () => {
       <BannerSlider />
       <BannerReport></BannerReport>
       {/* <LatestResolvedIssues></LatestResolvedIssues> */}
-      <FeaturesSection></FeaturesSection>
+      {/* <FeaturesSection></FeaturesSection> */}
     </div>
   );
 };
