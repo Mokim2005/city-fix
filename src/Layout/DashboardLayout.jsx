@@ -173,20 +173,12 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">My Profile</span>
                   </NavLink>
                 </li>
-
               </>
             )}
 
             {/* ================= CITIZEN ================= */}
             {role === "user" && (
               <>
-                <li>
-                  <NavLink to="/dashboard/citizen/submit">
-                    <TbMessageReportFilled />
-                    <span className="is-drawer-close:hidden">Submit Issue</span>
-                  </NavLink>
-                </li>
-
                 <li>
                   <NavLink
                     to="/dashboard/my-issus"
@@ -205,33 +197,6 @@ const DashboardLayout = () => {
                   >
                     <ImProfile />
                     <span className="is-drawer-close:hidden">My Profile</span>
-                  </NavLink>
-                </li>
-
-                <li>
-                  <NavLink to="/dashboard/citizen/boost">
-                    <TbMessageReportFilled />
-                    <span className="is-drawer-close:hidden">
-                      Boost Priority
-                    </span>
-                  </NavLink>
-                </li>
-
-                <li>
-                  <NavLink to="/dashboard/citizen/subscription">
-                    <TbMessageReportFilled />
-                    <span className="is-drawer-close:hidden">
-                      Premium Subscription
-                    </span>
-                  </NavLink>
-                </li>
-
-                <li>
-                  <NavLink to="/dashboard/citizen/activity">
-                    <TbMessageReportFilled />
-                    <span className="is-drawer-close:hidden">
-                      Track Activity
-                    </span>
                   </NavLink>
                 </li>
               </>

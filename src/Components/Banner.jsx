@@ -3,68 +3,114 @@ import { motion } from "framer-motion";
 
 const Banner = () => {
   return (
-    <section className="relative w-full h-[400px] md:h-[450px] lg:h-[550px] bg-gradient-to-r from-[#1a132f] to-[#2b2250] overflow-hidden flex flex-col items-center justify-center text-center px-4 md:px-10">
-      {/* Floating shapes for motion */}
+    <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden flex items-center justify-center text-center px-6 md:px-12">
+      {/* Dark futuristic smart city background */}
+      <div className="absolute inset-0">
+        <img
+          src="https://thumbs.dreamstime.com/b/stunning-futuristic-city-skyline-illuminated-vibrant-neon-lights-shades-blue-pink-purple-depicting-high-tech-393346294.jpg"
+          alt="Dark futuristic smart city at night"
+          className="w-full h-full object-cover"
+        />
+        {/* Heavy dark overlay for moody, dark vibe and better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-indigo-950/85 to-purple-950/90" />
+      </div>
+
+      {/* Floating abstract shapes – kept subtle with darker tones */}
       <motion.div
-        className="absolute top-20 left-10 w-32 h-32 bg-purple-500 rounded-full opacity-30 blur-3xl"
-        animate={{ y: [0, 20, 0], x: [0, 20, 0] }}
-        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+        className="absolute top-10 left-10 w-48 h-48 md:w-72 md:h-72 bg-purple-800/20 rounded-full blur-3xl"
+        animate={{ y: [0, -30, 0], x: [0, 30, 0] }}
+        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-10 right-20 w-40 h-40 bg-pink-500 rounded-full opacity-20 blur-3xl"
-        animate={{ y: [0, -20, 0], x: [0, -20, 0] }}
-        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+        className="absolute bottom-20 right-10 w-64 h-64 md:w-96 md:h-96 bg-indigo-800/20 rounded-full blur-3xl"
+        animate={{ y: [0, 40, 0], x: [0, -40, 0] }}
+        transition={{ repeat: Infinity, duration: 15, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute top-1/3 right-1/4 w-32 h-32 md:w-56 md:h-56 bg-cyan-900/15 rounded-full blur-2xl"
+        animate={{ scale: [1, 1.3, 1], rotate: [0, 180, 360] }}
+        transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
       />
 
-      {/* Banner content */}
+      {/* Main content */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="relative z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2 }}
+        className="relative z-10 max-w-5xl"
       >
-        <h1 className="text-4xl bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent drop-shadow-md tracking-wide md:text-6xl lg:text-7xl font-extrabold py-4 tracking-wide">
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight bg-gradient-to-r from-purple-300 via-indigo-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-2xl"
+        >
           City Fix
-        </h1>
+        </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 1 }}
-          className="text-lg md:text-2xl mb-6 text-gray-300"
+          transition={{ duration: 1, delay: 0.5 }}
+          className="mt-6 text-xl md:text-3xl text-gray-200 max-w-3xl mx-auto leading-relaxed"
         >
-          Report city issues instantly. Help make your city smarter, cleaner,
-          and safer.
+          Report city issues instantly. Together, we make our city smarter, cleaner, and safer.
         </motion.p>
 
-        {/* Key Features / Subtext */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 1 }}
-          className="flex flex-col md:flex-row justify-center gap-6 mb-8 text-gray-400 font-medium"
+          transition={{ delay: 0.8, duration: 1 }}
+          className="mt-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 text-gray-300 text-lg md:text-xl"
         >
-          <span>🛠 Track issues in real-time</span>
-          <span>💡 Suggest improvements</span>
-          <span>📊 View reports & statistics</span>
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1 }}
+            className="flex items-center gap-3"
+          >
+            <span className="text-3xl">📍</span> Real-time issue tracking
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1 }}
+            className="flex items-center gap-3"
+          >
+            <span className="text-3xl">💡</span> Suggest improvements
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.2 }}
+            className="flex items-center gap-3"
+          >
+            <span className="text-3xl">📊</span> View reports & stats
+          </motion.span>
         </motion.div>
 
-        {/* CTA Button */}
-        <motion.button
-          whileHover={{ scale: 1.1, backgroundColor: "#7c3aed" }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-purple-600 px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-purple-700 transition-colors"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.4, duration: 0.8 }}
+          className="mt-12 flex flex-col sm:flex-row gap-6 justify-center"
         >
-          Get Started
-        </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.08, boxShadow: "0 0 30px rgba(109, 40, 217, 0.7)" }}
+            whileTap={{ scale: 0.95 }}
+            className="px-10 py-4 bg-purple-700 text-white font-bold text-lg rounded-full shadow-2xl transition-all"
+          >
+            Get Started Now
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.08, backgroundColor: "#1e293b" }}
+            whileTap={{ scale: 0.95 }}
+            className="px-10 py-4 bg-transparent border-2 border-gray-400 text-gray-200 font-bold text-lg rounded-full backdrop-blur-sm"
+          >
+            Learn More
+          </motion.button>
+        </motion.div>
       </motion.div>
-
-      {/* Optional background image overlay */}
-      <img
-        src="https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        alt="banner"
-        className="absolute inset-0 w-full h-full object-cover opacity-10"
-      />
     </section>
   );
 };
