@@ -19,10 +19,7 @@ import DashbordHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import UsersManagement from "../Pages/Dashboard/Admin/UserManagement";
 import AdminRouts from "../Routs/AdminRouts";
 import StaffRouts from "../Routs/StaffRouts";
-
-import StaffOverview from "../Pages/Dashboard/Staff/StaffOverview";
 import AssignedIssues from "../Pages/Dashboard/Staff/AssignedIssues";
-import DashboardOverview from "../Pages/Dashboard/Staff/DashboardOverview";
 import AllIssusTable from "../Pages/Dashboard/Admin/AllIssusTable";
 import UserBlockManage from "../Pages/Dashboard/Admin/UserBlockManage";
 import ManageStaff from "../Pages/Dashboard/Admin/ManageStaff";
@@ -153,22 +150,6 @@ const router = createBrowserRouter([
         element: (
           <StaffRouts>
             <AssignedIssues />
-          </StaffRouts>
-        ),
-      },
-      {
-        path: "staff-overview",
-        element: (
-          <StaffRouts>
-            <StaffOverview></StaffOverview>
-          </StaffRouts>
-        ),
-      },
-      {
-        path: "dashboard-overview",
-        element: (
-          <StaffRouts>
-            <DashboardOverview></DashboardOverview>
           </StaffRouts>
         ),
       },

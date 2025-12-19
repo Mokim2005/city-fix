@@ -162,30 +162,7 @@ const DashboardLayout = () => {
                     </span>
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/dashboard-overview"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Dashoard Overview"
-                  >
-                    <GiCloverSpiked />
-                    <span className="is-drawer-close:hidden">
-                      Dashboard Overview
-                    </span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/staff-overview"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Staff Overview"
-                  >
-                    <TbMessageReportFilled />{" "}
-                    <span className="is-drawer-close:hidden">
-                      Staff Overview
-                    </span>
-                  </NavLink>
-                </li>
+
                 <li>
                   <NavLink
                     to="/dashboard/my-profile"
@@ -197,23 +174,6 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
 
-                <li>
-                  <NavLink to="/dashboard/staff/progress">
-                    <TbMessageReportFilled />
-                    <span className="is-drawer-close:hidden">
-                      Progress Updates
-                    </span>
-                  </NavLink>
-                </li>
-
-                <li>
-                  <NavLink to="/dashboard/staff/resolved">
-                    <TbMessageReportFilled />
-                    <span className="is-drawer-close:hidden">
-                      Mark as Resolved
-                    </span>
-                  </NavLink>
-                </li>
               </>
             )}
 
