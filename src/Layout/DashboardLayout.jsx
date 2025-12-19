@@ -13,6 +13,7 @@ import {
   MdOutlineViewCarousel,
 } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
+import { GiCloverSpiked } from "react-icons/gi";
 
 const DashboardLayout = () => {
   const { role } = UseRole();
@@ -167,7 +168,7 @@ const DashboardLayout = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Dashoard Overview"
                   >
-                    <MdOutlineAssignmentTurnedIn />
+                    <GiCloverSpiked />
                     <span className="is-drawer-close:hidden">
                       Dashboard Overview
                     </span>

@@ -93,7 +93,7 @@ const AllIssusTable = () => {
               <td>{issue.category}</td>
               <td>{issue.status}</td>
               <td>{issue.priority}</td>
-              <td>{issue.assignedStaffName || "Not Assigned"}</td>
+              <td>{issue.assignedStaffEmail|| "Not Assigned"}</td>
               <td>
                 {!issue.assignedStaffEmail && (
                   <button
