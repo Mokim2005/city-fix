@@ -2,18 +2,31 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
 import UserAuth from "../../../Hooks/UserAuth";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
 const AssignedIssues = () => {
-  const { user } = UserAuth(); // Firebase user
-  const axiosSecure = UseAxiosSecure(); // আমাদের ঠিক করা হুক
+  const { user } = UserAuth();
+  const axiosSecure = UseAxiosSecure();
   const queryClient = useQueryClient();
 
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
 
-  // Data Fetch: Staff এর assigned issues
   const {
     data: issues = [],
     isLoading,
@@ -22,14 +35,12 @@ const AssignedIssues = () => {
   } = useQuery({
     queryKey: ["assignedIssues"],
     queryFn: async () => {
-      // axiosSecure অলরেডি টোকেন যোগ করে দেয় (ঠিক করা হুকে)
       const res = await axiosSecure.get("/staff/assigned-issues");
-      return res.data; // Axios সবসময় res.data-ই দেয়
+      return res.data;
     },
-    enabled: !!user, // ইউজার না থাকলে কোয়েরি চলবে না
+    enabled: !!user,
   });
 
-  // Status Update Mutation
   const mutation = useMutation({
     mutationFn: async ({ issueId, newStatus }) => {
       const res = await axiosSecure.patch(`/staff/update-progress/${issueId}`, {
@@ -49,7 +60,6 @@ const AssignedIssues = () => {
     }
   };
 
-  // Filtering
   const filteredIssues = issues
     .filter((issue) => {
       if (statusFilter !== "All" && issue.status !== statusFilter) return false;
@@ -63,33 +73,49 @@ const AssignedIssues = () => {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
 
-  // UI States
   if (isLoading) {
     return (
-      <div className="text-center py-10">Loading your assigned issues...</div>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-xl text-slate-400 animate-pulse">
+          Loading your assigned issues...
+        </div>
+      </div>
     );
   }
 
   if (isError) {
     return (
-      <div className="text-red-500 text-center py-10">
-        Error loading issues: {error?.message || "Something went wrong"}
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-xl text-red-400">
+          Error loading issues: {error?.message || "Something went wrong"}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">
+    <motion.div
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 p-6 md:p-10"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.h2
+        className="text-3xl md:text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-violet-500"
+        variants={itemVariants}
+      >
         My Assigned Issues ({issues.length})
-      </h2>
+      </motion.h2>
 
       {/* Filters */}
-      <div className="flex gap-4 mb-6">
+      <motion.div
+        className="flex flex-col sm:flex-row gap-5 mb-12 max-w-2xl mx-auto"
+        variants={itemVariants}
+      >
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-4 py-2 border rounded-lg"
+          className="flex-1 px-6 py-4 bg-slate-800/70 backdrop-blur-md border border-slate-700 rounded-2xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
         >
           <option value="All">All Status</option>
           <option value="pending">Pending</option>
@@ -103,96 +129,125 @@ const AssignedIssues = () => {
         <select
           value={priorityFilter}
           onChange={(e) => setPriorityFilter(e.target.value)}
-          className="px-4 py-2 border rounded-lg"
+          className="flex-1 px-6 py-4 bg-slate-800/70 backdrop-blur-md border border-slate-700 rounded-2xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
         >
           <option value="All">All Priority</option>
           <option value="Normal">Normal</option>
           <option value="High">High (Boosted)</option>
         </select>
-      </div>
+      </motion.div>
 
-      {/* Table */}
+      {/* Empty State or Table */}
       {filteredIssues.length === 0 ? (
-        <p className="text-center text-gray-500">
-          No issues assigned to you yet.
-        </p>
+        <motion.div
+          className="text-center py-24 text-2xl text-slate-500"
+          variants={itemVariants}
+        >
+          {issues.length === 0
+            ? "No issues assigned to you yet."
+            : "No issues match your current filters."}
+        </motion.div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="border p-3 text-left">Title</th>
-                <th className="border p-3 text-left">Category</th>
-                <th className="border p-3 text-left">Location</th>
-                <th className="border p-3 text-left">Priority</th>
-                <th className="border p-3 text-left">Status</th>
-                <th className="border p-3 text-left">Reported</th>
-                <th className="border p-3 text-left">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredIssues.map((issue) => (
-                <tr key={issue._id} className="hover:bg-gray-50">
-                  <td className="border p-3">{issue.title}</td>
-                  <td className="border p-3">{issue.category}</td>
-                  <td className="border p-3">{issue.location}</td>
-                  <td className="border p-3">
-                    <span
-                      className={`px-2 py-1 rounded text-sm ${
-                        issue.priority === "High"
-                          ? "bg-red-100 text-red-800"
-                          : "bg-green-100 text-green-800"
-                      }`}
-                    >
-                      {issue.priority}
-                    </span>
-                  </td>
-                  <td className="border p-3">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
-                      {issue.status || "Pending"}
-                    </span>
-                  </td>
-                  <td className="border p-3 text-sm">
-                    {format(new Date(issue.createdAt), "dd MMM yyyy")}
-                  </td>
-                  <td className="border p-3">
-                    <select
-                      onChange={(e) =>
-                        handleStatusChange(issue._id, e.target.value)
-                      }
-                      value="" // placeholder দেখানোর জন্য
-                      className="px-3 py-2 border rounded bg-white"
-                      disabled={mutation.isPending}
-                    >
-                      <option value="" disabled>
-                        Change Status
-                      </option>
-
-                      {(issue.status === "pending" ||
-                        issue.status === "assigned") && (
-                        <option value="In Progress">→ In Progress</option>
-                      )}
-
-                      {issue.status === "In Progress" && (
-                        <option value="Working">→ Working</option>
-                      )}
-
-                      {issue.status === "Working" && (
-                        <option value="Resolved">→ Resolved</option>
-                      )}
-
-                      {issue.status === "Resolved" && (
-                        <option value="Closed">→ Closed</option>
-                      )}
-                    </select>
-                  </td>
+        <motion.div
+          className="bg-slate-800/50 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-slate-700"
+          variants={itemVariants}
+        >
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-slate-900/70">
+                <tr>
+                  <th className="px-8 py-6 text-left text-slate-300 font-semibold text-sm uppercase tracking-wider">
+                    Title
+                  </th>
+                  <th className="px-8 py-6 text-left text-slate-300 font-semibold text-sm uppercase tracking-wider">
+                    Category
+                  </th>
+                  <th className="px-8 py-6 text-left text-slate-300 font-semibold text-sm uppercase tracking-wider">
+                    Location
+                  </th>
+                  <th className="px-8 py-6 text-left text-slate-300 font-semibold text-sm uppercase tracking-wider">
+                    Priority
+                  </th>
+                  <th className="px-8 py-6 text-left text-slate-300 font-semibold text-sm uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-8 py-6 text-left text-slate-300 font-semibold text-sm uppercase tracking-wider">
+                    Reported
+                  </th>
+                  <th className="px-8 py-6 text-left text-slate-300 font-semibold text-sm uppercase tracking-wider">
+                    Action
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-slate-700/50">
+                {filteredIssues.map((issue) => (
+                  <motion.tr
+                    key={issue._id}
+                    className="hover:bg-slate-700/40 transition-all duration-300"
+                    variants={itemVariants}
+                    whileHover={{ x: 5 }}
+                  >
+                    <td className="px-8 py-6 font-medium">{issue.title}</td>
+                    <td className="px-8 py-6 text-slate-400">
+                      {issue.category}
+                    </td>
+                    <td className="px-8 py-6 text-slate-400">
+                      {issue.location}
+                    </td>
+                    <td className="px-8 py-6">
+                      <span
+                        className={`inline-flex px-4 py-2 rounded-full text-xs font-semibold tracking-wide ${
+                          issue.priority === "High"
+                            ? "bg-red-900/60 text-red-300 border border-red-700"
+                            : "bg-green-900/60 text-green-300 border border-green-700"
+                        }`}
+                      >
+                        {issue.priority}
+                      </span>
+                    </td>
+                    <td className="px-8 py-6">
+                      <span className="inline-flex px-4 py-2 rounded-full text-xs font-semibold bg-cyan-900/60 text-cyan-300 border border-cyan-700">
+                        {issue.status || "Pending"}
+                      </span>
+                    </td>
+                    <td className="px-8 py-6 text-sm text-slate-400">
+                      {format(new Date(issue.createdAt), "dd MMM yyyy")}
+                    </td>
+                    <td className="px-8 py-6">
+                      <select
+                        onChange={(e) =>
+                          handleStatusChange(issue._id, e.target.value)
+                        }
+                        value=""
+                        disabled={mutation.isPending}
+                        className="px-5 py-3 bg-slate-700/80 border border-slate-600 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-violet-500 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
+                      >
+                        <option value="" disabled>
+                          Change Status →
+                        </option>
+                        {(issue.status === "pending" ||
+                          issue.status === "assigned") && (
+                          <option value="In Progress">In Progress</option>
+                        )}
+                        {issue.status === "In Progress" && (
+                          <option value="Working">Working</option>
+                        )}
+                        {issue.status === "Working" && (
+                          <option value="Resolved">Resolved</option>
+                        )}
+                        {issue.status === "Resolved" && (
+                          <option value="Closed">Closed</option>
+                        )}
+                      </select>
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

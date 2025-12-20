@@ -36,7 +36,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-issus",
-        Component: AllIssus,
+        element: (
+          <PrivetRout>
+            <AllIssus></AllIssus>
+          </PrivetRout>
+        ),
       },
       {
         path: "/Issus-details/:id",

@@ -49,7 +49,7 @@ const AdminDashboardHome = () => {
       {
         label: "Issues by Status",
         data: stats.statusStats.map((s) => s.count),
-        backgroundColor: "rgba(99, 102, 241, 0.6)", // Indigo for dark mode
+        backgroundColor: "rgba(99, 102, 241, 0.6)", 
         borderColor: "rgba(99, 102, 241, 1)",
         borderWidth: 1,
       },

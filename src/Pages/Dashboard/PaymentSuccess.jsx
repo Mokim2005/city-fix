@@ -26,7 +26,7 @@ const PaymentSuccess = () => {
           navigate("/dashboard/my-profile");
         }
       } catch (err) {
-        Swal.fire("Error", "Payment verification failed", "error");
+        Swal.fire("Error", "Payment verification failed", err);
         navigate("/");
       }
     };

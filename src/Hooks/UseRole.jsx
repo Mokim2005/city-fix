@@ -11,7 +11,7 @@ const UseRole = () => {
 
   const { isLoading: roleLoading, data: roleInfo = {} } = useQuery({
     queryKey: ["user-role", user?.email],
-    enabled: !!user?.email, // user আসার আগেই call হওয়া বন্ধ করবে
+    enabled: !!user?.email, 
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/${user?.email}/role`);
       return res.data;
