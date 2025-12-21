@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import UserAuth from "../../Hooks/UserAuth";
 import SocialLogin from "./SocialLogin";
 import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { GiBrassKnuckles } from "react-icons/gi";
 
 const Register = () => {
   const {
@@ -22,6 +24,11 @@ const Register = () => {
   const handleRegistration = (data) => {
     const profileImg = data.photo[0];
 
+    if (!profileImg) {
+      console.error("No photo selected");
+      return;
+    }
+
     registeUser(data.email, data.password)
       .then(() => {
         const formData = new FormData();
@@ -32,26 +39,28 @@ const Register = () => {
         }`;
 
         axios.post(image_API_URL, formData).then(async (res) => {
-          const photoURL = res.data?.data?.display_url;
+          if (res.data.success) {
+            const photoURL = res.data.data.display_url;
 
-          const userProfile = {
-            displayName: data.name,
-            photoURL: photoURL,
-          };
+            await updateUserProfile({
+              displayName: data.name,
+              photoURL: photoURL,
+            });
 
-          await updateUserProfile(userProfile);
+            await axiosSecure.post("/users", {
+              displayName: data.name,
+              email: data.email,
+              photoURL: photoURL,
+              role: "user",
+            });
 
-          await axiosSecure.post("/users", {
-            displayName: data.name,
-            email: data.email,
-            photoURL: photoURL,
-            role: "user",
-          });
-
-          navigate(location?.state || "/");
+            navigate(location?.state || "/");
+          }
         });
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
@@ -62,17 +71,15 @@ const Register = () => {
           "radial-gradient(circle at 20% 20%, #8a05ff 0%, #2a014f 60%, #120025 100%)",
       }}
     >
-      <div className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-purple-500/30 rounded-2xl shadow-2xl p-8 animate__animated animate__fadeIn">
-        {/* Header */}
+      <div className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-purple-500/30 rounded-2xl shadow-2xl p-8">
         <h3 className="text-3xl font-bold text-purple-300 text-center drop-shadow-lg">
           Create an Account
         </h3>
-        <p className="text-purple-200 text-center mb-4">
+        <p className="text-purple-200 text-center mb-6">
           Welcome to <span className="font-semibold">City Fix</span>
         </p>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit(handleRegistration)} className="space-y-4">
+        <form onSubmit={handleSubmit(handleRegistration)} className="space-y-5">
           {/* Name */}
           <div>
             <label className="label text-purple-200">Name</label>
@@ -92,8 +99,9 @@ const Register = () => {
             <label className="label text-purple-200">Photo</label>
             <input
               type="file"
+              accept="image/*"
               {...register("photo", { required: true })}
-              className="file-input w-full bg-white/20 text-white border-purple-400"
+              className="file-input file-input-bordered w-full bg-white/20 text-white border-purple-400"
             />
             {errors.photo && (
               <p className="text-red-400 text-sm mt-1">Photo is required</p>
@@ -106,31 +114,36 @@ const Register = () => {
             <input
               type="email"
               {...register("email", { required: true })}
-              className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300"
+              className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300 focus:outline-none"
               placeholder="Email Address"
             />
             {errors.email && (
               <p className="text-red-400 text-sm mt-1">Email is required</p>
             )}
           </div>
-          {/* Password */}
+
+          {/* Password - Fully Fixed with Eye Icon */}
           <div>
             <label className="label text-purple-200">Password</label>
-
-            <div className="flex items-center gap-2">
+            <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password", { required: true, minLength: 6 })}
-                className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300"
-                placeholder="Password"
+                className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300 focus:outline-none pr-14"
+                placeholder="Enter Password"
               />
 
+              {/* Eye Icon Button - Always Clickable */}
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="btn btn-sm bg-purple-600 hover:bg-purple-700 text-white"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-purple-200 hover:text-purple-100 z-10"
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? (
+                  <FaEyeSlash className="w-5 h-5" />
+                ) : (
+                  <FaEye className="w-5 h-5" />
+                )}
               </button>
             </div>
 
@@ -139,16 +152,9 @@ const Register = () => {
             )}
             {errors.password?.type === "minLength" && (
               <p className="text-red-400 text-sm mt-1">
-                Minimum 6 characters required
+                Password must be at least 6 characters
               </p>
             )}
-          </div>
-
-          {/* Forgot */}
-          <div className="flex justify-end">
-            <a className="text-purple-300 hover:text-purple-100 cursor-pointer text-sm">
-              Forgot password?
-            </a>
           </div>
 
           {/* Submit Button */}
@@ -156,19 +162,19 @@ const Register = () => {
             Register
           </button>
 
-          <p className="text-purple-200 text-center mt-2">
+          <p className="text-purple-200 text-center mt-4">
             Already have an account?{" "}
             <Link
               to="/login"
               state={location?.state}
-              className="text-green-300 hover:text-green-200"
+              className="text-green-300 hover:text-green-200 font-medium"
             >
               Login
             </Link>
           </p>
         </form>
 
-        <div className="mt-4 text-center">
+        <div className="mt-6 text-center">
           <SocialLogin />
         </div>
       </div>

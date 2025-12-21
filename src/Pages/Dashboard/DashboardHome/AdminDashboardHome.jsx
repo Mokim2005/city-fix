@@ -13,6 +13,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import Loading from "../../../Components/Loading";
 
 ChartJS.register(
   CategoryScale,
@@ -37,11 +38,7 @@ const AdminDashboardHome = () => {
   });
 
   if (isLoading)
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-        Loading dashboard...
-      </div>
-    );
+    return Loading
 
   const chartData = {
     labels: stats.statusStats.map((s) => s._id),

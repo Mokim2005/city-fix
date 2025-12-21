@@ -5,6 +5,7 @@ import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { motion } from "framer-motion";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Loading from "../../../Components/Loading";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -41,11 +42,7 @@ const UserDashboardHome = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="loading loading-spinner loading-lg text-primary"></div>
-      </div>
-    );
+    return Loading
   }
 
   return (

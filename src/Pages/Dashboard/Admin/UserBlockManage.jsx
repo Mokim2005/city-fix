@@ -2,6 +2,8 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Swal from "sweetalert2"; // ← এটা যোগ করো (যদি না থাকে)
+import Loading from "../../../Components/Loading";
 
 const UserBlockManage = () => {
   const axiosSecure = UseAxiosSecure();
@@ -22,22 +24,64 @@ const UserBlockManage = () => {
       });
       return res.data;
     },
-    onSuccess: () => queryClient.invalidateQueries(["users"]),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+      // Success message after update
+      Swal.fire({
+        icon: "success",
+        title: "Updated!",
+        text: "User status has been changed successfully.",
+        timer: 2000,
+        showConfirmButton: false,
+        background: "#1f2937",
+        color: "#fff",
+      });
+    },
+    onError: () => {
+      Swal.fire({
+        icon: "error",
+        title: "Failed!",
+        text: "Could not update user status. Try again.",
+        background: "#1f2937",
+        color: "#fff",
+      });
+    },
   });
 
-  const handleBlock = (user, blocked) => {
+  const handleBlock = async (user, blocked) => {
     const action = blocked ? "Block" : "Unblock";
-    if (window.confirm(`${action} this user?`)) {
+    const statusText = blocked ? "blocked" : "unblocked";
+
+    const result = await Swal.fire({
+      title: `${action} User?`,
+      html: `
+        <p>Are you sure you want to <strong>${action.toLowerCase()}</strong> this user?</p>
+        <div class="mt-4 p-4 bg-gray-700 rounded-lg">
+          <p class="text-lg font-semibold">${user.displayName || "N/A"}</p>
+          <p class="text-sm text-gray-300">${user.email}</p>
+        </div>
+      `,
+      icon: blocked ? "warning" : "question",
+      showCancelButton: true,
+      confirmButtonText: `Yes, ${action} User`,
+      cancelButtonText: "Cancel",
+      confirmButtonColor: blocked ? "#ef4444" : "#10b981",
+      cancelButtonColor: "#6b7280",
+      background: "#1f2937",
+      color: "#fff",
+      customClass: {
+        popup: "rounded-2xl",
+        title: "text-2xl",
+      },
+    });
+
+    if (result.isConfirmed) {
       blockMutation.mutate({ id: user._id, blocked });
     }
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-        Loading users...
-      </div>
-    );
+    return Loading
   }
 
   const rowVariants = {

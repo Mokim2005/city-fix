@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Loading from "../../../Components/Loading";
+import Swal from "sweetalert2"; // ← যোগ করো (যদি না থাকে)
 
 const AllIssusTable = () => {
   const axiosSecure = UseAxiosSecure();
@@ -37,8 +39,20 @@ const AllIssusTable = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["allIssues"]);
+      Swal.fire({
+        icon: "success",
+        title: "Assigned!",
+        text: "Staff has been successfully assigned to the issue.",
+        timer: 2000,
+        showConfirmButton: false,
+        background: "#1f2937",
+        color: "#fff",
+      });
       setShowModal(false);
       setSelectedStaff("");
+    },
+    onError: () => {
+      Swal.fire("Error!", "Failed to assign staff.", "error");
     },
   });
 
@@ -47,7 +61,21 @@ const AllIssusTable = () => {
       const res = await axiosSecure.patch(`/admin/reject-issue/${id}`);
       return res.data;
     },
-    onSuccess: () => queryClient.invalidateQueries(["allIssues"]),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["allIssues"]);
+      Swal.fire({
+        icon: "success",
+        title: "Rejected",
+        text: "The issue has been rejected.",
+        timer: 2000,
+        showConfirmButton: false,
+        background: "#1f2937",
+        color: "#fff",
+      });
+    },
+    onError: () => {
+      Swal.fire("Error!", "Failed to reject issue.", "error");
+    },
   });
 
   const handleAssign = (issue) => {
@@ -55,18 +83,65 @@ const AllIssusTable = () => {
     setShowModal(true);
   };
 
-  const confirmAssign = () => {
-    if (!selectedStaff) return;
+  const confirmAssign = async () => {
+    if (!selectedStaff) {
+      Swal.fire("Warning", "Please select a staff member first!", "warning");
+      return;
+    }
+
     const staff = staffList.find((s) => s.email === selectedStaff);
-    assignMutation.mutate({
-      id: selectedIssue._id,
-      staffEmail: selectedStaff,
-      staffName: staff.displayName,
+
+    const result = await Swal.fire({
+      title: "Confirm Assignment",
+      html: `
+        <p>Assign this issue to:</p>
+        <p class="font-bold text-lg text-indigo-400">${staff.displayName}</p>
+        <p class="text-sm text-gray-300">(${staff.email})</p>
+        <br>
+        <p class="font-semibold">Issue: ${selectedIssue.title}</p>
+      `,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Assign!",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#10b981",
+      cancelButtonColor: "#ef4444",
+      background: "#1f2937",
+      color: "#fff",
+      customClass: {
+        popup: "rounded-2xl",
+      },
     });
+
+    if (result.isConfirmed) {
+      assignMutation.mutate({
+        id: selectedIssue._id,
+        staffEmail: selectedStaff,
+        staffName: staff.displayName,
+      });
+    }
   };
 
-  const handleReject = (id) => {
-    if (window.confirm("Are you sure you want to reject this issue?")) {
+  const handleReject = async (id) => {
+    const issue = issues.find((i) => i._id === id);
+
+    const result = await Swal.fire({
+      title: "Reject This Issue?",
+      text: `Title: ${issue.title}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Reject",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+      background: "#1f2937",
+      color: "#fff",
+      customClass: {
+        popup: "rounded-2xl",
+      },
+    });
+
+    if (result.isConfirmed) {
       rejectMutation.mutate(id);
     }
   };
@@ -79,11 +154,7 @@ const AllIssusTable = () => {
   });
 
   if (loadingIssues || loadingStaff) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-        Loading issues...
-      </div>
-    );
+    return <Loading />;
   }
 
   const rowVariants = {
@@ -254,7 +325,7 @@ const AllIssusTable = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={confirmAssign}
-                  disabled={!selectedStaff || assignMutation.isPending}
+                  disabled={assignMutation.isPending}
                   className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition"
                 >
                   {assignMutation.isPending ? "Assigning..." : "Confirm Assign"}

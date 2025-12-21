@@ -14,6 +14,7 @@ import {
   FaCrown,
   FaBan,
 } from "react-icons/fa";
+import Loading from "../../Components/Loading";
 
 const MyProfile = () => {
   const { user, updateUserProfile } = UserAuth();
@@ -37,13 +38,17 @@ const MyProfile = () => {
     enabled: !!user?.email,
   });
 
-  // Initial setup
+  // Initial setup + update when currentUser changes
   useEffect(() => {
     if (currentUser && Object.keys(currentUser).length > 0) {
       const displayName = currentUser.displayName || user?.displayName || "";
-      const photoURL = currentUser.photoURL || user?.photoURL || "";
+      const photoURL =
+        currentUser.photoURL ||
+        user?.photoURL ||
+        "https://via.placeholder.com/150";
+
       setName(displayName);
-      setImagePreview(photoURL || "https://via.placeholder.com/150");
+      setImagePreview(photoURL);
     }
   }, [currentUser, user]);
 
@@ -65,21 +70,29 @@ const MyProfile = () => {
       if (data && (data.success || data.email || data._id)) {
         const updatedUser = data.updatedUser || data;
 
+        // 🔥 IMPORTANT: Manually update all states immediately
+        setName(updatedUser.displayName || user?.displayName || "");
+        setImagePreview(
+          updatedUser.photoURL ||
+            user?.photoURL ||
+            "https://via.placeholder.com/150"
+        );
+        setSelectedFile(null);
+        setIsEditMode(false);
+
+        // Update React Query cache
         queryClient.setQueryData(["user", user?.email], updatedUser);
 
-        setName(updatedUser.displayName || "");
-        setImagePreview(
-          updatedUser.photoURL || "https://via.placeholder.com/150"
-        );
+        // Optional: Invalidate to refetch fresh data (double safety)
+        queryClient.invalidateQueries({ queryKey: ["user", user?.email] });
 
+        // Update Firebase Auth profile
         updateUserProfile(
           updatedUser.displayName || "",
           updatedUser.photoURL || null
         )
           .then(() => console.log("Firebase profile updated"))
-          .catch((err) =>
-            console.warn("Firebase update failed (not critical):", err)
-          );
+          .catch((err) => console.warn("Firebase update failed:", err));
 
         Swal.fire({
           icon: "success",
@@ -88,18 +101,15 @@ const MyProfile = () => {
           timer: 2000,
           showConfirmButton: false,
         });
-
-        setIsEditMode(false);
-        setSelectedFile(null);
       } else {
-        Swal.fire("Error!", "Failed to identify updated data", "error");
+        Swal.fire("Error!", "Failed to update profile", "error");
       }
     },
     onError: (error) => {
       console.error("Profile update error:", error);
       Swal.fire(
         "Error!",
-        error.response?.data?.message || "Failed to update profile. Try again.",
+        error.response?.data?.message || "Failed to update profile",
         "error"
       );
     },
@@ -133,6 +143,7 @@ const MyProfile = () => {
           throw new Error("Image upload failed");
         }
       } catch (err) {
+        Swal.close();
         Swal.fire("Error!", "Failed to upload image", "error");
         return;
       } finally {
@@ -151,16 +162,12 @@ const MyProfile = () => {
       updateData.photoURL = finalPhotoURL;
     }
 
-    // Check for changes
+    // No changes check
     const noNameChange =
       updateData.displayName === (currentUser.displayName || user?.displayName);
     const noPhotoChange = !updateData.photoURL;
     if (noNameChange && noPhotoChange) {
-      Swal.fire(
-        "No Changes",
-        "You haven't made any changes to your profile",
-        "info"
-      );
+      Swal.fire("No Changes", "You haven't made any changes", "info");
       setIsEditMode(false);
       return;
     }
@@ -169,13 +176,7 @@ const MyProfile = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 flex items-center justify-center">
-        <div className="text-white text-2xl animate-pulse">
-          Loading profile...
-        </div>
-      </div>
-    );
+    return Loading
   }
 
   return (
@@ -204,7 +205,7 @@ const MyProfile = () => {
               </div>
 
               <h2 className="text-4xl font-bold text-white mt-6">
-                {currentUser.displayName || user?.displayName}
+                {name || user?.displayName}
               </h2>
               <p className="text-xl text-gray-300 mt-2">{user?.email}</p>
 
@@ -301,7 +302,9 @@ const MyProfile = () => {
                         currentUser.displayName || user?.displayName || ""
                       );
                       setImagePreview(
-                        currentUser.photoURL || user?.photoURL || ""
+                        currentUser.photoURL ||
+                          user?.photoURL ||
+                          "https://via.placeholder.com/150"
                       );
                     }}
                     className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white py-4 px-10 rounded-2xl font-bold shadow-xl transform hover:scale-105 transition-all flex items-center gap-3"

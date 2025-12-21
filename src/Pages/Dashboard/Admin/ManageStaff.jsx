@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Loading from "../../../Components/Loading";
 
 const ManageStaff = () => {
   const axiosSecure = UseAxiosSecure();
@@ -118,11 +119,7 @@ const ManageStaff = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-        Loading staff...
-      </div>
-    );
+    return Loading
   }
 
   const rowVariants = {

@@ -1,11 +1,13 @@
 // src/components/dashboard/AssignedIssues.jsx
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { format, isValid } from "date-fns"; // isValid যোগ করা
 import { motion } from "framer-motion";
 import UserAuth from "../../../Hooks/UserAuth";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Loading from "../../../Components/Loading";
 
+// 🔥 Variants গুলো এখানে ডিফাইন করো (কম্পোনেন্টের বাইরে বা ভিতরে – যেকোনো এক জায়গায়)
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -60,6 +62,16 @@ const AssignedIssues = () => {
     }
   };
 
+  // Safe date formatter
+  const formatDate = (dateValue) => {
+    if (!dateValue) return "N/A";
+    const date = new Date(dateValue);
+    if (isNaN(date.getTime()) || !isValid(date)) {
+      return "Invalid Date";
+    }
+    return format(date, "dd MMM yyyy");
+  };
+
   const filteredIssues = issues
     .filter((issue) => {
       if (statusFilter !== "All" && issue.status !== statusFilter) return false;
@@ -70,17 +82,14 @@ const AssignedIssues = () => {
     .sort((a, b) => {
       if (a.priority === "High" && b.priority !== "High") return -1;
       if (a.priority !== "High" && b.priority === "High") return 1;
-      return new Date(b.createdAt) - new Date(a.createdAt);
+      // Safe sorting for dates
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+      return isNaN(dateB) - isNaN(dateA) || dateB - dateA;
     });
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-xl text-slate-400 animate-pulse">
-          Loading your assigned issues...
-        </div>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (isError) {
@@ -192,7 +201,7 @@ const AssignedIssues = () => {
                       {issue.category}
                     </td>
                     <td className="px-8 py-6 text-slate-400">
-                      {issue.location}
+                      {issue.location || "-"}
                     </td>
                     <td className="px-8 py-6">
                       <span
@@ -202,7 +211,7 @@ const AssignedIssues = () => {
                             : "bg-green-900/60 text-green-300 border border-green-700"
                         }`}
                       >
-                        {issue.priority}
+                        {issue.priority || "Normal"}
                       </span>
                     </td>
                     <td className="px-8 py-6">
@@ -211,7 +220,7 @@ const AssignedIssues = () => {
                       </span>
                     </td>
                     <td className="px-8 py-6 text-sm text-slate-400">
-                      {format(new Date(issue.createdAt), "dd MMM yyyy")}
+                      {formatDate(issue.createdAt)}
                     </td>
                     <td className="px-8 py-6">
                       <select
