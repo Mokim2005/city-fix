@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import UserAuth from "../../Hooks/UserAuth";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
 import UseRole from "../../Hooks/UseRole";
-import { useForm } from "react-hook-form";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import {
   FaUser,
@@ -16,68 +16,110 @@ import {
 } from "react-icons/fa";
 
 const MyProfile = () => {
-  const { user, updateUserProfile } = UserAuth(); // Firebase updateUserProfile ও নাও
+  const { user, updateUserProfile } = UserAuth();
   const { role } = UseRole();
   const axiosSecure = UseAxiosSecure();
+  const queryClient = useQueryClient();
 
-  const [currentUser, setCurrentUser] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
-  const [uploadedPhotoURL, setUploadedPhotoURL] = useState(""); // নতুন আপলোড করা ছবির URL রাখার জন্য
+  const [name, setName] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    setValue,
-  } = useForm();
+  // Fetch MongoDB user
+  const { data: currentUser = {}, isLoading } = useQuery({
+    queryKey: ["user", user?.email],
+    queryFn: async () => {
+      if (!user?.email) return {};
+      const res = await axiosSecure.get(`/users/email/${user.email}`);
+      return res.data;
+    },
+    enabled: !!user?.email,
+  });
 
-  // MongoDB থেকে user data লোড করো
+  // Initial setup
   useEffect(() => {
-    if (user?.email) {
-      axiosSecure
-        .get(`/users/email/${user.email}`)
-        .then((res) => {
-          const mongoUser = res.data;
-          setCurrentUser(mongoUser);
-          const displayPhoto = mongoUser.photoURL || user.photoURL || "";
-          setImagePreview(displayPhoto);
-          setValue(
-            "displayName",
-            mongoUser.displayName || user.displayName || ""
-          );
-        })
-        .catch((err) => {
-          console.error("Failed to load MongoDB user:", err);
-          setCurrentUser(user);
-          setImagePreview(user.photoURL || "");
-        });
+    if (currentUser && Object.keys(currentUser).length > 0) {
+      const displayName = currentUser.displayName || user?.displayName || "";
+      const photoURL = currentUser.photoURL || user?.photoURL || "";
+      setName(displayName);
+      setImagePreview(photoURL || "https://via.placeholder.com/150");
     }
-  }, [user, axiosSecure, setValue]);
+  }, [currentUser, user]);
 
-  // ছবি সিলেক্ট করলে preview দেখাও
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
   };
 
-  const onSubmit = async (data) => {
-    let finalPhotoURL = currentUser.photoURL || user.photoURL || "";
+  // Profile Update Mutation
+  const updateProfileMutation = useMutation({
+    mutationFn: async (updateData) => {
+      const res = await axiosSecure.patch("/users/profile", updateData);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data && (data.success || data.email || data._id)) {
+        const updatedUser = data.updatedUser || data;
 
-    // নতুন ছবি আপলোড করা হয়েছে কিনা চেক করো
-    if (data.newPhoto?.[0]) {
+        queryClient.setQueryData(["user", user?.email], updatedUser);
+
+        setName(updatedUser.displayName || "");
+        setImagePreview(
+          updatedUser.photoURL || "https://via.placeholder.com/150"
+        );
+
+        updateUserProfile(
+          updatedUser.displayName || "",
+          updatedUser.photoURL || null
+        )
+          .then(() => console.log("Firebase profile updated"))
+          .catch((err) =>
+            console.warn("Firebase update failed (not critical):", err)
+          );
+
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Profile updated successfully",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        setIsEditMode(false);
+        setSelectedFile(null);
+      } else {
+        Swal.fire("Error!", "Failed to identify updated data", "error");
+      }
+    },
+    onError: (error) => {
+      console.error("Profile update error:", error);
+      Swal.fire(
+        "Error!",
+        error.response?.data?.message || "Failed to update profile. Try again.",
+        "error"
+      );
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let finalPhotoURL = currentUser.photoURL || user?.photoURL || "";
+
+    if (selectedFile) {
       const formData = new FormData();
-      formData.append("image", data.newPhoto[0]);
+      formData.append("image", selectedFile);
 
       const imgApiUrl = `https://api.imgbb.com/1/upload?key=${
         import.meta.env.VITE_image_host_key
       }`;
 
       Swal.fire({
-        title: "Uploading image...",
+        title: "Uploading Image...",
         text: "Please wait",
         allowOutsideClick: false,
         didOpen: () => Swal.showLoading(),
@@ -85,14 +127,13 @@ const MyProfile = () => {
 
       try {
         const imgRes = await axios.post(imgApiUrl, formData);
-        if (imgRes.data?.success) {
+        if (imgRes.data.success) {
           finalPhotoURL = imgRes.data.data.display_url;
-          setUploadedPhotoURL(finalPhotoURL); // পরে Firebase update-এ ব্যবহার করব
         } else {
           throw new Error("Image upload failed");
         }
-      } catch (error) {
-        Swal.fire("Error!", "Failed to upload image. Try again.", "error");
+      } catch (err) {
+        Swal.fire("Error!", "Failed to upload image", "error");
         return;
       } finally {
         Swal.close();
@@ -100,55 +141,34 @@ const MyProfile = () => {
     }
 
     const updateData = {
-      displayName:
-        data.displayName?.trim() || currentUser.displayName || user.displayName,
+      displayName: name.trim() || currentUser.displayName || user?.displayName,
     };
 
-    // শুধু যদি নতুন ছবি আপলোড হয় বা বদলানো হয় তবেই photoURL পাঠাও
     if (
       finalPhotoURL &&
-      finalPhotoURL !== (currentUser.photoURL || user.photoURL)
+      finalPhotoURL !== (currentUser.photoURL || user?.photoURL)
     ) {
       updateData.photoURL = finalPhotoURL;
     }
 
-    try {
-      // Backend (MongoDB + Firebase Auth) update
-      const res = await axiosSecure.patch("/users/profile", updateData);
-
-      if (res.data.success) {
-        // Frontend state update
-        setCurrentUser((prev) => ({ ...prev, ...updateData }));
-        setImagePreview(finalPhotoURL);
-
-        // Firebase Auth-এও update করো (যাতে পরের লগইন-এ নতুন ছবি আসে)
-        if (updateData.displayName || updateData.photoURL) {
-          await updateUserProfile(
-            updateData.displayName,
-            updateData.photoURL || null
-          );
-        }
-
-        Swal.fire({
-          icon: "success",
-          title: "Success!",
-          text: "Profile updated successfully!",
-          timer: 2000,
-        });
-
-        setIsEditMode(false);
-      }
-    } catch (error) {
-      console.error("Profile update error:", error);
+    // Check for changes
+    const noNameChange =
+      updateData.displayName === (currentUser.displayName || user?.displayName);
+    const noPhotoChange = !updateData.photoURL;
+    if (noNameChange && noPhotoChange) {
       Swal.fire(
-        "Error!",
-        error.response?.data?.message || "Failed to update profile",
-        "error"
+        "No Changes",
+        "You haven't made any changes to your profile",
+        "info"
       );
+      setIsEditMode(false);
+      return;
     }
+
+    updateProfileMutation.mutate(updateData);
   };
 
-  if (!currentUser) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 flex items-center justify-center">
         <div className="text-white text-2xl animate-pulse">
@@ -172,11 +192,7 @@ const MyProfile = () => {
             <div className="text-center mt-8">
               <div className="relative inline-block">
                 <img
-                  src={
-                    currentUser.photoURL ||
-                    user.photoURL ||
-                    "https://via.placeholder.com/150"
-                  }
+                  src={imagePreview}
                   alt="Profile"
                   className="w-40 h-40 rounded-full border-8 border-white/30 shadow-2xl object-cover"
                 />
@@ -188,9 +204,9 @@ const MyProfile = () => {
               </div>
 
               <h2 className="text-4xl font-bold text-white mt-6">
-                {currentUser.displayName || user.displayName}
+                {currentUser.displayName || user?.displayName}
               </h2>
-              <p className="text-xl text-gray-300 mt-2">{user.email}</p>
+              <p className="text-xl text-gray-300 mt-2">{user?.email}</p>
 
               {currentUser.isPremium && (
                 <div className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black rounded-full font-bold shadow-lg">
@@ -200,7 +216,7 @@ const MyProfile = () => {
 
               {currentUser.blocked && (
                 <div className="mt-6 p-4 bg-red-600/80 rounded-2xl flex items-center justify-center gap-3 shadow-lg">
-                  <FaBan />{" "}
+                  <FaBan />
                   <span className="text-xl font-bold">Account Blocked</span>
                 </div>
               )}
@@ -216,24 +232,20 @@ const MyProfile = () => {
                 {!currentUser.isPremium && !currentUser.blocked && (
                   <Link to="/dashboard/payment">
                     <button className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white py-4 px-10 rounded-2xl font-bold text-lg shadow-xl transform hover:scale-105 transition-all">
-                      Upgrade to Premium - ৳1000
+                      Upgrade to Premium - 1000 BDT
                     </button>
                   </Link>
                 )}
 
                 {currentUser.isPremium && (
-                  <button
-                    disabled
-                    className="bg-gradient-to-r from-gray-600 to-gray-700 text-white py-4 px-10 rounded-2xl font-bold opacity-70 cursor-not-allowed"
-                  >
-                    ✓ Already Premium
+                  <button className="bg-gradient-to-r from-gray-600 to-gray-700 text-white py-4 px-10 rounded-2xl font-bold opacity-70 cursor-not-allowed">
+                    <FaCheck /> Already Premium
                   </button>
                 )}
               </div>
             </div>
           ) : (
-            // EDIT MODE
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+            <form onSubmit={handleSubmit} className="mt-8">
               <div className="text-center mb-8">
                 <div className="relative inline-block">
                   <img
@@ -242,9 +254,8 @@ const MyProfile = () => {
                     className="w-40 h-40 rounded-full border-8 border-white/30 shadow-2xl object-cover"
                   />
                   <label className="absolute bottom-0 right-0 bg-purple-600 p-4 rounded-full cursor-pointer hover:bg-purple-700 transition shadow-lg">
-                    <FaCamera className="text-2xl" />
+                    <FaCamera className="text-2xl text-white" />
                     <input
-                      {...register("newPhoto")}
                       type="file"
                       accept="image/*"
                       onChange={handleImageChange}
@@ -260,36 +271,38 @@ const MyProfile = () => {
                     Full Name
                   </label>
                   <input
-                    {...register("displayName", {
-                      required: "Name is required",
-                    })}
                     type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-4 focus:ring-purple-500/50 placeholder-gray-400"
-                    placeholder="Your full name"
+                    placeholder="Enter your name"
+                    required
                   />
-                  {errors.displayName && (
-                    <p className="text-red-400 text-sm mt-1">
-                      {errors.displayName.message}
-                    </p>
-                  )}
                 </div>
 
                 <div className="flex gap-4 justify-center mt-8">
                   <button
                     type="submit"
-                    className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold shadow-xl transform hover:scale-105 transition-all flex items-center gap-3"
+                    disabled={updateProfileMutation.isPending}
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold shadow-xl transform hover:scale-105 transition-all flex items-center gap-3 disabled:opacity-70"
                   >
-                    <FaCheck /> Save Changes
+                    <FaCheck />
+                    {updateProfileMutation.isPending
+                      ? "Saving..."
+                      : "Save Changes"}
                   </button>
+
                   <button
                     type="button"
                     onClick={() => {
                       setIsEditMode(false);
-                      reset();
-                      setImagePreview(
-                        currentUser.photoURL || user.photoURL || ""
+                      setSelectedFile(null);
+                      setName(
+                        currentUser.displayName || user?.displayName || ""
                       );
-                      setUploadedPhotoURL("");
+                      setImagePreview(
+                        currentUser.photoURL || user?.photoURL || ""
+                      );
                     }}
                     className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white py-4 px-10 rounded-2xl font-bold shadow-xl transform hover:scale-105 transition-all flex items-center gap-3"
                   >

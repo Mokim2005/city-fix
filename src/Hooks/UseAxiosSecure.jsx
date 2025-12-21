@@ -1,11 +1,10 @@
-
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserAuth from "./UserAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "https://city-fix-server-roan.vercel.app",
+  baseURL: "https://city-fix-server-green.vercel.app",
 });
 
 const UseAxiosSecure = () => {
@@ -15,10 +14,9 @@ const UseAxiosSecure = () => {
   useEffect(() => {
     const requestInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
-   
         if (user) {
           try {
-            const token = await user.getIdToken(); 
+            const token = await user.getIdToken();
             config.headers.Authorization = `Bearer ${token}`;
           } catch (error) {
             console.error("❌ Failed to get Firebase token:", error);

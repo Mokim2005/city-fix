@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import UseAxiosSecure from "../Hooks/UseAxiosSecure";
+
 import Loading from "../Components/Loading"; // Optional spinner
+import UseAxiosSecure from "../Hooks/UseAxiosSecure";
 
 const LatestResolvedIssues = () => {
   const axiosSecure = UseAxiosSecure();
@@ -10,13 +11,16 @@ const LatestResolvedIssues = () => {
 
   useEffect(() => {
     axiosSecure
-      .get("/latest-resolved?limit=6")
+      .get("/latest-resolve")
       .then((res) => {
-        setIssues(res.data);
+        console.log(res.data)
+        setIssues(res.data.data);
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, [axiosSecure]);
+
+  console.log(issues)
 
   if (loading) return <Loading />;
 
