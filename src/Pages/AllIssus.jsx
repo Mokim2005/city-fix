@@ -5,30 +5,30 @@ import UseAxiosSecure from "../Hooks/UseAxiosSecure";
 import UserAuth from "../Hooks/UserAuth";
 import Swal from "sweetalert2";
 import Loading from "../Components/Loading";
+import { useQuery } from "@tanstack/react-query";
 
 const AllIssus = () => {
   const axiosSecure = UseAxiosSecure();
   const { user } = UserAuth();
   const navigate = useNavigate();
 
-  const [issues, setIssues] = useState([]);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
   const [loadingIds, setLoadingIds] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Fetch all issues
+  const { data: issues = [], isLoading: loading } = useQuery({
+    queryKey: ["issues"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/issus");
+      return res.data;
+    },
+  });
 
   useEffect(() => {
-    axiosSecure
-      .get("/issus")
-      .then((res) => {
-        setIssues(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [axiosSecure]);
+    setCurrentPage(1);
+  }, [search, filter]);
 
   const hasUserUpvoted = (issue) => {
     if (!user || !issue?.upvotedUsers) return false;
@@ -47,17 +47,6 @@ const AllIssus = () => {
     }
 
     setLoadingIds((prev) => [...prev, issue._id]);
-    setIssues((prev) =>
-      prev.map((i) =>
-        i._id === issue._id
-          ? {
-              ...i,
-              upvote: (i.upvote || 0) + 1,
-              upvotedUsers: [...(i.upvotedUsers || []), user.email],
-            }
-          : i
-      )
-    );
 
     try {
       const res = await axiosSecure.patch(`/issus/upvote/${issue._id}`, {
@@ -65,35 +54,10 @@ const AllIssus = () => {
       });
 
       if (!res.data?.success) {
-        setIssues((prev) =>
-          prev.map((i) =>
-            i._id === issue._id
-              ? {
-                  ...i,
-                  upvote: Math.max((i.upvote || 1) - 1, 0),
-                  upvotedUsers: (i.upvotedUsers || []).filter(
-                    (e) => e !== user.email
-                  ),
-                }
-              : i
-          )
-        );
         Swal.fire("Error", res.data?.message || "Upvote failed", "error");
       }
+      // Query will be stale, but we keep it simple as before
     } catch (err) {
-      setIssues((prev) =>
-        prev.map((i) =>
-          i._id === issue._id
-            ? {
-                ...i,
-                upvote: Math.max((i.upvote || 1) - 1, 0),
-                upvotedUsers: (i.upvotedUsers || []).filter(
-                  (e) => e !== user.email
-                ),
-              }
-            : i
-        )
-      );
       console.error(err);
       Swal.fire("Error", "Upvote failed!", "error");
     } finally {
@@ -122,13 +86,20 @@ const AllIssus = () => {
         return i.category === filter;
       }
       if (["pending", "in-progress", "resolved"].includes(filter)) {
-        return i.status === filter;
+        return i.status?.toLowerCase() === filter; // Case-insensitive match
       }
       if (["High", "Normal"].includes(filter)) {
         return i.priority === filter;
       }
       return true;
     });
+
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(displayedIssues.length / itemsPerPage);
+  const paginatedIssues = displayedIssues.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -146,6 +117,29 @@ const AllIssus = () => {
       scale: 1.03,
       transition: { duration: 0.4 },
     },
+  };
+
+  // Fixed status styling – handles both lowercase and "Resolved"
+  const getStatusStyle = (status) => {
+    const lowerStatus = status?.toLowerCase();
+    switch (lowerStatus) {
+      case "pending":
+        return "bg-yellow-500/20 text-yellow-300 border border-yellow-500/50";
+      case "in-progress":
+        return "bg-blue-500/20 text-blue-300 border border-blue-500/50";
+      case "resolved":
+        return "bg-green-500/20 text-green-300 border border-green-500/50";
+      default:
+        return "bg-gray-500/20 text-gray-300 border border-gray-500/50";
+    }
+  };
+
+  // Priority badge styling
+  const getPriorityStyle = (priority) => {
+    if (priority === "High") {
+      return "bg-red-500/20 text-red-300 border border-red-500/50";
+    }
+    return "bg-purple-500/20 text-purple-300 border border-purple-500/50";
   };
 
   return (
@@ -180,7 +174,7 @@ const AllIssus = () => {
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="p-4 rounded-2xl bg-white/5 border border-purple-500/30 backdrop-blur-md text-white focus:outline-none focus:border-purple-400 transition"
+          className="p-4 rounded-2xl bg-gray-700 border border-purple-500/30 backdrop-blur-md text-white focus:outline-none focus:border-purple-400 transition"
         >
           <option value="all">All Issues</option>
           <optgroup label="By Category">
@@ -209,14 +203,15 @@ const AllIssus = () => {
             layout
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {displayedIssues.map((issue, index) => {
+            {paginatedIssues.map((issue, index) => {
               const disabled =
                 !user || issue.email === user.email || hasUserUpvoted(issue);
               const isLoading = loadingIds.includes(issue._id);
 
-              // Safe fallback for status
+              // Properly format status text (handles "Resolved", "resolved", etc.)
               const statusText = issue.status
-                ? issue.status.charAt(0).toUpperCase() + issue.status.slice(1)
+                ? issue.status.charAt(0).toUpperCase() +
+                  issue.status.slice(1).toLowerCase().replace("-", " ")
                 : "Pending";
 
               return (
@@ -251,32 +246,28 @@ const AllIssus = () => {
                         {issue.title || "Untitled Issue"}
                       </h2>
 
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-3 mb-5">
                         <span
-                          className={`px-4 py-1.5 text-sm font-medium rounded-full ${
-                            issue.status === "pending"
-                              ? "bg-yellow-500/20 text-yellow-300 border border-yellow-500/40"
-                              : issue.status === "resolved"
-                              ? "bg-green-500/20 text-green-300 border border-green-500/40"
-                              : "bg-blue-500/20 text-blue-300 border border-blue-500/40"
-                          }`}
+                          className={`px-5 py-2 text-sm font-semibold rounded-full shadow-md ${getStatusStyle(
+                            issue.status
+                          )}`}
                         >
                           {statusText}
                         </span>
 
                         <span
-                          className={`px-4 py-1.5 text-sm font-medium rounded-full ${
-                            issue.priority === "High"
-                              ? "bg-red-500/20 text-red-300 border border-red-500/40"
-                              : "bg-gray-500/20 text-gray-300 border border-gray-500/40"
-                          }`}
+                          className={`px-5 py-2 text-sm font-semibold rounded-full shadow-md ${getPriorityStyle(
+                            issue.priority
+                          )}`}
                         >
                           {issue.priority || "Normal"} Priority
                         </span>
                       </div>
 
                       <p className="text-gray-300 text-sm mb-2">
-                        <span className="text-purple-400">Category:</span>{" "}
+                        <span className="text-purple-400 font-medium">
+                          Category:
+                        </span>{" "}
                         {issue.category || "Uncategorized"}
                       </p>
                       <p className="text-gray-400 text-sm flex items-center gap-2">
@@ -293,7 +284,7 @@ const AllIssus = () => {
                               : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-purple-600/50"
                           }`}
                         >
-                          {isLoading ? "Upvoting..." : "👍 Upvote"}
+                          {isLoading ? "Upvoting..." : "Upvote"}
                         </button>
 
                         <div className="text-center">
@@ -317,6 +308,30 @@ const AllIssus = () => {
             })}
           </motion.div>
         </AnimatePresence>
+
+        {displayedIssues.length > 0 && (
+          <div className="flex justify-center items-center mt-12 space-x-6">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium"
+            >
+              Previous
+            </button>
+            <span className="text-white text-lg font-medium">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium"
+            >
+              Next
+            </button>
+          </div>
+        )}
 
         {!displayedIssues.length && (
           <motion.div
