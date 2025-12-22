@@ -1,50 +1,46 @@
-# CityFix - Public Infrastructure Issue Reporting System
+Markdown# CityFix - Public Infrastructure Issue Reporting System
 
-![Banner Image Placeholder](https://via.placeholder.com/1200x400?text=CityFix+-+Report+and+Resolve+Public+Issues)  
-_A modern, responsive platform for citizens to report public infrastructure issues like potholes, broken streetlights, garbage overflow, and more. Empowering efficient municipal service delivery._
+**A modern, responsive full-stack platform that empowers citizens to report public infrastructure issues (potholes, broken streetlights, garbage overflow, water leakage, damaged footpaths, etc.) and enables efficient management by municipal staff and admins.**
 
-**Live Site URL:** [https://your-live-site-url.com](https://your-live-site-url.com) _(Replace with your actual deployed URL)_
+**Live Site URL:**  https://city-fix-b6595.web.app  
+**Backend API:** https://city-fix-server-green.vercel.app 
 
-**Admin Credentials**
+**Admin Credentials** (for demo/evaluation):
 
-- Email: `admin@cityfix.com`
-- Password: `admin123` _(Replace with your actual admin password)_
+- Email: `asifs@gmail.com`
+- Password: `000000`
 
-## Key Features
+## Key Features (10+ Highlights)
 
-- **Citizen Reporting**: Users can easily submit issues with title, description, category, location, and photos. Free users limited to 3 issues; premium users have unlimited submissions.
-- **Upvote System**: Logged-in users can upvote issues once to highlight importance (cannot upvote own issues). Upvote count displayed on cards and details page.
-- **Issue Boosting**: Pay 100৳ to boost an issue to High priority (via payment gateway). Boosted issues appear at the top.
-- **Premium Subscription**: Citizens can subscribe for 1000৳ to become premium and remove issue submission limits.
+- **Citizen Issue Reporting**: Submit detailed reports with title, description, category, location, and multiple photo uploads. Free users limited to 3 issues; premium users unlimited.
+- **Community Upvote System**: Logged-in users can upvote issues (once per issue, not own issues) to highlight urgency. Upvote counts displayed on cards and details pages with instant UI/DB updates.
+- **Issue Priority Boost**: Pay ৳100 via SSLCommerz to boost an issue to High priority – boosted issues appear at the top with timeline entry.
+- **Premium Subscription**: Pay ৳1000 for unlimited issue submissions, priority support, and premium badge.
 - **Role-Based Dashboards**:
-  - **Citizen Dashboard**: View my issues, report new ones, track stats, subscribe, and update profile.
-  - **Staff Dashboard**: View and update only assigned issues, change status with automatic timeline updates.
-  - **Admin Dashboard**: Manage all issues, assign staff, reject issues, manage users (block/unblock), add/update/delete staff, view all payments.
-- **Issue Timeline**: Detailed read-only tracking of every action (reported, assigned, status changes, boosted, etc.) with timestamps and actor.
-- **Responsive Design**: Fully mobile, tablet, and desktop friendly UI built with Tailwind CSS/DaisyUI.
-- **Authentication**: Email/password login, Google Sign-in, and registration with photo upload (powered by Firebase Auth).
-- **Data Management**: All data fetching with TanStack Query for optimal performance and caching. SweetAlert2/Toast notifications for all actions.
-- **Search, Filter & Pagination**: Server-side search, filters (category, status, priority), and pagination on All Issues page.
-- **Payment Integration**: SSLCommerz/Stripe for boosting issues and premium subscriptions.
-- **Invoice Generation**: Downloadable PDF invoices for payments (via React-PDF).
-- **Private Routes & Persistence**: Login persists on refresh; role-based access control with token verification.
-- **Additional Enhancements**: Beautiful banner/slider, latest resolved issues section, how-it-works guide, 404 page, and more.
+  - Citizen: Stats/charts, my issues (edit/delete if pending), report new issue, profile with subscription.
+  - Staff: View/update only assigned issues, change status with automatic timeline updates.
+  - Admin: Manage all issues (assign staff, reject), manage users/staff (block/unblock, CRUD staff), view payments.
+- **Issue Timeline Tracking**: Read-only vertical timeline on details page showing full lifecycle (reported, assigned, status changes, boosted, etc.) with timestamps, actor, and colored badges.
+- **All Issues Page**: Card view with search, server-side filters (category, status, priority), pagination, and upvote functionality.
+- **Authentication & Security**: Email/password + Google Sign-In, photo upload on registration, persistent login on refresh, role-based private routes with JWT verification, blocked user restrictions.
+- **Notifications & UX**: SweetAlert2/toasts for all actions (CRUD, login, payments), fully responsive design (mobile/tablet/desktop) with Tailwind CSS + DaisyUI.
+- **Payments & Invoices**: SSLCommerz integration for boosts/subscriptions, downloadable PDF invoices (React-PDF) in profile and admin payments page.
+- **Additional Enhancements**: Beautiful banner/slider, latest resolved issues section, "How It Works" guide, features section, custom 404 page, stats/charts in dashboards.
 
 ## Tech Stack
 
-- **Frontend**: React.js, TanStack Query, Tailwind CSS, DaisyUI, SweetAlert2, React-PDF
-- **Backend**: Node.js, Express.js, MongoDB
-- **Authentication**: Firebase Authentication
-- **Deployment**: Client - [Firebase Hosting/Netlify/Vercel], Server - [Render/Vercel/Heroku]
-- **Other**: Environment variables for secrets, Axios for API calls
+- **Frontend**: React.js, TanStack Query (for all data fetching/caching), Tailwind CSS, DaisyUI, SweetAlert2, React-PDF, Axios
+- **Backend**: Node.js, Express.js, MongoDB (Mongoose)
+- **Authentication**: Firebase Authentication (Email/Password + Google)
+- **Payments**: SSLCommerz
+- **Deployment**: Client - Vercel/Netlify/Firebase Hosting | Server - Vercel
+- **Other**: Environment variables for secrets, server-side search/filter/pagination, role middleware
 
-## Installation & Setup (Local Development)
-
-### Client
+## Installation (Local Development)
 
 ```bash
 git clone https://github.com/yourusername/cityfix-client.git
 cd cityfix-client
 npm install
-npm start
+npm run dev
 ```
