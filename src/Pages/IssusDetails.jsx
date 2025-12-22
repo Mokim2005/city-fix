@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import UseAxiosSecure from "../Hooks/UseAxiosSecure";
 import UserAuth from "../Hooks/UserAuth";
 import Swal from "sweetalert2";
+import Loading from "../Components/Loading";
 
 const IssueDetails = () => {
   const { id } = useParams();
@@ -20,17 +21,7 @@ const IssueDetails = () => {
   }, [id, axiosSecure]);
 
   if (!issue) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-[#0f0a1f] via-[#1a132f] to-[#2b2250] flex items-center justify-center">
-        <motion.div
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 1.8, repeat: Infinity }}
-          className="text-3xl font-bold text-purple-400"
-        >
-          Loading Details...
-        </motion.div>
-      </div>
-    );
+    return Loading
   }
 
   const isOwner = issue.email === user?.email;
@@ -79,6 +70,7 @@ const IssueDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f0a1f] via-[#1a132f] to-[#2b2250] py-12 px-4 md:px-8">
+      <title>Issues Details</title>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -152,7 +144,7 @@ const IssueDetails = () => {
                     {item.label}
                   </p>
                   <p
-                    title={item.value} // Hover korle full text dekha jabe
+                    title={item.value}
                     className="text-sm sm:text-lg lg:text-xl font-bold text-white truncate px-1"
                   >
                     {item.value}

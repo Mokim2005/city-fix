@@ -109,6 +109,7 @@ const AssignedIssues = () => {
       animate="visible"
       variants={containerVariants}
     >
+      <title>Assigned Issues</title>
       <motion.h2
         className="text-3xl md:text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-violet-500"
         variants={itemVariants}

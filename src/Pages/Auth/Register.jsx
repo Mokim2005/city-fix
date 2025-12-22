@@ -71,6 +71,7 @@ const Register = () => {
           "radial-gradient(circle at 20% 20%, #8a05ff 0%, #2a014f 60%, #120025 100%)",
       }}
     >
+      <title>Register</title>
       <div className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-purple-500/30 rounded-2xl shadow-2xl p-8">
         <h3 className="text-3xl font-bold text-purple-300 text-center drop-shadow-lg">
           Create an Account
@@ -123,17 +124,30 @@ const Register = () => {
           </div>
 
           {/* Password - Fully Fixed with Eye Icon */}
+          {/* Password */}
           <div>
             <label className="label text-purple-200">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                {...register("password", { required: true, minLength: 6 })}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+                    message:
+                      "Password must contain at least one uppercase, one lowercase, one number and one special character (@$!%*?&)",
+                  },
+                })}
                 className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300 focus:outline-none pr-14"
                 placeholder="Enter Password"
               />
 
-              {/* Eye Icon Button - Always Clickable */}
+              {/* Eye Icon */}
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
@@ -147,12 +161,10 @@ const Register = () => {
               </button>
             </div>
 
-            {errors.password?.type === "required" && (
-              <p className="text-red-400 text-sm mt-1">Password is required</p>
-            )}
-            {errors.password?.type === "minLength" && (
+            {/* Error Messages */}
+            {errors.password && (
               <p className="text-red-400 text-sm mt-1">
-                Password must be at least 6 characters
+                {errors.password.message}
               </p>
             )}
           </div>

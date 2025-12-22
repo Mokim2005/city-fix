@@ -52,6 +52,7 @@ const UserDashboardHome = () => {
       transition={{ duration: 1 }}
       className="relative p-8 bg-gradient-to-br from-gray-900 to-indigo-950 min-h-screen text-gray-100 overflow-hidden"
     >
+      <title>User Dashboard</title>
       {/* Floating subtle shapes for dark, techy vibe */}
       <motion.div
         className="absolute top-10 left-10 w-48 h-48 bg-indigo-800/20 rounded-full blur-3xl"

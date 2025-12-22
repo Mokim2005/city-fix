@@ -5,7 +5,6 @@ import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { motion } from "framer-motion";
 import Confetti from "react-confetti";
 
-// Custom useWindowSize hook
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
     width: undefined,
@@ -42,7 +41,7 @@ const PaymentSuccess = () => {
   const [purpose, setPurpose] = useState("");
   const [transactionId, setTransactionId] = useState("");
 
-  // তোমার প্রোডাক্টের নাম এখানে চেঞ্জ করতে পারো
+
   const productName = "IssueHub Pro";
 
   useEffect(() => {
@@ -101,6 +100,7 @@ const PaymentSuccess = () => {
   if (isProcessing) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black">
+        <title>Payment Success</title>
         <motion.div
           className="text-center"
           initial={{ opacity: 0 }}

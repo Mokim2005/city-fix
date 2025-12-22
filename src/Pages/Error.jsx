@@ -11,6 +11,7 @@ const Error = () => {
           "radial-gradient(circle at 20% 20%, #8a05ff 0%, #2a014f 60%, #120025 100%)",
       }}
     >
+      <title>Forbidden</title>
       <div className="backdrop-blur-xl bg-white/10 border border-purple-500/30 shadow-2xl rounded-3xl p-10 max-w-md text-center animate__animated animate__fadeIn">
 
         {/* Icon */}

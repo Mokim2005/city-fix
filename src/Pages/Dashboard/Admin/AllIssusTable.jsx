@@ -164,6 +164,7 @@ const AllIssusTable = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-6 md:p-10">
+    <title>All Issues Table</title>
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}

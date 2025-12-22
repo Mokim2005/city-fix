@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react"; 
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import Loading from "../../Components/Loading";
 import UserAuth from "../../Hooks/UserAuth";
@@ -9,7 +9,9 @@ const Payment = () => {
   const { user } = UserAuth();
   const axiosSecure = UseAxiosSecure();
 
-  // MongoDB থেকে current user এর full data নিয়ে isPremium চেক করা
+
+  const [isProcessing, setIsProcessing] = useState(false);
+
   const { data: currentUser = {}, isLoading: userLoading } = useQuery({
     queryKey: ["user", user?.email],
     queryFn: async () => {
@@ -20,7 +22,7 @@ const Payment = () => {
     enabled: !!user?.email,
   });
 
-  const { isLoading: issuesLoading, data: issuss = [] } = useQuery({
+  const { isLoading: issuesLoading } = useQuery({
     queryKey: ["issus"],
     queryFn: async () => {
       const res = await axiosSecure.get("/issus");
@@ -33,6 +35,11 @@ const Payment = () => {
   }
 
   const handlePayment = async () => {
+  
+    if (isProcessing) return;
+
+    setIsProcessing(true); 
+
     try {
       const paymentInfo = {
         email: user.email,
@@ -42,23 +49,20 @@ const Payment = () => {
         purpose: "subscribe",
       };
 
-      console.log("Payment Info:", paymentInfo);
 
-      // Subscribe endpoint এ save করা (optional, তোমার backend এ যদি থাকে)
-      const subRes = await axiosSecure.post("/subscribe", paymentInfo);
-      console.log("Subscription saved:", subRes.data);
+      await axiosSecure.post("/subscribe", paymentInfo);
 
-      // Stripe checkout session create করা
+    
       const sessionRes = await axiosSecure.post(
         "/create-checkout-session",
         paymentInfo
       );
 
-      // 🔥 এখানে টাইপো ছিল: sessionRAes → sessionRes
       if (sessionRes.data.url) {
+
         window.location.href = sessionRes.data.url;
       } else {
-        throw new Error("No payment URL received");
+        throw new Error("Payment URL not received");
       }
     } catch (err) {
       console.error("Payment error:", err);
@@ -67,15 +71,17 @@ const Payment = () => {
         title: "Payment Failed!",
         text:
           err.response?.data?.message ||
-          "Could not initiate payment. Please try again.",
+          "Something went wrong. Please try again.",
         background: "#1f2937",
         color: "#fff",
       });
+      setIsProcessing(false); 
     }
   };
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-[#1f1f2e] text-white">
+      <title>Payment</title>
       <div className="bg-[#2e2e4d] rounded-2xl p-10 shadow-2xl w-full max-w-md text-center">
         <h1 className="text-3xl font-bold mb-6">Upgrade to Premium</h1>
         <p className="text-xl mb-8 text-gray-300">Unlock exclusive features</p>
@@ -95,14 +101,19 @@ const Payment = () => {
         ) : (
           <button
             onClick={handlePayment}
-            className="mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all py-4 px-10 rounded-xl font-bold text-lg shadow-lg transform hover:scale-105"
+            disabled={isProcessing} 
+            className={`mt-6 w-full py-4 px-10 rounded-xl font-bold text-lg shadow-lg transition-all ${
+              isProcessing
+                ? "bg-gray-600 cursor-not-allowed opacity-70"
+                : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover:scale-105"
+            }`}
           >
-            Pay Now with SSLCommerz
+            {isProcessing ? "Processing... Please wait" : "Pay Now"}
           </button>
         )}
 
         <p className="mt-8 text-sm text-gray-500">
-          Secure payment powered by SSLCommerz
+          Secure payment powered by Stripe
         </p>
       </div>
     </div>

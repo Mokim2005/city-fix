@@ -144,6 +144,7 @@ const AllIssus = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f0a1f] via-[#1a132f] to-[#2b2250] py-12 px-4 md:px-8 lg:px-12">
+      <title>All Issues</title>
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}

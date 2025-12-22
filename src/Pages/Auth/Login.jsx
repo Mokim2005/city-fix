@@ -34,6 +34,7 @@ const Login = () => {
           "radial-gradient(circle at 20% 20%, #8a05ff 0%, #2a014f 60%, #120025 100%)",
       }}
     >
+      <title>Login</title>
       <div className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-purple-500/30 rounded-2xl shadow-2xl p-8">
         <h3 className="text-3xl font-bold text-purple-300 text-center drop-shadow-lg">
           Welcome Back

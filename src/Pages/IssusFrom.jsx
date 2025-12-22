@@ -129,6 +129,7 @@ const IssueForm = () => {
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-[#1a132f] to-[#2b2250] p-6">
+      <title>Issues Form</title>
       <div className="bg-[#2b2250] w-full max-w-3xl p-8 rounded-2xl shadow-xl border border-purple-600/30">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-purple-400 mb-8">
           Report a New Issue

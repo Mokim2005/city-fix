@@ -92,6 +92,7 @@ const MyIssus = () => {
       transition={{ duration: 1 }}
       className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950 text-gray-100 p-8"
     >
+      <title>My Issues</title>
       {/* Futuristic Background Elements */}
       <div className="absolute inset-0 opacity-30">
         <img

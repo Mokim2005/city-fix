@@ -10,6 +10,7 @@ import LatestResolvedIssues from "../Components/HomePreview";
 const Home = () => {
   return (
     <div className="bg-gradient-to-b from-[#1a132f] to-[#2b2250] min-h-screen">
+      <title>Home</title>
       <Banner />
       <ExploreBanner></ExploreBanner>
       <BannerSlider />

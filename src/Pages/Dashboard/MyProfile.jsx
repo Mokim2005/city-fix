@@ -181,6 +181,7 @@ const MyProfile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-6">
+     <title>My Profile</title>
       <div className="relative w-full max-w-2xl">
         <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-10">
           <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">

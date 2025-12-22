@@ -85,6 +85,7 @@ const AdminDashboardHome = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-6 md:p-8">
+     <title>Admin Dashboard</title>
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}

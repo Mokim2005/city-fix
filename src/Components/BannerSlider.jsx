@@ -18,7 +18,7 @@ const BannerSlider = () => {
       >
         <div className="relative h-[400px] w-full">
           <img
-            src="https://thumbs.dreamstime.com/b/visual-global-challenges-one-half-green-arid-cracked-earth-environmental-issues-climate-change-drought-warming-concept-394425587.jpg"
+            src="https://i.ibb.co.com/KcJPPXY2/PH-WASH-2014-Daniel-Burgui-337-scaled-aspect-ratio-1920-1080.jpg"
             className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
             alt="Slide 1"
           />
@@ -26,7 +26,7 @@ const BannerSlider = () => {
 
         <div className="relative  h-[400px] w-full">
           <img
-            src="https://thumbs.dreamstime.com/b/garbage-dump-dark-room-d-rendering-computer-digital-drawing-304526995.jpg"
+            src="https://static.vecteezy.com/system/resources/thumbnails/070/015/200/small/burst-water-pipe-leaking-water-free-photo.jpg"
             className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
             alt="Slide 2"
           />
