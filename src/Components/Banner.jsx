@@ -95,7 +95,7 @@ const Banner = () => {
   {/* Background */}
   <div className="absolute inset-0 z-0">
     <img
-      src="https://www.the-world.in/wp-content/uploads/2024/04/The-World-Website-Cleanest-City-Surat-Landscape.webp"
+      src="https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/i/s/iStock-509662042-1800.jpg?crop=0%2C72%2C1800%2C990&wid=1300&hei=715&scl=1.3846153846153846"
       className="w-full h-full object-cover"
     />
     <div className="absolute inset-0 bg-black/60" />
