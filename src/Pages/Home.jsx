@@ -6,27 +6,29 @@ import LatestResolvedIssues from "../Components/HomePreview";
 
 const Home = () => {
   return (
-    <div className="relative min-h-screen">
+    <div className="w-full overflow-x-hidden">
       <title>Home</title>
-      
-      {/* Banner with its own background */}
-      <Banner />
-      
-      {/* Rest of the components with shared background */}
-      <div
-        style={{
+
+      {/* 🔥 Top Banner (Full Width) */}
+      <div className="w-full">
+        <Banner />
+      </div>
+
+      {/* 🔥 Full Width Background Section */}
+      <div style={{
           backgroundImage: `url('https://media.istockphoto.com/id/930317516/photo/city-road.jpg?s=612x612&w=0&k=20&c=N42N37Gc-BYkVnXDxKw8iDjZqVyrTuHMW3mH7vzJmdc=')`,
           backgroundAttachment: "fixed",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className="relative min-h-screen"
+        className="relative"
+       
       >
-        {/* Blur Overlay */}
-        <div className="absolute inset-0 backdrop-blur-[2px] bg-black/60"></div>
+        {/* 🔥 Blur Overlay */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
-        {/* Content */}
-        <div className="relative z-10">
+        {/* 🔥 Content Container (Centered) */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-10">
           <ExploreBanner />
           <BannerSlider />
           <BannerReport />
