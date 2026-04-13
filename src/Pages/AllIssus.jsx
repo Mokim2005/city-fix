@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import UseAxiosSecure from "../Hooks/UseAxiosSecure";
 import UserAuth from "../Hooks/UserAuth";
 import Swal from "sweetalert2";
 import Loading from "../Components/Loading";
 import { useQuery } from "@tanstack/react-query";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AllIssus = () => {
   const axiosSecure = UseAxiosSecure();
@@ -16,6 +20,9 @@ const AllIssus = () => {
   const [search, setSearch] = useState("");
   const [loadingIds, setLoadingIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  
+  const headerRef = useRef(null);
+  const cardsRef = useRef([]);
 
   // Fetch all issues
   const { data: issues = [], isLoading: loading } = useQuery({
@@ -29,6 +36,41 @@ const AllIssus = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [search, filter]);
+
+  useEffect(() => {
+    // Header animation
+    if (headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: -50, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power3.out" }
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    // Cards animation
+    cardsRef.current.forEach((card, index) => {
+      if (card) {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 80, scale: 0.8 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            delay: index * 0.1,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+            },
+          }
+        );
+      }
+    });
+  }, [currentPage, filter, search]);
 
   const hasUserUpvoted = (issue) => {
     if (!user || !issue?.upvotedUsers) return false;
@@ -56,7 +98,6 @@ const AllIssus = () => {
       if (!res.data?.success) {
         Swal.fire("Error", res.data?.message || "Upvote failed", "error");
       }
-      // Query will be stale, but we keep it simple as before
     } catch (err) {
       console.error(err);
       Swal.fire("Error", "Upvote failed!", "error");
@@ -86,7 +127,7 @@ const AllIssus = () => {
         return i.category === filter;
       }
       if (["pending", "in-progress", "resolved"].includes(filter)) {
-        return i.status?.toLowerCase() === filter; // Case-insensitive match
+        return i.status?.toLowerCase() === filter;
       }
       if (["High", "Normal"].includes(filter)) {
         return i.priority === filter;
@@ -94,32 +135,13 @@ const AllIssus = () => {
       return true;
     });
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 9;
   const totalPages = Math.ceil(displayedIssues.length / itemsPerPage);
   const paginatedIssues = displayedIssues.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    }),
-    hover: {
-      y: -12,
-      scale: 1.03,
-      transition: { duration: 0.4 },
-    },
-  };
-
-  // Fixed status styling – handles both lowercase and "Resolved"
   const getStatusStyle = (status) => {
     const lowerStatus = status?.toLowerCase();
     switch (lowerStatus) {
@@ -134,7 +156,6 @@ const AllIssus = () => {
     }
   };
 
-  // Priority badge styling
   const getPriorityStyle = (priority) => {
     if (priority === "High") {
       return "bg-red-500/20 text-red-300 border border-red-500/50";
@@ -143,73 +164,126 @@ const AllIssus = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0a1f] via-[#1a132f] to-[#2b2250] py-12 px-4 md:px-8 lg:px-12">
+    <div
+      style={{
+        backgroundImage: `url('https://www.squareyards.com/blog/wp-content/uploads/2023/12/surat.jpg')`,
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      className="min-h-screen relative py-12 px-4 sm:px-6 lg:px-12"
+    >
       <title>All Issues</title>
-      <motion.h1
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-12"
-      >
-        All Reported Issues
-      </motion.h1>
 
+      {/* Background Overlay */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+
+      {/* Animated Background Orbs */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mb-12"
-      >
-        <div className="relative flex-1">
-          <input
-            type="text"
-            placeholder="Search issues by title..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full p-4 pl-12 rounded-2xl bg-white/5 border border-purple-500/30 backdrop-blur-md text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 transition"
-          />
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-purple-400 text-xl">
-            🔍
-          </span>
+        className="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.4, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Header */}
+        <div ref={headerRef} className="text-center mb-12">
+          <div className="backdrop-blur-xl bg-white/5 border border-white/20 rounded-3xl px-8 py-6 inline-block shadow-2xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent mb-3">
+              All Reported Issues
+            </h1>
+            <p className="text-gray-300 text-base sm:text-lg">
+              Browse and track all city issues reported by citizens
+            </p>
+          </div>
         </div>
 
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="p-4 rounded-2xl bg-gray-700 border border-purple-500/30 backdrop-blur-md text-white focus:outline-none focus:border-purple-400 transition"
+        {/* Search and Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-col md:flex-row gap-4 mb-12"
         >
-          <option value="all">All Issues</option>
-          <optgroup label="By Category">
-            <option value="Road">Road</option>
-            <option value="Electricity">Electricity</option>
-            <option value="Water">Water</option>
-            <option value="Garbage">Garbage</option>
-            <option value="Sanitation">Sanitation</option>
-            <option value="Other">Other</option>
-          </optgroup>
-          <optgroup label="By Status">
-            <option value="pending">Pending</option>
-            <option value="in-progress">In Progress</option>
-            <option value="resolved">Resolved</option>
-          </optgroup>
-          <optgroup label="By Priority">
-            <option value="High">High Priority</option>
-            <option value="Normal">Normal</option>
-          </optgroup>
-        </select>
-      </motion.div>
+          <div className="relative flex-1">
+            <input
+              type="text"
+              placeholder="🔍 Search issues by title..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full p-4 pl-12 rounded-2xl backdrop-blur-xl bg-white/10 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+            />
+          </div>
 
-      <div className="max-w-7xl mx-auto">
-        <AnimatePresence>
-          <motion.div
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="p-4 rounded-2xl backdrop-blur-xl bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 min-w-[200px]"
           >
+            <option value="all" className="bg-gray-900">
+              All Issues
+            </option>
+            <optgroup label="By Category" className="bg-gray-900">
+              <option value="Road" className="bg-gray-900">
+                🛣️ Road
+              </option>
+              <option value="Electricity" className="bg-gray-900">
+                ⚡ Electricity
+              </option>
+              <option value="Water" className="bg-gray-900">
+                💧 Water
+              </option>
+              <option value="Garbage" className="bg-gray-900">
+                🗑️ Garbage
+              </option>
+              <option value="Sanitation" className="bg-gray-900">
+                🚽 Sanitation
+              </option>
+              <option value="Other" className="bg-gray-900">
+                📋 Other
+              </option>
+            </optgroup>
+            <optgroup label="By Status" className="bg-gray-900">
+              <option value="pending" className="bg-gray-900">
+                ⏳ Pending
+              </option>
+              <option value="in-progress" className="bg-gray-900">
+                🔄 In Progress
+              </option>
+              <option value="resolved" className="bg-gray-900">
+                ✅ Resolved
+              </option>
+            </optgroup>
+            <optgroup label="By Priority" className="bg-gray-900">
+              <option value="High" className="bg-gray-900">
+                🔴 High Priority
+              </option>
+              <option value="Normal" className="bg-gray-900">
+                🟢 Normal
+              </option>
+            </optgroup>
+          </select>
+        </motion.div>
+
+        {/* Issues Grid */}
+        <AnimatePresence mode="wait">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {paginatedIssues.map((issue, index) => {
               const disabled =
                 !user || issue.email === user.email || hasUserUpvoted(issue);
               const isLoading = loadingIds.includes(issue._id);
 
-              // Properly format status text (handles "Resolved", "resolved", etc.)
               const statusText = issue.status
                 ? issue.status.charAt(0).toUpperCase() +
                   issue.status.slice(1).toLowerCase().replace("-", " ")
@@ -218,38 +292,40 @@ const AllIssus = () => {
               return (
                 <motion.div
                   key={issue._id}
-                  custom={index}
-                  initial="hidden"
-                  animate="visible"
-                  whileHover="hover"
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  variants={cardVariants}
-                  className="relative group"
+                  ref={(el) => (cardsRef.current[index] = el)}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  className="group relative"
                 >
-                  <div className="h-full bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-purple-600/30 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-purple-600/50 transition-all duration-500">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-3xl" />
-                    <div className="absolute -inset-1 bg-gradient-to-br from-purple-600/30 to-pink-600/30 blur-xl opacity-0 group-hover:opacity-60 transition-opacity -z-10" />
+                  {/* Glassy Card */}
+                  <div className="h-full backdrop-blur-2xl bg-white/5 border border-white/10 rounded-3xl overflow-hidden shadow-2xl hover:shadow-purple-500/50 hover:border-purple-500/50 transition-all duration-500">
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-pink-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    <div className="absolute -inset-1 bg-gradient-to-br from-purple-600/30 to-pink-600/30 blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 -z-10" />
 
-                    <div className="relative overflow-hidden">
+                    {/* Image */}
+                    <div className="relative overflow-hidden h-48">
                       <img
                         src={
                           issue.image ||
                           "https://via.placeholder.com/400x300?text=No+Image"
                         }
                         alt={issue.title || "Issue"}
-                        className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                     </div>
 
+                    {/* Content */}
                     <div className="p-6 relative z-10">
-                      <h2 className="text-2xl font-bold text-white mb-3 line-clamp-2">
+                      <h2 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-purple-300 transition-colors duration-300">
                         {issue.title || "Untitled Issue"}
                       </h2>
 
-                      <div className="flex flex-wrap gap-3 mb-5">
+                      {/* Badges */}
+                      <div className="flex flex-wrap gap-2 mb-4">
                         <span
-                          className={`px-5 py-2 text-sm font-semibold rounded-full shadow-md ${getStatusStyle(
+                          className={`px-3 py-1 text-xs font-semibold rounded-full ${getStatusStyle(
                             issue.status
                           )}`}
                         >
@@ -257,11 +333,11 @@ const AllIssus = () => {
                         </span>
 
                         <span
-                          className={`px-5 py-2 text-sm font-semibold rounded-full shadow-md ${getPriorityStyle(
+                          className={`px-3 py-1 text-xs font-semibold rounded-full ${getPriorityStyle(
                             issue.priority
                           )}`}
                         >
-                          {issue.priority || "Normal"} Priority
+                          {issue.priority || "Normal"}
                         </span>
                       </div>
 
@@ -271,33 +347,29 @@ const AllIssus = () => {
                         </span>{" "}
                         {issue.category || "Uncategorized"}
                       </p>
-                      <p className="text-gray-400 text-sm flex items-center gap-2">
+                      <p className="text-gray-400 text-sm flex items-center gap-2 mb-5">
                         📍 {issue.location || "Location not specified"}
                       </p>
 
-                      <div className="flex justify-between items-center mt-6">
-                        <button
+                      {/* Actions */}
+                      <div className="flex justify-between items-center gap-3">
+                        <motion.button
+                          whileHover={{ scale: disabled ? 1 : 1.05 }}
+                          whileTap={{ scale: disabled ? 1 : 0.95 }}
                           onClick={() => handleUpvote(issue)}
                           disabled={disabled || isLoading}
-                          className={`px-5 py-3 rounded-xl font-semibold transition-all ${
+                          className={`px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
                             disabled
                               ? "bg-gray-600/50 cursor-not-allowed text-gray-400"
                               : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-purple-600/50"
                           }`}
                         >
-                          {isLoading ? "Upvoting..." : "Upvote"}
-                        </button>
-
-                        <div className="text-center">
-                          <p className="text-3xl font-bold text-purple-300">
-                            {issue.upvote || 0}
-                          </p>
-                          <p className="text-xs text-gray-400">Upvotes</p>
-                        </div>
+                          {isLoading ? "..." : `👍 ${issue.upvote || 0}`}
+                        </motion.button>
 
                         <Link
                           to={`/Issus-details/${issue._id}`}
-                          className="px-5 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-green-600/50 transition-all"
+                          className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-semibold text-sm shadow-lg hover:shadow-green-600/50 transition-all"
                         >
                           View Details
                         </Link>
@@ -307,41 +379,53 @@ const AllIssus = () => {
                 </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </AnimatePresence>
 
+        {/* Pagination */}
         {displayedIssues.length > 0 && (
-          <div className="flex justify-center items-center mt-12 space-x-6">
-            <button
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="flex justify-center items-center mt-12 gap-4 backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl px-6 py-4 inline-flex mx-auto"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg"
             >
-              Previous
-            </button>
-            <span className="text-white text-lg font-medium">
-              Page {currentPage} of {totalPages}
+              ← Previous
+            </motion.button>
+            <span className="text-white text-lg font-medium px-4">
+              {currentPage} / {totalPages}
             </span>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() =>
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
               disabled={currentPage === totalPages}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg"
             >
-              Next
-            </button>
-          </div>
+              Next →
+            </motion.button>
+          </motion.div>
         )}
 
+        {/* No Results */}
         {!displayedIssues.length && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-20 backdrop-blur-xl bg-white/5 border border-white/20 rounded-3xl"
           >
-            <p className="text-2xl text-gray-400">
-              No issues found matching your filters.
+            <p className="text-2xl text-gray-300 mb-2">😔 No issues found</p>
+            <p className="text-gray-400">
+              Try adjusting your search or filter criteria
             </p>
           </motion.div>
         )}
