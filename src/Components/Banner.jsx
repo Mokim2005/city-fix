@@ -95,10 +95,10 @@ const Banner = () => {
   {/* Background */}
   <div className="absolute inset-0 z-0">
     <img
-      src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000"
+      src="https://www.the-world.in/wp-content/uploads/2024/04/The-World-Website-Cleanest-City-Surat-Landscape.webp"
       className="w-full h-full object-cover"
     />
-    <div className="absolute inset-0 bg-black/70" />
+    <div className="absolute inset-0 bg-black/60" />
   </div>
 
   {/* Content */}

@@ -25,7 +25,7 @@ const Home = () => {
        
       >
         {/* 🔥 Blur Overlay */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
         {/* 🔥 Content Container (Centered) */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-10">
