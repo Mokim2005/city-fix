@@ -1,5 +1,9 @@
-import React from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // --- Custom SVG Icons (Lucide-style) ---
 const Icons = {
@@ -123,7 +127,7 @@ const FeatureCard = ({ feature, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
-      className="group relative rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a0f35]/80 to-[#120a25]/60 backdrop-blur-xl p-10 overflow-hidden shadow-2xl"
+      className="group relative rounded-3xl border border-white/10 backdrop-blur-2xl bg-white/5 p-6 sm:p-8 md:p-10 overflow-hidden shadow-2xl hover:shadow-purple-500/50 hover:border-purple-500/50 transition-all duration-500"
     >
       {/* Interactive Spotlight Effect */}
       <motion.div
@@ -132,39 +136,59 @@ const FeatureCard = ({ feature, index }) => {
           background: useTransform(
             [mouseX, mouseY],
             ([x, y]) =>
-              `radial-gradient(700px circle at ${x}px ${y}px, rgba(168, 85, 247, 0.2), transparent 70%)`
+              `radial-gradient(600px circle at ${x}px ${y}px, rgba(168, 85, 247, 0.25), transparent 70%)`
           ),
         }}
       />
 
       {/* Glow border on hover */}
       <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none">
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 blur-xl" />
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 blur-2xl" />
       </div>
 
       <div className="relative z-10 flex flex-col items-start">
-        <div className="mb-8 p-5 rounded-2xl bg-gradient-to-br from-purple-600/20 to-pink-600/10 border border-purple-500/30 backdrop-blur-sm group-hover:scale-110 group-hover:border-purple-400/60 transition-all duration-500">
-          <feature.icon
-            size={40}
-            className="text-purple-400 group-hover:text-purple-300"
-          />
+        <div className="mb-6 sm:mb-8 p-4 sm:p-5 rounded-2xl backdrop-blur-md bg-white/5 border border-purple-500/30 group-hover:scale-110 group-hover:border-purple-400/60 group-hover:bg-white/10 transition-all duration-500">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
+            <feature.icon />
+          </div>
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-4 tracking-tight">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-3 sm:mb-4 tracking-tight group-hover:text-purple-200 transition-colors duration-300">
           {feature.title}
         </h3>
-        <p className="text-gray-300 leading-relaxed text-lg group-hover:text-gray-100 transition-colors duration-300">
+        <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-lg group-hover:text-gray-100 transition-colors duration-300">
           {feature.description}
         </p>
       </div>
 
       {/* Animated bottom gradient line */}
-      <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 rounded-full transition-all duration-700 group-hover:w-full" />
+      <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-full transition-all duration-700 group-hover:w-full" />
     </motion.div>
   );
 };
 
 const App = () => {
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: -50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+          },
+        }
+      );
+    }
+  }, []);
+
   const features = [
     {
       icon: Icons.Map,
@@ -205,63 +229,69 @@ const App = () => {
   ];
 
   return (
-    <div className="bg-[#050017] text-white min-h-screen selection:bg-purple-600/30 overflow-x-hidden">
-      {/* Dynamic Background Blobs */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-20%] left-[-15%] w-[600px] h-[600px] bg-purple-900/30 blur-3xl rounded-full animate-pulse slow" />
-        <div className="absolute bottom-[-20%] right-[-15%] w-[700px] h-[700px] bg-pink-900/20 blur-3xl rounded-full animate-pulse delay-1000" />
-      </div>
+    <div className="relative text-white min-h-screen selection:bg-purple-600/30 overflow-x-hidden bg-gradient-to-b from-black via-gray-900 to-black">
+      {/* Glassy overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-transparent to-pink-900/10" />
 
       {/* Hero Section */}
-      <header className="relative z-10 pt-32 pb-24 px-6 text-center">
+      <header ref={headerRef} className="relative z-10 pt-20 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <span className="inline-block px-5 py-2 mb-8 text-sm font-semibold tracking-widest text-purple-300 uppercase bg-purple-900/20 border border-purple-700/40 rounded-full backdrop-blur-sm">
+          <span className="inline-block px-4 sm:px-5 py-2 mb-6 sm:mb-8 text-xs sm:text-sm font-semibold tracking-widest text-purple-300 uppercase backdrop-blur-xl bg-white/5 border border-purple-500/40 rounded-full shadow-lg">
             Transforming Urban Life
           </span>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 sm:mb-8 leading-tight">
             Empowering Citizens,
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
               Fixing Cities.
             </span>
           </h1>
-          <p className="max-w-3xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed mb-12">
+          <p className="max-w-3xl mx-auto text-gray-200 text-base sm:text-lg md:text-xl leading-relaxed mb-8 sm:mb-12 px-4">
             Join thousands of citizens reporting issues, tracking improvements,
             and making cities smarter, cleaner, and safer together.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <button className="px-10 py-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full font-bold text-lg transition-all shadow-2xl shadow-purple-600/40 hover:shadow-purple-600/60 hover:-translate-y-1">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(168, 85, 247, 0.8)" }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full font-bold text-base sm:text-lg transition-all shadow-2xl"
+            >
               Get Started Now
-            </button>
-            <button className="px-10 py-5 bg-white/5 hover:bg-white/10 border border-white/20 rounded-full font-bold text-lg transition-all backdrop-blur-md hover:border-white/40">
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 sm:px-10 py-4 sm:py-5 backdrop-blur-xl bg-white/5 hover:bg-white/10 border-2 border-white/30 hover:border-white/50 rounded-full font-bold text-base sm:text-lg transition-all"
+            >
               Learn More
-            </button>
+            </motion.button>
           </div>
         </motion.div>
       </header>
 
       {/* Features Section */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pb-20 sm:pb-28 md:pb-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-16 sm:mb-20"
         >
-          <h2 className="text-4xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
             Powerful Features
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-300 max-w-2xl mx-auto text-base sm:text-lg px-4">
             Everything you need to report, track, and resolve urban issues
             efficiently.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {features.map((feature, idx) => (
             <FeatureCard key={idx} feature={feature} index={idx} />
           ))}

@@ -1,116 +1,288 @@
-import React from "react";
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 const Banner = () => {
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const statsRef = useRef([]);
+  const floatingCardsRef = useRef([]);
+
+  useEffect(() => {
+    // Title animation
+    gsap.fromTo(
+      titleRef.current,
+      { opacity: 0, x: -100, rotateY: -90 },
+      { opacity: 1, x: 0, rotateY: 0, duration: 1.2, ease: "power3.out" }
+    );
+
+    // Subtitle animation
+    gsap.fromTo(
+      subtitleRef.current,
+      { opacity: 0, x: -80 },
+      { opacity: 1, x: 0, duration: 1, delay: 0.3, ease: "power2.out" }
+    );
+
+    // Stats animation
+    statsRef.current.forEach((stat, index) => {
+      if (stat) {
+        gsap.fromTo(
+          stat,
+          { opacity: 0, y: 30, scale: 0.8 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            delay: 0.6 + index * 0.15,
+            ease: "back.out(1.7)",
+          }
+        );
+      }
+    });
+
+    // Floating cards animation
+    floatingCardsRef.current.forEach((card, index) => {
+      if (card) {
+        gsap.fromTo(
+          card,
+          { opacity: 0, x: 100, rotateZ: 45 },
+          {
+            opacity: 1,
+            x: 0,
+            rotateZ: 0,
+            duration: 1,
+            delay: 0.8 + index * 0.2,
+            ease: "elastic.out(1, 0.5)",
+          }
+        );
+      }
+    });
+  }, []);
+
+  const stats = [
+    { number: "10K+", label: "Issues Resolved", icon: "✅" },
+    { number: "50K+", label: "Active Users", icon: "👥" },
+    { number: "100+", label: "Cities Covered", icon: "🏙️" },
+  ];
+
+  const floatingCards = [
+    {
+      icon: "🚨",
+      title: "Report Issue",
+      desc: "Quick & Easy",
+      color: "from-red-500/20 to-orange-500/20",
+      borderColor: "border-red-500/30",
+    },
+    {
+      icon: "📊",
+      title: "Track Status",
+      desc: "Real-time Updates",
+      color: "from-blue-500/20 to-cyan-500/20",
+      borderColor: "border-blue-500/30",
+    },
+    {
+      icon: "🎯",
+      title: "Get Results",
+      desc: "Fast Resolution",
+      color: "from-green-500/20 to-emerald-500/20",
+      borderColor: "border-green-500/30",
+    },
+  ];
+
   return (
-    <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden flex items-center justify-center text-center px-6 md:px-12">
-      {/* Dark futuristic smart city background */}
-      <div className="absolute inset-0">
+    <section className="relative w-full min-h-screen overflow-hidden flex items-center px-4 sm:px-6 md:px-12 py-20">
+      {/* Background Image with subtle blur */}
+      <div className="absolute inset-0 z-0">
         <img
-          src="https://thumbs.dreamstime.com/b/stunning-futuristic-city-skyline-illuminated-vibrant-neon-lights-shades-blue-pink-purple-depicting-high-tech-393346294.jpg"
-          alt="Dark futuristic smart city at night"
-          className="w-full h-full object-cover"
+          src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2l0eXxlbnwwfHwwfHx8MA%3D%3D"
+          alt="City Background"
+          className="w-full h-full object-cover blur-[2px]"
         />
-        {/* Heavy dark overlay for moody, dark vibe and better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-indigo-950/85 to-purple-950/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
       </div>
 
-      {/* Floating abstract shapes – kept subtle with darker tones */}
+      {/* Animated gradient orbs */}
       <motion.div
-        className="absolute top-10 left-10 w-48 h-48 md:w-72 md:h-72 bg-purple-800/20 rounded-full blur-3xl"
-        animate={{ y: [0, -30, 0], x: [0, 30, 0] }}
-        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+        className="absolute top-20 left-10 w-64 h-64 bg-purple-600/30 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-64 h-64 md:w-96 md:h-96 bg-indigo-800/20 rounded-full blur-3xl"
-        animate={{ y: [0, 40, 0], x: [0, -40, 0] }}
-        transition={{ repeat: Infinity, duration: 15, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute top-1/3 right-1/4 w-32 h-32 md:w-56 md:h-56 bg-cyan-900/15 rounded-full blur-2xl"
-        animate={{ scale: [1, 1.3, 1], rotate: [0, 180, 360] }}
-        transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+        className="absolute bottom-20 left-1/4 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
       />
 
-      {/* Main content */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2 }}
-        className="relative z-10 max-w-5xl"
-      >
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight bg-gradient-to-r from-purple-300 via-indigo-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-2xl"
-        >
-          City Fix
-        </motion.h1>
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left Side - Content */}
+          <div className="space-y-8">
+            {/* Main Title with Glassy Effect */}
+            <motion.div
+              ref={titleRef}
+              className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 rounded-3xl p-8 sm:p-10 shadow-2xl"
+            >
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight">
+                <span className="block bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-gradient">
+                  City Fix
+                </span>
+                <span className="block text-white text-3xl sm:text-4xl md:text-5xl mt-4 font-bold">
+                  Smart Solutions
+                </span>
+              </h1>
+            </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="mt-6 text-xl md:text-3xl text-gray-200 max-w-3xl mx-auto leading-relaxed"
-        >
-          Report city issues instantly. Together, we make our city smarter, cleaner, and safer.
-        </motion.p>
+            {/* Subtitle with Glassy Effect */}
+            <motion.div
+              ref={subtitleRef}
+              className="backdrop-blur-xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-6 sm:p-8 shadow-xl"
+            >
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-100 leading-relaxed">
+                Transform your city with instant issue reporting, real-time tracking, and community-driven solutions.
+              </p>
+            </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="mt-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 text-gray-300 text-lg md:text-xl"
-        >
-          <motion.span
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1 }}
-            className="flex items-center gap-3"
-          >
-            <span className="text-3xl">📍</span> Real-time issue tracking
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1 }}
-            className="flex items-center gap-3"
-          >
-            <span className="text-3xl">💡</span> Suggest improvements
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.2 }}
-            className="flex items-center gap-3"
-          >
-            <span className="text-3xl">📊</span> View reports & stats
-          </motion.span>
-        </motion.div>
+            {/* Stats Cards */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-4">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  ref={(el) => (statsRef.current[index] = el)}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 rounded-2xl p-4 sm:p-6 text-center shadow-xl hover:shadow-2xl hover:border-purple-400/50 transition-all duration-300"
+                >
+                  <div className="text-3xl sm:text-4xl mb-2">{stat.icon}</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    {stat.number}
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-300 mt-1 font-medium">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
-          className="mt-12 flex flex-col sm:flex-row gap-6 justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.08, boxShadow: "0 0 30px rgba(109, 40, 217, 0.7)" }}
-            whileTap={{ scale: 0.95 }}
-            className="px-10 py-4 bg-purple-700 text-white font-bold text-lg rounded-full shadow-2xl transition-all"
-          >
-            Get Started Now
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.08, backgroundColor: "#1e293b" }}
-            whileTap={{ scale: 0.95 }}
-            className="px-10 py-4 bg-transparent border-2 border-gray-400 text-gray-200 font-bold text-lg rounded-full backdrop-blur-sm"
-          >
-            Learn More
-          </motion.button>
-        </motion.div>
-      </motion.div>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 50px rgba(168, 85, 247, 0.8)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-[length:200%_100%] hover:bg-right text-white font-bold text-lg rounded-full shadow-2xl transition-all duration-500 backdrop-blur-sm border border-purple-400/50"
+              >
+                🚀 Get Started Free
+              </motion.button>
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 backdrop-blur-xl bg-white/5 border-2 border-white/30 text-white font-bold text-lg rounded-full hover:border-cyan-400/70 transition-all duration-300"
+              >
+                📖 Learn More
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Right Side - Floating Cards */}
+          <div className="relative hidden lg:block h-[600px]">
+            {/* Central Glow */}
+            <motion.div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.5, 1],
+                rotate: [0, 180, 360],
+              }}
+              transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+            />
+
+            {/* Floating Cards */}
+            {floatingCards.map((card, index) => (
+              <motion.div
+                key={index}
+                ref={(el) => (floatingCardsRef.current[index] = el)}
+                className="absolute"
+                style={{
+                  top: `${index * 30 + 10}%`,
+                  right: `${index * 15}%`,
+                }}
+                animate={{
+                  y: [0, -20, 0],
+                  rotate: [0, 5, 0, -5, 0],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4 + index,
+                  ease: "easeInOut",
+                  delay: index * 0.5,
+                }}
+                whileHover={{ scale: 1.1, rotate: 0, y: -10 }}
+              >
+                <div
+                  className={`backdrop-blur-2xl bg-gradient-to-br ${card.color} border ${card.borderColor} rounded-3xl p-6 shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 w-56`}
+                >
+                  <div className="text-5xl mb-3">{card.icon}</div>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm text-gray-300">{card.desc}</p>
+                  
+                  {/* Animated progress bar */}
+                  <motion.div
+                    className="mt-4 h-1 bg-white/20 rounded-full overflow-hidden"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "100%" }}
+                    transition={{ duration: 1, delay: 1 + index * 0.3 }}
+                  >
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-purple-400 to-pink-400"
+                      animate={{ x: ["-100%", "100%"] }}
+                      transition={{
+                        repeat: Infinity,
+                        duration: 2,
+                        ease: "linear",
+                      }}
+                    />
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Decorative Elements */}
+            <motion.div
+              className="absolute top-10 right-10 w-20 h-20 border-4 border-purple-400/30 rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+            />
+            <motion.div
+              className="absolute bottom-20 right-32 w-16 h-16 border-4 border-pink-400/30 rounded-lg"
+              animate={{ rotate: -360 }}
+              transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+            />
+            <motion.div
+              className="absolute top-1/2 right-5 w-12 h-12 bg-cyan-400/20 rounded-full blur-xl"
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Gradient Fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
     </section>
   );
 };
