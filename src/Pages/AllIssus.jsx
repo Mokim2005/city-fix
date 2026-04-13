@@ -166,7 +166,7 @@ const AllIssus = () => {
   return (
     <div
       style={{
-        backgroundImage: `url('https://www.squareyards.com/blog/wp-content/uploads/2023/12/surat.jpg')`,
+        backgroundImage: `url('https://media.gettyimages.com/id/687917386/photo/empty-downtown-street-intersection-shot-in-shanghai.jpg?s=612x612&w=gi&k=20&c=JOM5VuxixrIxvcIS6hLBguLPejiz_1UoW7LHX_nLWLs=')`,
         backgroundAttachment: "fixed",
         backgroundSize: "cover",
         backgroundPosition: "center",
