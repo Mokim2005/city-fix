@@ -52,10 +52,7 @@ const BannerReport = () => {
   };
 
   return (
-    <section className="relative py-20 lg:py-28 text-white overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
-      {/* Glassy overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-transparent to-purple-900/10" />
-
+    <section className="relative py-20 lg:py-28 text-white overflow-hidden">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 md:px-10 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -40 }}

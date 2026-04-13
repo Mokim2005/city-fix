@@ -92,10 +92,10 @@ const Banner = () => {
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden flex items-center">
-      {/* Background Image - Full Screen Width (no container) */}
-      <div className="fixed inset-0 z-0 w-screen h-screen">
+      {/* Background Image - Only for this Banner section */}
+      <div className="absolute inset-0 z-0">
         <img
-          src="https://img.freepik.com/premium-photo/asphalt-road-modern-city_1127-6420.jpg?semt=ais_hybrid&w=740&q=80"
+          src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2l0eXxlbnwwfHwwfHx8MA%3D%3D"
           alt="City Background"
           className="w-full h-full object-cover blur-[2px]"
         />

@@ -29,10 +29,7 @@ const BannerSlider = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative text-white py-16 md:py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
-      {/* Glassy overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-transparent to-pink-900/10" />
-      
+    <section ref={sectionRef} className="relative text-white py-16 md:py-20 lg:py-28 overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           {/* Left Side - Text Content with Glassy Effect */}

@@ -55,10 +55,7 @@ const LatestResolvedIssues = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
-      {/* Glassy overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-transparent to-purple-900/10" />
-
+    <div className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 overflow-hidden">
       <div className="relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -30 }}

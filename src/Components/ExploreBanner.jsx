@@ -229,10 +229,7 @@ const App = () => {
   ];
 
   return (
-    <div className="relative text-white min-h-screen selection:bg-purple-600/30 overflow-x-hidden bg-gradient-to-b from-black via-gray-900 to-black">
-      {/* Glassy overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-transparent to-pink-900/10" />
-
+    <div className="relative text-white min-h-screen selection:bg-purple-600/30 overflow-x-hidden">
       {/* Hero Section */}
       <header ref={headerRef} className="relative z-10 pt-20 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 text-center">
         <motion.div
