@@ -10,6 +10,10 @@ const UsersManagement = () => {
   const axiosSecure = UseAxiosSecure();
   const [searchText, setSearchText] = useState("");
 
+  // 👉 pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   const {
     refetch,
     data: users = [],
@@ -58,6 +62,19 @@ const UsersManagement = () => {
         });
       }
     });
+  };
+
+  // 👉 Pagination Logic
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedUsers = users.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (isLoading) {
@@ -121,7 +138,7 @@ const UsersManagement = () => {
 
             <tbody className="divide-y divide-white/20">
               <AnimatePresence>
-                {users.map((user, i) => (
+                {paginatedUsers.map((user, i) => (
                   <motion.tr
                     key={user._id}
                     variants={rowVariants}
@@ -131,9 +148,10 @@ const UsersManagement = () => {
                     transition={{ delay: i * 0.03 }}
                     whileHover={{ backgroundColor: "rgba(255,255,255,0.08)" }}
                   >
-                    <td className="px-4 md:px-6 py-4 text-center">{i + 1}</td>
+                    <td className="px-4 md:px-6 py-4 text-center">
+                      {startIndex + i + 1}
+                    </td>
 
-                    {/* User */}
                     <td className="px-4 md:px-6 py-4 flex items-center gap-3">
                       {user.photoURL ? (
                         <img
@@ -157,7 +175,6 @@ const UsersManagement = () => {
                       {user.email}
                     </td>
 
-                    {/* Role */}
                     <td className="px-4 md:px-6 py-4">
                       <span
                         className={`px-3 py-1 rounded-full text-xs ${
@@ -170,7 +187,6 @@ const UsersManagement = () => {
                       </span>
                     </td>
 
-                    {/* Action */}
                     <td className="px-4 md:px-6 py-4 text-center">
                       {user.role === "admin" ? (
                         <button
@@ -195,6 +211,44 @@ const UsersManagement = () => {
           </table>
         </div>
       </motion.div>
+
+      {/* Pagination UI */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8 gap-2 flex-wrap">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg"
+          >
+            Prev
+          </button>
+
+          {[...Array(totalPages)].map((_, i) => {
+            const page = i + 1;
+            return (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`px-4 py-2 rounded-lg ${
+                  currentPage === page
+                    ? "bg-indigo-500 text-white"
+                    : "bg-white/10"
+                }`}
+              >
+                {page}
+              </button>
+            );
+          })}
+
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
