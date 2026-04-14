@@ -102,7 +102,7 @@ const ViewPayments = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-100 p-4 md:p-8">
+    <div className="min-h-screen  text-gray-100 p-4 md:p-8">
       {/* Header */}
       <div className="mb-8">
         <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
@@ -112,7 +112,7 @@ const ViewPayments = () => {
       </div>
 
       {/* Total Revenue Card */}
-      <div className="bg-gradient-to-r from-emerald-600 to-teal-600 p-6 rounded-2xl shadow-2xl mb-8 max-w-md mx-auto">
+      <div className="p-6 rounded-2xl shadow-2xl mb-8 max-w-md mx-auto">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-lg font-semibold text-white/90">Total Revenue</p>
