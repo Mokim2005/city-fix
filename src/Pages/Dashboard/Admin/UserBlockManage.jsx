@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
-import Swal from "sweetalert2"; // ← এটা যোগ করো (যদি না থাকে)
+import Swal from "sweetalert2";
 import Loading from "../../../Components/Loading";
 
 const UserBlockManage = () => {
   const axiosSecure = UseAxiosSecure();
   const queryClient = useQueryClient();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["users"],
@@ -26,22 +29,12 @@ const UserBlockManage = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["users"]);
-      // Success message after update
       Swal.fire({
         icon: "success",
         title: "Updated!",
-        text: "User status has been changed successfully.",
+        text: "User status changed successfully.",
         timer: 2000,
         showConfirmButton: false,
-        background: "#1f2937",
-        color: "#fff",
-      });
-    },
-    onError: () => {
-      Swal.fire({
-        icon: "error",
-        title: "Failed!",
-        text: "Could not update user status. Try again.",
         background: "#1f2937",
         color: "#fff",
       });
@@ -50,29 +43,13 @@ const UserBlockManage = () => {
 
   const handleBlock = async (user, blocked) => {
     const action = blocked ? "Block" : "Unblock";
-    const statusText = blocked ? "blocked" : "unblocked";
 
     const result = await Swal.fire({
       title: `${action} User?`,
-      html: `
-        <p>Are you sure you want to <strong>${action.toLowerCase()}</strong> this user?</p>
-        <div class="mt-4 p-4 bg-gray-700 rounded-lg">
-          <p class="text-lg font-semibold">${user.displayName || "N/A"}</p>
-          <p class="text-sm text-gray-300">${user.email}</p>
-        </div>
-      `,
-      icon: blocked ? "warning" : "question",
+      text: `Are you sure you want to ${action.toLowerCase()} this user?`,
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: `Yes, ${action} User`,
-      cancelButtonText: "Cancel",
-      confirmButtonColor: blocked ? "#ef4444" : "#10b981",
-      cancelButtonColor: "#6b7280",
-      background: "#1f2937",
-      color: "#fff",
-      customClass: {
-        popup: "rounded-2xl",
-        title: "text-2xl",
-      },
+      confirmButtonText: `Yes`,
     });
 
     if (result.isConfirmed) {
@@ -80,9 +57,20 @@ const UserBlockManage = () => {
     }
   };
 
-  if (isLoading) {
-    return Loading
-  }
+  // Pagination
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedUsers = users.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (isLoading) return <Loading />;
 
   const rowVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -90,38 +78,39 @@ const UserBlockManage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6 md:p-10">
-      <title>Block User Manage</title>
+    <div className="min-h-screen text-white p-4 md:p-6 lg:p-10">
+      <title>User Block Manage</title>
+
+      {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold mb-10 text-center bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"
+        className="text-3xl md:text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"
       >
-        Manage Users
+        Manage Users ({users.length})
       </motion.h2>
 
-      {/* Users Table */}
+      {/* Table */}
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7 }}
-        className="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-700"
+        className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl overflow-hidden border border-white/30"
       >
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-gray-700 to-gray-800 text-left text-sm font-semibold uppercase tracking-wider">
-                <th className="px-8 py-6">Name</th>
-                <th className="px-8 py-6">Email</th>
-                <th className="px-8 py-6">Subscription</th>
-                <th className="px-8 py-6">Status</th>
-                <th className="px-8 py-6 text-center">Action</th>
+              <tr className="bg-gradient-to-r from-indigo-600/40 to-purple-600/40 text-left text-xs md:text-sm font-semibold uppercase">
+                <th className="px-4 md:px-6 py-4">Name</th>
+                <th className="px-4 md:px-6 py-4 hidden sm:table-cell">Email</th>
+                <th className="px-4 md:px-6 py-4">Subscription</th>
+                <th className="px-4 md:px-6 py-4">Status</th>
+                <th className="px-4 md:px-6 py-4 text-center">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700">
+
+            <tbody className="divide-y divide-white/20">
               <AnimatePresence>
-                {users.map((user, index) => (
+                {paginatedUsers.map((user, index) => (
                   <motion.tr
                     key={user._id}
                     variants={rowVariants}
@@ -129,59 +118,68 @@ const UserBlockManage = () => {
                     animate="visible"
                     exit="hidden"
                     transition={{ delay: index * 0.03 }}
-                    whileHover={{ backgroundColor: "rgba(55, 65, 81, 0.6)" }}
-                    className="transition-colors"
+                    whileHover={{ backgroundColor: "rgba(255,255,255,0.08)" }}
                   >
-                    <td className="px-8 py-6 flex items-center space-x-4">
+                    {/* Name */}
+                    <td className="px-4 md:px-6 py-4 flex items-center gap-3">
                       {user.photoURL ? (
                         <img
                           src={user.photoURL}
-                          alt={user.displayName}
-                          className="w-10 h-10 rounded-full object-cover border-2 border-indigo-500"
+                          className="w-10 h-10 rounded-full border border-white/30"
                         />
                       ) : (
-                        <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center text-lg font-bold">
-                          {user.displayName?.charAt(0).toUpperCase() || "U"}
+                        <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+                          {user.displayName?.charAt(0) || "U"}
                         </div>
                       )}
-                      <span className="font-medium">
-                        {user.displayName || "N/A"}
-                      </span>
+                      <span>{user.displayName || "N/A"}</span>
                     </td>
-                    <td className="px-8 py-6 text-gray-300">{user.email}</td>
-                    <td className="px-8 py-6">
+
+                    {/* Email */}
+                    <td className="px-4 md:px-6 py-4 hidden sm:table-cell">
+                      {user.email}
+                    </td>
+
+                    {/* Subscription */}
+                    <td className="px-4 md:px-6 py-4 text-center">
                       <span
-                        className={`inline-flex px-4 py-2 rounded-full text-xs font-bold ${
+                        className={`px-3 py-1 rounded-full text-xs ${
                           user.isPremium
-                            ? "bg-purple-600/30 text-purple-300"
-                            : "bg-gray-600/30 text-gray-300"
+                            ? "bg-purple-500/30 text-purple-300"
+                            : "bg-gray-500/30 text-gray-300"
                         }`}
                       >
                         {user.isPremium ? "Premium" : "Free"}
                       </span>
                     </td>
-                    <td className="px-8 py-6">
+
+                    {/* Status */}
+                    <td className="px-4 md:px-6 py-4 text-center">
                       <span
-                        className={`inline-flex px-4 py-2 rounded-full text-xs font-bold ${
+                        className={`px-3 py-1 rounded-full text-xs ${
                           user.blocked
-                            ? "bg-red-600/40 text-red-300"
-                            : "bg-green-600/40 text-green-300"
+                            ? "bg-red-500/30 text-red-300"
+                            : "bg-green-500/30 text-green-300"
                         }`}
                       >
                         {user.blocked ? "Blocked" : "Active"}
                       </span>
                     </td>
-                    <td className="px-8 py-6 text-center">
+
+                    {/* Action */}
+                    <td className="px-4 md:px-6 py-4 text-center">
                       <motion.button
-                        whileHover={{ scale: 1.08 }}
+                        whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => handleBlock(user, !user.blocked)}
+                        onClick={() =>
+                          handleBlock(user, !user.blocked)
+                        }
                         disabled={blockMutation.isPending}
-                        className={`px-8 py-3 rounded-lg font-medium shadow-lg transition ${
+                        className={`px-4 py-2 rounded-lg text-white text-sm ${
                           user.blocked
-                            ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:shadow-green-500/30"
-                            : "bg-gradient-to-r from-red-600 to-pink-600 text-white hover:shadow-red-500/30"
-                        } disabled:opacity-50 disabled:cursor-not-allowed`}
+                            ? "bg-green-600"
+                            : "bg-red-600"
+                        }`}
                       >
                         {blockMutation.isPending
                           ? "Processing..."
@@ -197,6 +195,44 @@ const UserBlockManage = () => {
           </table>
         </div>
       </motion.div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <motion.div className="flex flex-wrap justify-center gap-2 mt-8">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg"
+          >
+            Prev
+          </button>
+
+          {[...Array(totalPages)].map((_, index) => {
+            const page = index + 1;
+            return (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`px-4 py-2 rounded-lg ${
+                  currentPage === page
+                    ? "bg-indigo-500 text-white"
+                    : "bg-white/10"
+                }`}
+              >
+                {page}
+              </button>
+            );
+          })}
+
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg"
+          >
+            Next
+          </button>
+        </motion.div>
+      )}
     </div>
   );
 };
