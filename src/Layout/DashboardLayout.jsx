@@ -128,7 +128,7 @@ const DashboardLayout = () => {
               <li>
                 <Link
                   to="/"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl transition-all duration-300 mb-4"
+                  className="backdrop-blur-xl bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl transition-all duration-300 mb-4 tooltip tooltip-right"
                   data-tip="Homepage"
                 >
                   <motion.img
@@ -149,7 +149,7 @@ const DashboardLayout = () => {
                   to="/dashboard"
                   end
                   className={({ isActive }) =>
-                    `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                    `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                       isActive
                         ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                         : "bg-white/10 hover:bg-white/20 text-white"
@@ -171,7 +171,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/all-issus-table"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -190,7 +190,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/manage-staff"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -209,7 +209,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/my-profile"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -228,7 +228,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/user-block-manage"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -247,7 +247,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/user-management"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -266,7 +266,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/view-payments"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -290,7 +290,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/assigned-issues"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -309,7 +309,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/my-profile"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -333,7 +333,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/my-issus"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
@@ -352,7 +352,7 @@ const DashboardLayout = () => {
                     <NavLink
                       to="/dashboard/my-profile"
                       className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 ${
+                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
                           isActive
                             ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                             : "bg-white/10 hover:bg-white/20 text-white"
