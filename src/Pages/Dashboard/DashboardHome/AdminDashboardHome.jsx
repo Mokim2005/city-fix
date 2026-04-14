@@ -84,13 +84,13 @@ const AdminDashboardHome = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6 md:p-8">
+    <div className="min-h-screen text-white p-6 md:p-8">
      <title>Admin Dashboard</title>
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"
+        className="text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg"
       >
         Admin Dashboard
       </motion.h2>
@@ -136,14 +136,14 @@ const AdminDashboardHome = () => {
             variants={cardVariants}
             whileHover={{ scale: 1.05, y: -8 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="relative overflow-hidden rounded-2xl bg-gradient-to-br p-6 shadow-2xl border border-gray-800"
+            className="relative overflow-hidden rounded-2xl backdrop-blur-xl bg-white/10 p-6 shadow-2xl border border-white/30"
           >
             <div
-              className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-20`}
+              className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-30`}
             />
             <div className="relative z-10">
-              <p className="text-sm font-medium text-gray-400">{item.label}</p>
-              <p className="text-3xl font-bold mt-2">{item.value}</p>
+              <p className="text-sm font-medium text-gray-200">{item.label}</p>
+              <p className="text-3xl font-bold mt-2 text-white">{item.value}</p>
             </div>
           </motion.div>
         ))}
@@ -154,9 +154,9 @@ const AdminDashboardHome = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="bg-gray-800 rounded-2xl shadow-2xl p-8 mb-10 border border-gray-700"
+        className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-8 mb-10 border border-white/30"
       >
-        <h3 className="text-2xl font-semibold mb-6 text-indigo-400">
+        <h3 className="text-2xl font-semibold mb-6 text-purple-300">
           Issues by Status
         </h3>
         <div className="h-96">
@@ -196,10 +196,10 @@ const AdminDashboardHome = () => {
           <motion.div
             key={secIndex}
             variants={cardVariants}
-            className="bg-gray-800 rounded-2xl shadow-2xl p-6 border border-gray-700"
+            className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 border border-white/30"
             whileHover={{ y: -5 }}
           >
-            <h3 className="text-xl font-semibold mb-5 text-purple-400">
+            <h3 className="text-xl font-semibold mb-5 text-purple-300">
               {section.title}
             </h3>
             <ul className="space-y-4">
@@ -212,7 +212,7 @@ const AdminDashboardHome = () => {
                     animate="visible"
                     exit="hidden"
                     transition={{ delay: idx * 0.05 }}
-                    className="bg-gray-700/50 rounded-lg px-4 py-3 hover:bg-gray-600/50 transition-colors"
+                    className="backdrop-blur-md bg-white/10 rounded-lg px-4 py-3 hover:bg-white/20 transition-colors text-white"
                   >
                     {section.display(item)}
                   </motion.li>

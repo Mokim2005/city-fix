@@ -121,14 +121,14 @@ const StafDashboardHome = () => {
 
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 p-6 md:p-8"
+      className="min-h-screen text-white p-6 md:p-8"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <title>Staff Dashboard</title>
       <motion.h2
-        className="text-3xl md:text-4xl font-extrabold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-violet-500"
+        className="text-3xl md:text-4xl font-extrabold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 drop-shadow-lg"
         variants={itemVariants}
       >
         Staff Dashboard Overview
@@ -139,47 +139,47 @@ const StafDashboardHome = () => {
         variants={containerVariants}
       >
         <motion.div
-          className="bg-slate-800/60 backdrop-blur-md border border-slate-700 rounded-2xl p-6 shadow-2xl hover:shadow-cyan-500/20 transition-shadow duration-300"
+          className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl hover:shadow-cyan-500/50 transition-shadow duration-300"
           variants={itemVariants}
           whileHover={{ scale: 1.03 }}
         >
-          <h3 className="text-lg font-semibold text-slate-300 mb-2">
+          <h3 className="text-lg font-semibold text-gray-200 mb-2">
             Assigned Issues
           </h3>
-          <p className="text-4xl font-bold text-cyan-400">
+          <p className="text-4xl font-bold text-cyan-300">
             {stats.assignedCount ?? 0}
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-slate-800/60 backdrop-blur-md border border-slate-700 rounded-2xl p-6 shadow-2xl hover:shadow-green-500/20 transition-shadow duration-300"
+          className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl hover:shadow-green-500/50 transition-shadow duration-300"
           variants={itemVariants}
           whileHover={{ scale: 1.03 }}
         >
-          <h3 className="text-lg font-semibold text-slate-300 mb-2">
+          <h3 className="text-lg font-semibold text-gray-200 mb-2">
             Resolved Issues
           </h3>
-          <p className="text-4xl font-bold text-green-400">
+          <p className="text-4xl font-bold text-green-300">
             {stats.resolvedCount ?? 0}
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-slate-800/60 backdrop-blur-md border border-slate-700 rounded-2xl p-6 shadow-2xl hover:shadow-yellow-500/20 transition-shadow duration-300"
+          className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl hover:shadow-yellow-500/50 transition-shadow duration-300"
           variants={itemVariants}
           whileHover={{ scale: 1.03 }}
         >
-          <h3 className="text-lg font-semibold text-slate-300 mb-2">
+          <h3 className="text-lg font-semibold text-gray-200 mb-2">
             Today's Tasks
           </h3>
-          <p className="text-4xl font-bold text-yellow-400 mb-4">
+          <p className="text-4xl font-bold text-yellow-300 mb-4">
             {stats.todaysTasks?.length ?? 0}
           </p>
-          <ul className="space-y-2 text-sm text-slate-400">
+          <ul className="space-y-2 text-sm text-gray-200">
             {stats.todaysTasks?.map((task) => (
               <motion.li
                 key={task._id}
-                className="bg-slate-700/50 rounded-lg px-4 py-2"
+                className="backdrop-blur-md bg-white/10 rounded-lg px-4 py-2"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
@@ -193,10 +193,10 @@ const StafDashboardHome = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <motion.div
-          className="bg-slate-800/60 backdrop-blur-md border border-slate-700 rounded-2xl p-6 shadow-2xl"
+          className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl"
           variants={chartVariants}
         >
-          <h3 className="text-2xl font-bold mb-4 text-cyan-400">
+          <h3 className="text-2xl font-bold mb-4 text-purple-300">
             Issues by Status
           </h3>
           <div className="h-80">
@@ -205,10 +205,10 @@ const StafDashboardHome = () => {
         </motion.div>
 
         <motion.div
-          className="bg-slate-800/60 backdrop-blur-md border border-slate-700 rounded-2xl p-6 shadow-2xl"
+          className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl"
           variants={chartVariants}
         >
-          <h3 className="text-2xl font-bold mb-4 text-violet-400">
+          <h3 className="text-2xl font-bold mb-4 text-pink-300">
             Issues by Priority
           </h3>
           <div className="h-80">

@@ -50,26 +50,15 @@ const UserDashboardHome = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="relative p-8 bg-gradient-to-br from-gray-900 to-indigo-950 min-h-screen text-gray-100 overflow-hidden"
+      className="relative p-8 min-h-screen text-white overflow-hidden"
     >
       <title>User Dashboard</title>
-      {/* Floating subtle shapes for dark, techy vibe */}
-      <motion.div
-        className="absolute top-10 left-10 w-48 h-48 bg-indigo-800/20 rounded-full blur-3xl"
-        animate={{ y: [0, -20, 0], x: [0, 20, 0] }}
-        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-64 h-64 bg-purple-800/20 rounded-full blur-3xl"
-        animate={{ y: [0, 30, 0], x: [0, -30, 0] }}
-        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-      />
 
       <motion.h1
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-4xl font-extrabold mb-10 text-center bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent"
+        className="text-4xl font-extrabold mb-10 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg"
       >
         Dashboard
       </motion.h1>
@@ -80,46 +69,46 @@ const UserDashboardHome = () => {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="stat bg-gray-800/80 backdrop-blur-md rounded-xl shadow-lg border border-indigo-500/30"
+          className="stat backdrop-blur-xl bg-white/10 rounded-xl shadow-lg border border-white/30"
         >
-          <div className="stat-title text-gray-400">Total Issues</div>
-          <div className="stat-value text-cyan-400">{stats.total}</div>
+          <div className="stat-title text-gray-200">Total Issues</div>
+          <div className="stat-value text-cyan-300">{stats.total}</div>
         </motion.div>
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="stat bg-gray-800/80 backdrop-blur-md rounded-xl shadow-lg border border-amber-500/30"
+          className="stat backdrop-blur-xl bg-white/10 rounded-xl shadow-lg border border-white/30"
         >
-          <div className="stat-title text-gray-400">Pending</div>
-          <div className="stat-value text-amber-400">{stats.pending}</div>
+          <div className="stat-title text-gray-200">Pending</div>
+          <div className="stat-value text-amber-300">{stats.pending}</div>
         </motion.div>
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="stat bg-gray-800/80 backdrop-blur-md rounded-xl shadow-lg border border-blue-500/30"
+          className="stat backdrop-blur-xl bg-white/10 rounded-xl shadow-lg border border-white/30"
         >
-          <div className="stat-title text-gray-400">In Progress</div>
-          <div className="stat-value text-blue-400">{stats.inProgress}</div>
+          <div className="stat-title text-gray-200">In Progress</div>
+          <div className="stat-value text-blue-300">{stats.inProgress}</div>
         </motion.div>
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="stat bg-gray-800/80 backdrop-blur-md rounded-xl shadow-lg border border-green-500/30"
+          className="stat backdrop-blur-xl bg-white/10 rounded-xl shadow-lg border border-white/30"
         >
-          <div className="stat-title text-gray-400">Resolved</div>
-          <div className="stat-value text-green-400">{stats.resolved}</div>
+          <div className="stat-title text-gray-200">Resolved</div>
+          <div className="stat-value text-green-300">{stats.resolved}</div>
         </motion.div>
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="stat bg-gray-800/80 backdrop-blur-md rounded-xl shadow-lg border border-purple-500/30"
+          className="stat backdrop-blur-xl bg-white/10 rounded-xl shadow-lg border border-white/30"
         >
-          <div className="stat-title text-gray-400">Total Payments</div>
-          <div className="stat-value text-purple-400">${stats.payments}</div>
+          <div className="stat-title text-gray-200">Total Payments</div>
+          <div className="stat-value text-purple-300">${stats.payments}</div>
         </motion.div>
       </div>
 
@@ -128,9 +117,9 @@ const UserDashboardHome = () => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.8 }}
-        className="card bg-gray-800/80 backdrop-blur-md shadow-xl p-6 rounded-xl border border-indigo-500/30"
+        className="card backdrop-blur-xl bg-white/10 shadow-xl p-6 rounded-xl border border-white/30"
       >
-        <h2 className="text-2xl font-semibold mb-4 text-gray-200">
+        <h2 className="text-2xl font-semibold mb-4 text-white">
           Issue Status Overview
         </h2>
         <div className="max-w-md mx-auto">
@@ -139,7 +128,7 @@ const UserDashboardHome = () => {
             options={{
               responsive: true,
               plugins: {
-                legend: { position: "bottom", labels: { color: "#e5e7eb" } },
+                legend: { position: "bottom", labels: { color: "#ffffff" } },
               },
             }}
           />

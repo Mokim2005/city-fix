@@ -90,37 +90,16 @@ const MyIssus = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950 text-gray-100 p-8"
+      className="relative min-h-screen overflow-hidden text-white p-8"
     >
       <title>My Issues</title>
-      {/* Futuristic Background Elements */}
-      <div className="absolute inset-0 opacity-30">
-        <img
-          src="https://thumbs.dreamstime.com/b/abstract-futuristic-background-glowing-blue-pink-lines-digital-data-financial-charts-network-connections-perfect-tech-384785084.jpg"
-          alt="futuristic background"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-indigo-900/70 to-purple-900/80" />
-      </div>
-
-      {/* Floating Blobs */}
-      <motion.div
-        className="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl"
-        animate={{ y: [0, -30, 0], x: [0, 40, 0] }}
-        transition={{ repeat: Infinity, duration: 15, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl"
-        animate={{ y: [0, 40, 0], x: [0, -40, 0] }}
-        transition={{ repeat: Infinity, duration: 18, ease: "easeInOut" }}
-      />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.h1
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent"
+          className="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg"
         >
           My Issues ({filteredReports.length})
         </motion.h1>
@@ -144,8 +123,8 @@ const MyIssus = () => {
               className={`px-6 py-3 rounded-full font-medium transition-all 
                 ${
                   filter === status
-                    ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/50"
-                    : "bg-gray-800/50 backdrop-blur-sm text-gray-300 border border-gray-700 hover:border-purple-500"
+                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
+                    : "backdrop-blur-xl bg-white/10 text-white border border-white/30 hover:border-purple-400"
                 }`}
             >
               {status.replace("-", " ").toUpperCase()}
@@ -158,7 +137,7 @@ const MyIssus = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="bg-gray-800/60 backdrop-blur-lg rounded-2xl shadow-2xl border border-purple-500/30 overflow-hidden"
+          className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl border border-white/30 overflow-hidden"
         >
           {isLoading ? (
             <div className="p-20 text-center">
@@ -168,7 +147,7 @@ const MyIssus = () => {
             <div className="overflow-x-auto">
               <table className="table w-full">
                 <thead>
-                  <tr className="bg-gradient-to-r from-purple-900/50 to-indigo-900/50 text-purple-200">
+                  <tr className="bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-white">
                     <th className="pl-6">#</th>
                     <th>Title</th>
                     <th>Location</th>
@@ -183,7 +162,7 @@ const MyIssus = () => {
                       initial={{ x: -50, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ delay: i * 0.05 }}
-                      className="border-b border-gray-700/50 hover:bg-white/5 transition"
+                      className="border-b border-white/20 hover:bg-white/10 transition"
                     >
                       <td className="pl-6">{i + 1}</td>
                       <td className="font-medium">{report.title}</td>
@@ -244,15 +223,15 @@ const MyIssus = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50"
         >
           <motion.div
             initial={{ scale: 0.8, y: 50, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             transition={{ type: "spring", damping: 20 }}
-            className="bg-gray-900/80 backdrop-blur-xl p-8 rounded-2xl w-full max-w-lg border border-purple-500/50 shadow-2xl shadow-purple-600/30"
+            className="backdrop-blur-xl bg-white/10 p-8 rounded-2xl w-full max-w-lg border border-white/30 shadow-2xl"
           >
-            <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg">
               Edit Issue
             </h2>
 
@@ -260,28 +239,28 @@ const MyIssus = () => {
               <input
                 name="title"
                 defaultValue={editData.title}
-                className="input input-bordered w-full bg-gray-800/50 border-purple-500/50 focus:border-purple-400 text-white"
+                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-purple-400 text-white placeholder-gray-300"
                 placeholder="Title"
                 required
               />
               <textarea
                 name="description"
                 defaultValue={editData.description}
-                className="textarea textarea-bordered w-full bg-gray-800/50 border-purple-500/50 focus:border-purple-400 text-white h-32"
+                className="textarea textarea-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-purple-400 text-white placeholder-gray-300 h-32"
                 placeholder="Description"
                 required
               />
               <input
                 name="location"
                 defaultValue={editData.location}
-                className="input input-bordered w-full bg-gray-800/50 border-purple-500/50 focus:border-purple-400 text-white"
+                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-purple-400 text-white placeholder-gray-300"
                 placeholder="Location"
                 required
               />
               <input
                 name="category"
                 defaultValue={editData.category}
-                className="input input-bordered w-full bg-gray-800/50 border-purple-500/50 focus:border-purple-400 text-white"
+                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-purple-400 text-white placeholder-gray-300"
                 placeholder="Category"
                 required
               />
@@ -291,7 +270,7 @@ const MyIssus = () => {
                   whileHover={{ scale: 1.05 }}
                   type="button"
                   onClick={() => setEditData(null)}
-                  className="px-6 py-3 bg-gray-700/70 rounded-lg hover:bg-gray-600 transition"
+                  className="px-6 py-3 backdrop-blur-md bg-white/10 rounded-lg hover:bg-white/20 transition text-white"
                 >
                   Cancel
                 </motion.button>
@@ -301,7 +280,7 @@ const MyIssus = () => {
                     boxShadow: "0 0 25px rgba(168, 85, 247, 0.6)",
                   }}
                   type="submit"
-                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg font-semibold shadow-lg"
+                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-semibold shadow-lg text-white"
                 >
                   Save Changes
                 </motion.button>
