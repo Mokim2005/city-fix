@@ -12,6 +12,8 @@ const AllIssusTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [selectedStaff, setSelectedStaff] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const { data: issues = [], isLoading: loadingIssues } = useQuery({
     queryKey: ["allIssues"],
@@ -153,6 +155,17 @@ const AllIssusTable = () => {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(sortedIssues.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedIssues = sortedIssues.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   if (loadingIssues || loadingStaff) {
     return <Loading />;
   }
@@ -163,15 +176,15 @@ const AllIssusTable = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6 md:p-10">
+    <div className="min-h-screen text-white p-4 md:p-6 lg:p-10">
     <title>All Issues Table</title>
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold mb-10 text-center bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"
+        className="text-3xl md:text-4xl font-extrabold mb-8 md:mb-10 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg"
       >
-        All Issues Management
+        All Issues Management ({sortedIssues.length})
       </motion.h2>
 
       {/* Table */}
@@ -179,23 +192,23 @@ const AllIssusTable = () => {
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7 }}
-        className="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-700"
+        className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl overflow-hidden border border-white/30"
       >
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-gray-700 to-gray-800 text-left text-sm font-semibold uppercase tracking-wider">
-                <th className="px-6 py-5">Title</th>
-                <th className="px-6 py-5">Category</th>
-                <th className="px-6 py-5">Status</th>
-                <th className="px-6 py-5">Priority</th>
-                <th className="px-6 py-5">Assigned Staff</th>
-                <th className="px-6 py-5 text-center">Actions</th>
+              <tr className="bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-left text-xs md:text-sm font-semibold uppercase tracking-wider">
+                <th className="px-3 md:px-6 py-4 md:py-5">Title</th>
+                <th className="px-3 md:px-6 py-4 md:py-5 hidden sm:table-cell">Category</th>
+                <th className="px-3 md:px-6 py-4 md:py-5">Status</th>
+                <th className="px-3 md:px-6 py-4 md:py-5 hidden lg:table-cell">Priority</th>
+                <th className="px-3 md:px-6 py-4 md:py-5 hidden xl:table-cell">Assigned Staff</th>
+                <th className="px-3 md:px-6 py-4 md:py-5 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700">
+            <tbody className="divide-y divide-white/20">
               <AnimatePresence>
-                {sortedIssues.map((issue, index) => (
+                {paginatedIssues.map((issue, index) => (
                   <motion.tr
                     key={issue._id}
                     variants={rowVariants}
@@ -203,29 +216,31 @@ const AllIssusTable = () => {
                     animate="visible"
                     exit="hidden"
                     transition={{ delay: index * 0.03 }}
-                    whileHover={{ backgroundColor: "rgba(55, 65, 81, 0.6)" }}
+                    whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
                     className="transition-colors"
                   >
-                    <td className="px-6 py-5 font-medium">{issue.title}</td>
-                    <td className="px-6 py-5">{issue.category}</td>
-                    <td className="px-6 py-5">
+                    <td className="px-3 md:px-6 py-4 md:py-5 font-medium text-sm md:text-base">
+                      <div className="line-clamp-2">{issue.title}</div>
+                    </td>
+                    <td className="px-3 md:px-6 py-4 md:py-5 hidden sm:table-cell text-sm md:text-base">{issue.category}</td>
+                    <td className="px-3 md:px-6 py-4 md:py-5">
                       <span
-                        className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${
+                        className={`inline-flex px-2 md:px-3 py-1 rounded-full text-xs font-semibold ${
                           issue.status === "pending"
-                            ? "bg-yellow-600/30 text-yellow-400"
+                            ? "bg-yellow-600/30 text-yellow-300"
                             : issue.status === "resolved"
-                            ? "bg-green-600/30 text-green-400"
+                            ? "bg-green-600/30 text-green-300"
                             : issue.status === "rejected"
-                            ? "bg-red-600/30 text-red-400"
-                            : "bg-indigo-600/30 text-indigo-400"
+                            ? "bg-red-600/30 text-red-300"
+                            : "bg-indigo-600/30 text-indigo-300"
                         }`}
                       >
                         {issue.status}
                       </span>
                     </td>
-                    <td className="px-6 py-5">
+                    <td className="px-3 md:px-6 py-4 md:py-5 hidden lg:table-cell">
                       <span
-                        className={`inline-flex px-3 py-1 rounded-full text-xs font-bold ${
+                        className={`inline-flex px-2 md:px-3 py-1 rounded-full text-xs font-bold ${
                           issue.priority === "High"
                             ? "bg-red-600/40 text-red-300"
                             : issue.priority === "Medium"
@@ -236,38 +251,40 @@ const AllIssusTable = () => {
                         {issue.priority}
                       </span>
                     </td>
-                    <td className="px-6 py-5">
+                    <td className="px-3 md:px-6 py-4 md:py-5 hidden xl:table-cell text-sm">
                       {issue.assignedStaffEmail ? (
-                        <span className="text-green-400">
+                        <span className="text-green-300">
                           {issue.assignedStaffEmail}
                         </span>
                       ) : (
-                        <span className="text-gray-500 italic">
+                        <span className="text-gray-400 italic">
                           Not Assigned
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-5 text-center space-x-3">
-                      {!issue.assignedStaffEmail && (
-                        <motion.button
-                          whileHover={{ scale: 1.08 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => handleAssign(issue)}
-                          className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-2 rounded-lg font-medium shadow-lg hover:shadow-indigo-500/30 transition"
-                        >
-                          Assign Staff
-                        </motion.button>
-                      )}
-                      {issue.status === "pending" && (
-                        <motion.button
-                          whileHover={{ scale: 1.08 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => handleReject(issue._id)}
-                          className="bg-gradient-to-r from-red-600 to-pink-600 text-white px-5 py-2 rounded-lg font-medium shadow-lg hover:shadow-red-500/30 transition"
-                        >
-                          Reject
-                        </motion.button>
-                      )}
+                    <td className="px-3 md:px-6 py-4 md:py-5 text-center">
+                      <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                        {!issue.assignedStaffEmail && (
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => handleAssign(issue)}
+                            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-purple-500/30 transition"
+                          >
+                            Assign
+                          </motion.button>
+                        )}
+                        {issue.status === "pending" && (
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => handleReject(issue._id)}
+                            className="bg-gradient-to-r from-red-600 to-pink-600 text-white px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-red-500/30 transition"
+                          >
+                            Reject
+                          </motion.button>
+                        )}
+                      </div>
                     </td>
                   </motion.tr>
                 ))}
@@ -277,6 +294,69 @@ const AllIssusTable = () => {
         </div>
       </motion.div>
 
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-wrap justify-center items-center gap-2 mt-8"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 backdrop-blur-xl bg-white/10 border border-white/30 rounded-lg text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/20 transition"
+          >
+            Previous
+          </motion.button>
+
+          {[...Array(totalPages)].map((_, index) => {
+            const page = index + 1;
+            // Show first page, last page, current page, and pages around current
+            if (
+              page === 1 ||
+              page === totalPages ||
+              (page >= currentPage - 1 && page <= currentPage + 1)
+            ) {
+              return (
+                <motion.button
+                  key={page}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-4 py-2 rounded-lg font-medium transition ${
+                    currentPage === page
+                      ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
+                      : "backdrop-blur-xl bg-white/10 border border-white/30 text-white hover:bg-white/20"
+                  }`}
+                >
+                  {page}
+                </motion.button>
+              );
+            } else if (page === currentPage - 2 || page === currentPage + 2) {
+              return (
+                <span key={page} className="text-white px-2">
+                  ...
+                </span>
+              );
+            }
+            return null;
+          })}
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 backdrop-blur-xl bg-white/10 border border-white/30 rounded-lg text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/20 transition"
+          >
+            Next
+          </motion.button>
+        </motion.div>
+      )}
+
       {/* Assign Staff Modal */}
       <AnimatePresence>
         {showModal && (
@@ -284,7 +364,7 @@ const AllIssusTable = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-md p-4"
             onClick={() => setShowModal(false)}
           >
             <motion.div
@@ -292,33 +372,33 @@ const AllIssusTable = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-md w-full border border-gray-700"
+              className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 md:p-8 max-w-md w-full border border-white/30"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-2xl font-bold mb-6 text-indigo-400">
+              <h3 className="text-xl md:text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Assign Staff to:{" "}
-                <span className="text-white">{selectedIssue?.title}</span>
+                <span className="text-white block mt-2">{selectedIssue?.title}</span>
               </h3>
 
               <select
                 value={selectedStaff}
                 onChange={(e) => setSelectedStaff(e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-6"
+                className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent mb-6"
               >
-                <option value="">Select a staff member</option>
+                <option value="" className="bg-gray-800">Select a staff member</option>
                 {staffList.map((s) => (
-                  <option key={s._id} value={s.email}>
+                  <option key={s._id} value={s.email} className="bg-gray-800">
                     {s.displayName} ({s.email})
                   </option>
                 ))}
               </select>
 
-              <div className="flex justify-end space-x-4">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 sm:space-x-4">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowModal(false)}
-                  className="px-6 py-3 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-500 transition"
+                  className="px-6 py-3 backdrop-blur-md bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition border border-white/30"
                 >
                   Cancel
                 </motion.button>
