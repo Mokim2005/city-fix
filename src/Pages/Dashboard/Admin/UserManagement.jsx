@@ -5,6 +5,7 @@ import { FaUserShield } from "react-icons/fa";
 import { FiShieldOff } from "react-icons/fi";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Loading from "../../../Components/Loading";
 
 const UsersManagement = () => {
   const axiosSecure = UseAxiosSecure();
@@ -79,9 +80,7 @@ const UsersManagement = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-white">
-        Loading...
-      </div>
+      <Loading></Loading>
     );
   }
 
