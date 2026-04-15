@@ -40,7 +40,11 @@ const UsersManagement = () => {
         axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then((res) => {
           if (res.data.modifiedCount > 0) {
             refetch();
-            Swal.fire("Success!", `${user.displayName} is now Admin`, "success");
+            Swal.fire(
+              "Success!",
+              `${user.displayName} is now Admin`,
+              "success",
+            );
           }
         });
       }
@@ -59,7 +63,11 @@ const UsersManagement = () => {
       if (result.isConfirmed) {
         axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then(() => {
           refetch();
-          Swal.fire("Removed!", `${user.displayName} is no longer admin`, "success");
+          Swal.fire(
+            "Removed!",
+            `${user.displayName} is no longer admin`,
+            "success",
+          );
         });
       }
     });
@@ -68,10 +76,7 @@ const UsersManagement = () => {
   // 👉 Pagination Logic
   const totalPages = Math.ceil(users.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedUsers = users.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const paginatedUsers = users.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -79,9 +84,7 @@ const UsersManagement = () => {
   };
 
   if (isLoading) {
-    return (
-      <Loading></Loading>
-    );
+    return <Loading></Loading>;
   }
 
   const rowVariants = {
@@ -129,7 +132,9 @@ const UsersManagement = () => {
               <tr className="bg-gradient-to-r from-indigo-600/40 to-purple-600/40 text-xs md:text-sm uppercase">
                 <th className="px-4 md:px-6 py-4">#</th>
                 <th className="px-4 md:px-6 py-4">User</th>
-                <th className="px-4 md:px-6 py-4 hidden sm:table-cell">Email</th>
+                <th className="px-4 md:px-6 py-4 hidden sm:table-cell">
+                  Email
+                </th>
                 <th className="px-4 md:px-6 py-4">Role</th>
                 <th className="px-4 md:px-6 py-4 text-center">Action</th>
               </tr>

@@ -143,7 +143,7 @@ const ViewPayments = () => {
         <select
           value={purposeFilter}
           onChange={(e) => setPurposeFilter(e.target.value)}
-          className="px-6 py-4 bg-gray-800/80 border border-gray-700 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="px-6 py-4 bg-gray-400/30 border border-gray-500 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="">All Types</option>
           <option value="subscribe">Subscription</option>
@@ -154,14 +154,14 @@ const ViewPayments = () => {
           type="month"
           value={monthFilter}
           onChange={(e) => setMonthFilter(e.target.value)}
-          className="px-6 py-4 bg-gray-800/80 border border-gray-700 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="px-6 py-4 bg-gray-400/30 border border-gray-500 rounded-xl text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
         />
       </div>
 
       {/* Payments List */}
       <div className="space-y-6">
         {payments.length === 0 ? (
-          <div className="text-center py-20 bg-gray-800/50 rounded-2xl">
+          <div className="text-center py-20 bg-gray-400/30 rounded-2xl">
             <h3 className="text-2xl font-bold text-gray-400">
               No Payments Found
             </h3>
@@ -175,7 +175,7 @@ const ViewPayments = () => {
           <>
             {/* Desktop Table */}
             <div className="hidden md:block overflow-x-auto">
-              <table className="w-full bg-gray-800/80 rounded-2xl overflow-hidden shadow-2xl">
+              <table className="bg-gray-400/30 g-gradient-to-r from-indigo-600/40 to-purple-600/40 text-xs md:text-sm uppercase">
                 <thead className="bg-gray-700/80">
                   <tr>
                     <th className="px-6 py-4 text-left">Date</th>
