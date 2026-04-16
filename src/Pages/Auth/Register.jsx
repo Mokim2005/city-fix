@@ -6,7 +6,6 @@ import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { GiBrassKnuckles } from "react-icons/gi";
 
 const Register = () => {
   const {
@@ -24,10 +23,7 @@ const Register = () => {
   const handleRegistration = (data) => {
     const profileImg = data.photo[0];
 
-    if (!profileImg) {
-      console.error("No photo selected");
-      return;
-    }
+    if (!profileImg) return;
 
     registeUser(data.email, data.password)
       .then(() => {
@@ -44,13 +40,13 @@ const Register = () => {
 
             await updateUserProfile({
               displayName: data.name,
-              photoURL: photoURL,
+              photoURL,
             });
 
             await axiosSecure.post("/users", {
               displayName: data.name,
               email: data.email,
-              photoURL: photoURL,
+              photoURL,
               role: "user",
             });
 
@@ -58,36 +54,39 @@ const Register = () => {
           }
         });
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => console.log(error.message));
   };
 
   return (
     <div
-      className="min-h-screen flex justify-center items-center p-6"
+      className="relative min-h-screen flex justify-center items-center p-6 bg-cover bg-center"
       style={{
-        background:
-          "radial-gradient(circle at 20% 20%, #8a05ff 0%, #2a014f 60%, #120025 100%)",
+        backgroundImage:
+          "url('https://t4.ftcdn.net/jpg/02/28/24/19/360_F_228241978_A0fCb310dVpIxcc20icBRYO6JqCA8nb8.jpg')",
       }}
     >
       <title>Register</title>
-      <div className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-purple-500/30 rounded-2xl shadow-2xl p-8">
-        <h3 className="text-3xl font-bold text-purple-300 text-center drop-shadow-lg">
+
+      {/* 🔥 Overlay */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+      {/* 🔥 Glass Card */}
+      <div className="relative w-full max-w-md backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8 z-10">
+        <h3 className="text-3xl font-bold text-white text-center">
           Create an Account
         </h3>
-        <p className="text-purple-200 text-center mb-6">
+        <p className="text-gray-300 text-center mb-6">
           Welcome to <span className="font-semibold">City Fix</span>
         </p>
 
         <form onSubmit={handleSubmit(handleRegistration)} className="space-y-5">
           {/* Name */}
           <div>
-            <label className="label text-purple-200">Name</label>
+            <label className="label text-gray-300">Name</label>
             <input
               type="text"
               {...register("name", { required: true })}
-              className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300 focus:outline-none"
+              className="input input-bordered w-full bg-white/10 text-white placeholder-gray-400 border-white/20 focus:border-cyan-400 focus:outline-none"
               placeholder="Your Name"
             />
             {errors.name && (
@@ -97,12 +96,12 @@ const Register = () => {
 
           {/* Photo */}
           <div>
-            <label className="label text-purple-200">Photo</label>
+            <label className="label text-gray-300">Photo</label>
             <input
               type="file"
               accept="image/*"
               {...register("photo", { required: true })}
-              className="file-input file-input-bordered w-full bg-white/20 text-white border-purple-400"
+              className="file-input file-input-bordered w-full bg-white/10 text-white border-white/20"
             />
             {errors.photo && (
               <p className="text-red-400 text-sm mt-1">Photo is required</p>
@@ -111,11 +110,11 @@ const Register = () => {
 
           {/* Email */}
           <div>
-            <label className="label text-purple-200">Email</label>
+            <label className="label text-gray-300">Email</label>
             <input
               type="email"
               {...register("email", { required: true })}
-              className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300 focus:outline-none"
+              className="input input-bordered w-full bg-white/10 text-white placeholder-gray-400 border-white/20 focus:border-cyan-400 focus:outline-none"
               placeholder="Email Address"
             />
             {errors.email && (
@@ -123,10 +122,9 @@ const Register = () => {
             )}
           </div>
 
-          {/* Password - Fully Fixed with Eye Icon */}
           {/* Password */}
           <div>
-            <label className="label text-purple-200">Password</label>
+            <label className="label text-gray-300">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -140,18 +138,17 @@ const Register = () => {
                     value:
                       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
                     message:
-                      "Password must contain at least one uppercase, one lowercase, one number and one special character (@$!%*?&)",
+                      "Password must contain uppercase, lowercase, number & special character",
                   },
                 })}
-                className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300 focus:outline-none pr-14"
+                className="input input-bordered w-full bg-white/10 text-white placeholder-gray-400 border-white/20 focus:border-cyan-400 focus:outline-none pr-14"
                 placeholder="Enter Password"
               />
 
-              {/* Eye Icon */}
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-purple-200 hover:text-purple-100 z-10"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-300 hover:text-white"
               >
                 {showPassword ? (
                   <FaEyeSlash className="w-5 h-5" />
@@ -161,7 +158,6 @@ const Register = () => {
               </button>
             </div>
 
-            {/* Error Messages */}
             {errors.password && (
               <p className="text-red-400 text-sm mt-1">
                 {errors.password.message}
@@ -169,17 +165,17 @@ const Register = () => {
             )}
           </div>
 
-          {/* Submit Button */}
-          <button className="btn w-full bg-purple-600 hover:bg-purple-700 border-none text-white shadow-lg hover:shadow-purple-800/50 transition">
+          {/* Button */}
+          <button className="btn w-full bg-gradient-to-r from-cyan-500 to-violet-500 border-none text-white shadow-lg hover:shadow-cyan-500/30 transition">
             Register
           </button>
 
-          <p className="text-purple-200 text-center mt-4">
+          <p className="text-gray-300 text-center mt-4">
             Already have an account?{" "}
             <Link
               to="/login"
               state={location?.state}
-              className="text-green-300 hover:text-green-200 font-medium"
+              className="text-cyan-400 hover:text-cyan-300 font-medium"
             >
               Login
             </Link>
