@@ -22,7 +22,6 @@ const DashboardLayout = () => {
   const logoRef = useRef(null);
 
   useEffect(() => {
-    // Logo animation
     if (logoRef.current) {
       gsap.fromTo(
         logoRef.current,
@@ -31,7 +30,6 @@ const DashboardLayout = () => {
       );
     }
 
-    // Sidebar animation
     if (sidebarRef.current) {
       gsap.fromTo(
         sidebarRef.current,
@@ -40,8 +38,6 @@ const DashboardLayout = () => {
       );
     }
   }, []);
-
-  console.log("this is role", role);
 
   return (
     <div
@@ -53,25 +49,19 @@ const DashboardLayout = () => {
       }}
       className="min-h-screen relative"
     >
-      {/* Background Overlay */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]"></div>
 
-      {/* Animated Background Orbs */}
+      {/* Background Orbs */}
       <motion.div
         className="absolute top-20 left-10 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+        animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ repeat: Infinity, duration: 10 }}
       />
       <motion.div
         className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"
-        animate={{
-          scale: [1, 1.4, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+        animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ repeat: Infinity, duration: 12 }}
       />
 
       <div className="drawer lg:drawer-open max-w-7xl mx-auto relative z-10">
@@ -79,36 +69,20 @@ const DashboardLayout = () => {
 
         {/* CONTENT */}
         <div className="drawer-content flex flex-col min-h-screen">
-          {/* Top Navbar */}
-          <motion.nav
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="navbar backdrop-blur-xl bg-gradient-to-r from-purple-900/80 to-pink-900/80 border-b border-white/20 shadow-xl sticky top-0 z-20"
-          >
+          <motion.nav className="navbar backdrop-blur-xl bg-gradient-to-r from-purple-900/80 to-pink-900/80 border-b border-white/20 shadow-xl sticky top-0 z-20">
             <label
               htmlFor="my-drawer-4"
-              aria-label="open sidebar"
-              className="btn btn-square btn-ghost lg:hidden backdrop-blur-xl bg-white/20 border border-white/30 text-white hover:bg-white/30"
+              className="btn btn-square btn-ghost lg:hidden backdrop-blur-xl bg-white/20 border border-white/30 text-white"
             >
               ☰
             </label>
-            <div className="px-4 flex items-center gap-3">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-black text-white drop-shadow-lg">
-                City Fix Dashboard
-              </div>
+            <div className="px-4 text-xl font-black text-white">
+              City Fix Dashboard
             </div>
           </motion.nav>
 
-          {/* Main Content Area */}
-          <div className="flex-1 p-4 sm:p-6 lg:p-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Outlet />
-            </motion.div>
+          <div className="flex-1 p-6">
+            <Outlet />
           </div>
         </div>
 
@@ -116,257 +90,76 @@ const DashboardLayout = () => {
         <div className="drawer-side z-30">
           <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
+          {/* ✅ FIX 1: overflow-visible added */}
           <motion.div
             ref={sidebarRef}
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex min-h-full flex-col backdrop-blur-2xl bg-gradient-to-b from-purple-900/90 to-pink-900/90 border-r border-white/20 shadow-2xl is-drawer-close:w-20 is-drawer-open:w-72"
+            className="flex min-h-full flex-col backdrop-blur-2xl bg-gradient-to-b from-purple-900/90 to-pink-900/90 border-r border-white/20 shadow-2xl is-drawer-close:w-20 is-drawer-open:w-72 overflow-visible"
           >
-            <ul className="menu w-full grow p-4 space-y-2">
-              {/* Logo/Home */}
+            <ul className="menu w-full grow p-4 space-y-2 overflow-visible">
+              
+              {/* Logo */}
               <li>
                 <Link
                   to="/"
-                  className="backdrop-blur-xl bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl transition-all duration-300 mb-4 tooltip tooltip-right"
+                  className="relative z-10 backdrop-blur-xl bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl mb-4 tooltip tooltip-right"
                   data-tip="Homepage"
                 >
                   <motion.img
                     ref={logoRef}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="w-12 h-12 object-contain"
+                    className="w-12 h-12"
                     src={logo}
                     alt="logo"
                   />
-                  <span className="is-drawer-close:hidden text-white font-bold text-lg">
-                    Homepage
-                  </span>
                 </Link>
               </li>
 
+              {/* Dashboard */}
               <li>
                 <NavLink
                   to="/dashboard"
-                  end
-                  className={({ isActive }) =>
-                    `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                      isActive
-                        ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                        : "bg-white/10 hover:bg-white/20 text-white"
-                    }`
-                  }
+                  className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
                   data-tip="Dashboard Home"
                 >
-                  <FaHome className="text-xl" />
-                  <span className="is-drawer-close:hidden font-semibold">
-                    Dashboard Home
-                  </span>
+                  <FaHome />
                 </NavLink>
               </li>
 
-              {/* ================= ADMIN ================= */}
+              {/* Admin */}
               {role === "admin" && (
                 <>
                   <li>
                     <NavLink
                       to="/dashboard/all-issus-table"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
+                      className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
                       data-tip="View All Issues"
                     >
-                      <MdOutlineViewCarousel className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        View All Issues
-                      </span>
+                      <MdOutlineViewCarousel />
                     </NavLink>
                   </li>
 
                   <li>
                     <NavLink
                       to="/dashboard/manage-staff"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
+                      className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
                       data-tip="Manage Staff"
                     >
-                      <MdManageAccounts className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        Manage Staff
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/my-profile"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
-                      data-tip="My Profile"
-                    >
-                      <ImProfile className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        My Profile
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/user-block-manage"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
-                      data-tip="User Block Manage"
-                    >
-                      <MdOutlineAppBlocking className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        User Block Manage
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/user-management"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
-                      data-tip="User Management"
-                    >
-                      <FaUsers className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        User Management
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/view-payments"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
-                      data-tip="View Payments"
-                    >
-                      <RiSecurePaymentFill className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        View Payments
-                      </span>
+                      <MdManageAccounts />
                     </NavLink>
                   </li>
                 </>
               )}
 
-              {/* ================= STAFF ================= */}
-              {role === "staff" && (
-                <>
-                  <li>
-                    <NavLink
-                      to="/dashboard/assigned-issues"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
-                      data-tip="Assigned Issues"
-                    >
-                      <MdOutlineAssignmentTurnedIn className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        Assigned Issues
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/my-profile"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
-                      data-tip="My Profile"
-                    >
-                      <ImProfile className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        My Profile
-                      </span>
-                    </NavLink>
-                  </li>
-                </>
-              )}
-
-              {/* ================= CITIZEN ================= */}
+              {/* User */}
               {role === "user" && (
-                <>
-                  <li>
-                    <NavLink
-                      to="/dashboard/my-issus"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
-                      data-tip="My Issues"
-                    >
-                      <TbReportSearch className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        My Issues
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/my-profile"
-                      className={({ isActive }) =>
-                        `backdrop-blur-xl border border-white/30 rounded-xl transition-all duration-300 tooltip tooltip-right ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                            : "bg-white/10 hover:bg-white/20 text-white"
-                        }`
-                      }
-                      data-tip="My Profile"
-                    >
-                      <ImProfile className="text-xl" />
-                      <span className="is-drawer-close:hidden font-semibold">
-                        My Profile
-                      </span>
-                    </NavLink>
-                  </li>
-                </>
+                <li>
+                  <NavLink
+                    to="/dashboard/my-issus"
+                    className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                    data-tip="My Issues"
+                  >
+                    <TbReportSearch />
+                  </NavLink>
+                </li>
               )}
             </ul>
           </motion.div>
