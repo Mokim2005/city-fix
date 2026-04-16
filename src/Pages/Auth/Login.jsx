@@ -28,29 +28,34 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen flex justify-center items-center p-6"
+      className="relative min-h-screen flex justify-center items-center p-6 bg-cover bg-center"
       style={{
-        background:
-          "radial-gradient(circle at 20% 20%, #8a05ff 0%, #2a014f 60%, #120025 100%)",
+        backgroundImage:
+          "url('https://t4.ftcdn.net/jpg/02/28/24/19/360_F_228241978_A0fCb310dVpIxcc20icBRYO6JqCA8nb8.jpg')",
       }}
     >
       <title>Login</title>
-      <div className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-purple-500/30 rounded-2xl shadow-2xl p-8">
-        <h3 className="text-3xl font-bold text-purple-300 text-center drop-shadow-lg">
+
+      {/* ✅ FIXED Overlay */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+      {/* ✅ Glass Card */}
+      <div className="relative w-full max-w-md backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8 z-10">
+        <h3 className="text-3xl font-bold text-white text-center">
           Welcome Back
         </h3>
-        <p className="text-purple-200 text-center mb-6">
+        <p className="text-gray-300 text-center mb-6">
           Please Login to continue
         </p>
 
         <form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
           {/* Email */}
           <div>
-            <label className="label text-purple-200">Email</label>
+            <label className="label text-gray-300">Email</label>
             <input
               {...register("email", { required: true })}
               type="email"
-              className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300 focus:outline-none"
+              className="input input-bordered w-full bg-white/10 text-white placeholder-gray-400 border-white/20 focus:border-cyan-400 focus:outline-none"
               placeholder="Enter your email"
             />
             {errors.email && (
@@ -58,22 +63,21 @@ const Login = () => {
             )}
           </div>
 
-          {/* Password - Fully Fixed Show/Hide */}
+          {/* Password */}
           <div>
-            <label className="label text-purple-200">Password</label>
+            <label className="label text-gray-300">Password</label>
             <div className="relative">
               <input
                 {...register("password", { required: true, minLength: 6 })}
                 type={showPassword ? "text" : "password"}
-                className="input input-bordered w-full bg-white/20 text-white placeholder-purple-300 border-purple-400 focus:border-purple-300 focus:outline-none pr-14" // ← pr-14 (আইকনের জায়গা বাড়ানো)
+                className="input input-bordered w-full bg-white/10 text-white placeholder-gray-400 border-white/20 focus:border-cyan-400 focus:outline-none pr-14"
                 placeholder="Enter your password"
               />
 
-              {/* 🔥 এখানে pointer-events-auto + z-10 দিয়ে বাটনকে সবার উপরে আনা হয়েছে */}
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-purple-200 hover:text-purple-100 z-10 pointer-events-auto"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-300 hover:text-white z-10"
               >
                 {showPassword ? (
                   <FaEyeSlash className="w-5 h-5" />
@@ -95,22 +99,22 @@ const Login = () => {
 
           {/* Forgot Password */}
           <div className="flex justify-end">
-            <a className="text-purple-300 hover:text-purple-100 cursor-pointer text-sm">
+            <a className="text-gray-300 hover:text-white cursor-pointer text-sm">
               Forgot password?
             </a>
           </div>
 
           {/* Login Button */}
-          <button className="btn w-full bg-purple-600 hover:bg-purple-700 border-none text-white shadow-lg hover:shadow-purple-800/50 transition">
+          <button className="btn w-full bg-gradient-to-r from-cyan-500 to-violet-500 border-none text-white shadow-lg hover:shadow-cyan-500/30 transition">
             Login
           </button>
 
-          <p className="text-purple-200 text-center mt-4">
+          <p className="text-gray-300 text-center mt-4">
             New to City Fix?{" "}
             <Link
               to="/register"
               state={location?.state}
-              className="text-green-300 hover:text-green-200 font-medium"
+              className="text-cyan-400 hover:text-cyan-300 font-medium"
             >
               Register
             </Link>
