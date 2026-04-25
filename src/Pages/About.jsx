@@ -2,154 +2,171 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaUsers, FaTools, FaShieldAlt } from "react-icons/fa";
 
-const About = () => {
-  const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 }
-    }
-  };
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 50 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const About = () => {
   return (
     <div className="relative min-h-screen text-white overflow-hidden">
 
-      {/* 🔥 Background Image */}
+      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1535689077097-a8726b5ff822?fm=jpg&q=60&w=3000&auto=format&fit=crop')",
+            "url('https://images.unsplash.com/photo-1535689077097-a8726b5ff822?auto=format&fit=crop&w=3000&q=60')",
         }}
-      ></div>
+      />
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
-      {/* 🔥 Dark + Glass Overlay */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-
-      {/* 🔥 Floating Gradient Blobs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+      {/* Floating Blobs */}
+      <div className="absolute top-10 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
 
       {/* Content */}
       <div className="relative z-10 px-4 md:px-10 py-20">
 
-        {/* Hero Section */}
+        {/* Hero */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="max-w-5xl mx-auto text-center mb-20"
+          className="max-w-4xl mx-auto text-center mb-24"
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            About <span className="text-cyan-400">City Fix</span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Building Smarter Cities with{" "}
+            <span className="text-cyan-400">City Fix</span>
           </h1>
           <p className="text-gray-300 text-lg md:text-xl">
-            A smart civic platform empowering citizens to report issues,
-            collaborate with authorities, and build better cities together.
+            Empowering citizens to report, track, and resolve urban issues with
+            transparency and efficiency.
           </p>
         </motion.div>
 
-        {/* Main Sections */}
-        <div className="max-w-6xl mx-auto space-y-16">
+        {/* Sections */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="max-w-6xl mx-auto space-y-20"
+        >
 
           {/* Mission & Vision */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {[{
-              title: "🎯 Our Mission",
-              text: "To bridge the gap between citizens and government with a transparent, fast, and efficient issue resolution system."
-            },
-            {
-              title: "🚀 Our Vision",
-              text: "To create smarter cities where technology drives accountability and improves daily urban life."
-            }].map((item, i) => (
+          <div className="grid md:grid-cols-2 gap-10">
+            {[
+              {
+                title: "🎯 Our Mission",
+                text: "Bridge the gap between citizens and government with a fast, transparent system.",
+              },
+              {
+                title: "🚀 Our Vision",
+                text: "Create smarter cities through accountability and modern technology.",
+              },
+            ].map((item, i) => (
               <motion.div
                 key={i}
                 variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-                className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-2xl"
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-8 shadow-xl transition-all duration-300 hover:border-cyan-400/40 hover:shadow-cyan-500/20"
               >
                 <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
                   {item.title}
                 </h2>
-                <p className="text-gray-300">{item.text}</p>
+                <p className="text-gray-300 leading-relaxed">{item.text}</p>
               </motion.div>
             ))}
           </div>
 
           {/* Features */}
           <div>
-            <h2 className="text-3xl font-bold text-center mb-10">
+            <motion.h2
+              variants={fadeUp}
+              className="text-3xl md:text-4xl font-bold text-center mb-12"
+            >
               Key Features
-            </h2>
+            </motion.h2>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {[{
-                icon: <FaUsers />,
-                title: "User Interaction",
-                text: "Report, upvote, and track civic issues in real-time."
-              },
-              {
-                icon: <FaTools />,
-                title: "Smart Management",
-                text: "Admins assign and staff resolve issues efficiently."
-              },
-              {
-                icon: <FaShieldAlt />,
-                title: "Secure System",
-                text: "Firebase auth with protected role-based access."
-              }].map((item, i) => (
+            <div className="grid md:grid-cols-3 gap-10">
+              {[
+                {
+                  icon: <FaUsers />,
+                  title: "User Interaction",
+                  text: "Report issues, upvote, and track real-time progress.",
+                },
+                {
+                  icon: <FaTools />,
+                  title: "Smart Management",
+                  text: "Efficient issue handling by admin and staff roles.",
+                },
+                {
+                  icon: <FaShieldAlt />,
+                  title: "Secure System",
+                  text: "Role-based access with Firebase authentication.",
+                },
+              ].map((item, i) => (
                 <motion.div
                   key={i}
                   variants={fadeUp}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.08 }}
-                  className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 text-center shadow-xl"
+                  whileHover={{ y: -10, scale: 1.05 }}
+                  className="group backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-8 text-center shadow-xl transition-all duration-300 hover:border-cyan-400/40 hover:shadow-cyan-500/20"
                 >
-                  <div className="text-4xl mx-auto mb-4 text-cyan-400">
+                  <div className="text-4xl mb-4 text-cyan-400 group-hover:scale-110 transition">
                     {item.icon}
                   </div>
                   <h3 className="text-xl font-semibold mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-gray-300 text-sm">{item.text}</p>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {item.text}
+                  </p>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          {/* Role Section */}
+          {/* Roles */}
           <div>
-            <h2 className="text-3xl font-bold text-center mb-10">
+            <motion.h2
+              variants={fadeUp}
+              className="text-3xl md:text-4xl font-bold text-center mb-12"
+            >
               Role-Based System
-            </h2>
+            </motion.h2>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-10">
               {["User", "Staff", "Admin"].map((role, index) => (
                 <motion.div
                   key={index}
                   variants={fadeUp}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.08 }}
-                  className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 text-center shadow-xl"
+                  whileHover={{ y: -10, scale: 1.05 }}
+                  className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-8 text-center shadow-xl hover:border-cyan-400/40 hover:shadow-cyan-500/20 transition-all duration-300"
                 >
-                  <h3 className="text-xl font-semibold mb-2 text-cyan-300">
+                  <h3 className="text-xl font-semibold mb-3 text-cyan-300">
                     {role}
                   </h3>
-                  <p className="text-gray-300 text-sm">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     {role === "User" &&
-                      "Submit and manage issues, upvote and track progress."}
+                      "Submit issues and track progress."}
                     {role === "Staff" &&
-                      "Handle assigned issues and update status efficiently."}
+                      "Resolve assigned issues efficiently."}
                     {role === "Admin" &&
-                      "Manage users, assign staff, and control the system."}
+                      "Manage system and assign responsibilities."}
                   </p>
                 </motion.div>
               ))}
@@ -159,18 +176,15 @@ const About = () => {
           {/* Tech Stack */}
           <motion.div
             variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="text-center"
+            className="text-center max-w-4xl mx-auto"
           >
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8">
               Technology Stack
             </h2>
 
-            <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-xl">
-              <p className="text-gray-300">
-                Built using{" "}
+            <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-8 shadow-xl hover:shadow-cyan-500/20 transition-all duration-300">
+              <p className="text-gray-300 text-lg">
+                Built with{" "}
                 <span className="text-cyan-400 font-semibold">React</span>,{" "}
                 <span className="text-cyan-400 font-semibold">Node.js</span>,{" "}
                 <span className="text-cyan-400 font-semibold">Express</span>,{" "}
@@ -181,7 +195,7 @@ const About = () => {
             </div>
           </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </div>
   );
