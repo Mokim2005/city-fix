@@ -38,6 +38,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
     { name: "Report Issue", path: "/issus-form" },
     { name: "All Issues", path: "/all-issus" },
   ];

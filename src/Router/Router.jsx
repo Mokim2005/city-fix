@@ -24,6 +24,7 @@ import AllIssusTable from "../Pages/Dashboard/Admin/AllIssusTable";
 import UserBlockManage from "../Pages/Dashboard/Admin/UserBlockManage";
 import ManageStaff from "../Pages/Dashboard/Admin/ManageStaff";
 import ViewPayments from "../Pages/Dashboard/Admin/ViewPayment";
+import About from "../Pages/About";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
       {
         path: "/all-issus",
