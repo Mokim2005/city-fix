@@ -8,34 +8,18 @@ gsap.registerPlugin(ScrollTrigger);
 // --- Custom SVG Icons (Lucide-style) ---
 const Icons = {
   Map: () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" />
       <path d="M15 5.764v15" />
       <path d="M9 3.236v15" />
     </svg>
   ),
   Users: () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
       <circle cx="9" cy="7" r="4" />
       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -43,65 +27,33 @@ const Icons = {
     </svg>
   ),
   Chart: () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="12" x2="12" y1="20" y2="10" />
       <line x1="18" x2="18" y1="20" y2="4" />
       <line x1="6" x2="6" y1="20" y2="16" />
     </svg>
   ),
   Shield: () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
     </svg>
   ),
   Clock: () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
     </svg>
   ),
   City: () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect width="8" height="18" x="3" y="3" rx="2" />
       <rect width="8" height="10" x="13" y="11" rx="2" />
       <path d="M13 3h7a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-7" />
@@ -109,15 +61,21 @@ const Icons = {
   ),
 };
 
-// --- Spotlight Card Component ---
+// --- Feature Card ---
 const FeatureCard = ({ feature, index }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
+  const background = useTransform(
+    [mouseX, mouseY],
+    ([x, y]) =>
+      `radial-gradient(600px circle at ${x}px ${y}px, rgba(168,85,247,0.25), transparent 70%)`
+  );
+
+  function handleMouseMove(e) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
   }
 
   return (
@@ -126,173 +84,107 @@ const FeatureCard = ({ feature, index }) => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
-      className="group relative rounded-3xl border border-white/10 backdrop-blur-2xl bg-white/5 p-6 sm:p-8 md:p-10 overflow-hidden shadow-2xl hover:shadow-purple-500/50 hover:border-purple-500/50 transition-all duration-500"
+      transition={{ duration: 0.7, delay: index * 0.15 }}
+      className="group relative rounded-3xl border border-white/10 backdrop-blur-2xl bg-white/5 p-6 sm:p-8 md:p-10 overflow-hidden shadow-2xl hover:shadow-purple-500/50 transition-all"
     >
-      {/* Interactive Spotlight Effect */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100"
-        style={{
-          background: useTransform(
-            [mouseX, mouseY],
-            ([x, y]) =>
-              `radial-gradient(600px circle at ${x}px ${y}px, rgba(168, 85, 247, 0.25), transparent 70%)`
-          ),
-        }}
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100"
+        style={{ background }}
       />
 
-      {/* Glow border on hover */}
-      <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none">
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 blur-2xl" />
-      </div>
-
-      <div className="relative z-10 flex flex-col items-start">
-        <div className="mb-6 sm:mb-8 p-4 sm:p-5 rounded-2xl backdrop-blur-md bg-white/5 border border-purple-500/30 group-hover:scale-110 group-hover:border-purple-400/60 group-hover:bg-white/10 transition-all duration-500">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
+      <div className="relative z-10">
+        <div className="mb-6 p-4 rounded-2xl bg-white/5 border border-purple-500/30">
+          <div className="text-purple-400">
             <feature.icon />
           </div>
         </div>
 
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-3 sm:mb-4 tracking-tight group-hover:text-purple-200 transition-colors duration-300">
+        <h3 className="text-xl font-bold mb-2">
           {feature.title}
         </h3>
-        <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-lg group-hover:text-gray-100 transition-colors duration-300">
+        <p className="text-gray-300">
           {feature.description}
         </p>
       </div>
-
-      {/* Animated bottom gradient line */}
-      <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-full transition-all duration-700 group-hover:w-full" />
     </motion.div>
   );
 };
 
+// --- MAIN APP ---
 const App = () => {
   const headerRef = useRef(null);
 
   useEffect(() => {
-    if (headerRef.current) {
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: -50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 80%",
-          },
-        }
-      );
-    }
+    gsap.fromTo(
+      headerRef.current,
+      { opacity: 0, y: -50 },
+      { opacity: 1, y: 0, duration: 1 }
+    );
   }, []);
 
   const features = [
     {
       icon: Icons.Map,
       title: "Real-time Reporting",
-      description:
-        "Report problems instantly from anywhere. Track progress live until fully resolved.",
+      description: "Report problems instantly and track progress live.",
     },
     {
       icon: Icons.Users,
       title: "Community Driven",
-      description:
-        "Connect with fellow citizens to collectively improve city infrastructure and safety.",
+      description: "Citizens work together to improve cities.",
     },
     {
       icon: Icons.Chart,
-      title: "Powerful Analytics",
-      description:
-        "View trends, hotspots, and detailed insights on reported issues across the city.",
+      title: "Analytics",
+      description: "View insights of city issues.",
     },
     {
       icon: Icons.Shield,
-      title: "Transparency & Accountability",
-      description:
-        "Full visibility into how authorities handle reports, building trust and efficiency.",
+      title: "Transparency",
+      description: "Full accountability system.",
     },
     {
       icon: Icons.Clock,
-      title: "Rapid Response",
-      description:
-        "Quick assignment and resolution by government teams for faster fixes.",
+      title: "Fast Response",
+      description: "Quick issue resolution.",
     },
     {
       icon: Icons.City,
-      title: "Multi-City Support",
-      description:
-        "Scalable system supporting multiple cities with centralized management.",
+      title: "Multi-City",
+      description: "Supports multiple cities.",
     },
   ];
 
   return (
-    <div className="relative text-white min-h-screen selection:bg-purple-600/30 overflow-x-hidden">
-      {/* Hero Section */}
-      <header ref={headerRef} className="relative z-10 pt-20 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          <span className="inline-block px-4 sm:px-5 py-2 mb-6 sm:mb-8 text-xs sm:text-sm font-semibold tracking-widest text-purple-300 uppercase backdrop-blur-xl bg-white/5 border border-purple-500/40 rounded-full shadow-lg">
-            Transforming Urban Life
-          </span>
-          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 sm:mb-8 leading-tight">
-            Empowering Citizens,
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
-              Fixing Cities.
-            </span>
-          </h1>
-          <p className="max-w-3xl mx-auto text-gray-200 text-base sm:text-lg md:text-xl leading-relaxed mb-8 sm:mb-12 px-4">
-            Join thousands of citizens reporting issues, tracking improvements,
-            and making cities smarter, cleaner, and safer together.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(168, 85, 247, 0.8)" }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full font-bold text-base sm:text-lg transition-all shadow-2xl"
-            >
-              Get Started Now
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 sm:px-10 py-4 sm:py-5 backdrop-blur-xl bg-white/5 hover:bg-white/10 border-2 border-white/30 hover:border-white/50 rounded-full font-bold text-base sm:text-lg transition-all"
-            >
-              Learn More
-            </motion.button>
-          </div>
-        </motion.div>
+    <div className="text-white min-h-screen">
+      {/* HERO */}
+      <header ref={headerRef} className="text-center py-24">
+        <h1 className="text-5xl font-black">
+          Empowering Citizens,
+          <span className="text-purple-400"> Fixing Cities</span>
+        </h1>
+        <p className="mt-4 text-gray-300">
+          Build smarter cities together.
+        </p>
+
+        <div className="mt-8 flex justify-center gap-4">
+          <button className="px-6 py-3 bg-purple-600 rounded-full"
+            onClick={() => window.location.href = "/issus-form"}>
+            Get Started Now
+          </button>
+
+          <button className="px-6 py-3 border rounded-full"
+            onClick={() => window.location.href = "/about"}>
+            Learn More
+          </button>
+        </div>
       </header>
 
-      {/* Features Section */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pb-20 sm:pb-28 md:pb-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16 sm:mb-20"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-            Powerful Features
-          </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto text-base sm:text-lg px-4">
-            Everything you need to report, track, and resolve urban issues
-            efficiently.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {features.map((feature, idx) => (
-            <FeatureCard key={idx} feature={feature} index={idx} />
-          ))}
-        </div>
+      {/* FEATURES */}
+      <main className="grid md:grid-cols-3 gap-6 px-6">
+        {features.map((f, i) => (
+          <FeatureCard key={i} feature={f} index={i} />
+        ))}
       </main>
     </div>
   );
