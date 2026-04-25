@@ -70,7 +70,7 @@ const Navbar = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/65 to-black/70 backdrop-blur-sm"></div>
       {/* Fixed Width Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-15">
+        <div className="flex items-center justify-between h-17">
           {/* Logo Section */}
           <NavLink to="/" className="flex items-center gap-3 group">
             <motion.div
