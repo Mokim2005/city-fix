@@ -13,6 +13,7 @@ import {
   FaEnvelope,
   FaPhone,
   FaArrowUp,
+  FaGithub,
 } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -73,13 +74,13 @@ const Footer = () => {
     { name: "Dashboard", path: "/dashboard" },
   ];
 
-  const socialLinks = [
-    { icon: FaFacebook, url: "#", color: "hover:text-blue-500" },
-    { icon: FaTwitter, url: "#", color: "hover:text-sky-400" },
-    { icon: FaInstagram, url: "#", color: "hover:text-pink-500" },
-    { icon: FaYoutube, url: "#", color: "hover:text-red-500" },
-    { icon: FaLinkedin, url: "#", color: "hover:text-blue-600" },
-  ];
+const socialLinks = [
+  { icon: FaFacebook, url: "https://www.facebook.com/abdul.mokim.01", color: "hover:text-blue-500" },
+  { icon: FaTwitter, url: "https://x.com/AbdulMokim40428", color: "hover:text-sky-400" },
+  { icon: FaInstagram, url: "https://www.instagram.com/abdul.mokim.01/", color: "hover:text-pink-500" },
+  { icon: FaLinkedin, url: "https://www.linkedin.com/in/abdul-mokim1/", color: "hover:text-blue-600" },
+  { icon: FaGithub, url: "https://github.com/Mokim2005", color: "hover:text-gray-300" },
+];
 
   return (
     <footer
