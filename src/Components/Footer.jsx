@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "../assets/logo.png";
 import {
   FaTwitter,
-  FaYoutube,
   FaFacebook,
   FaInstagram,
   FaLinkedin,
@@ -67,72 +66,131 @@ const Footer = () => {
 
   const quickLinks = [
     { name: "Home", path: "/" },
-    { name: "All Issues", path: "/all-issus" },
-    { name: "Report Issue", path: "/issus-from" },
+    { name: "All Issues", path: "/all-issues" },
+    { name: "Report Issue", path: "/issue-form" },
     { name: "Dashboard", path: "/dashboard" },
   ];
 
   const socialLinks = [
-    { icon: FaFacebook, url: "https://www.facebook.com/abdul.mokim.01", color: "hover:text-blue-500" },
-    { icon: FaTwitter, url: "https://x.com/AbdulMokim40428", color: "hover:text-sky-400" },
-    { icon: FaInstagram, url: "https://www.instagram.com/abdul.mokim.01/", color: "hover:text-pink-500" },
-    { icon: FaLinkedin, url: "https://www.linkedin.com/in/abdul-mokim1/", color: "hover:text-blue-600" },
-    { icon: FaGithub, url: "https://github.com/Mokim2005", color: "hover:text-gray-300" },
+    {
+      icon: FaFacebook,
+      url: "https://www.facebook.com/abdul.mokim.01",
+      color: "hover:text-blue-500",
+    },
+    {
+      icon: FaTwitter,
+      url: "https://x.com/AbdulMokim40428",
+      color: "hover:text-sky-400",
+    },
+    {
+      icon: FaInstagram,
+      url: "https://www.instagram.com/abdul.mokim.01/",
+      color: "hover:text-pink-500",
+    },
+    {
+      icon: FaLinkedin,
+      url: "https://www.linkedin.com/in/abdul-mokim1/",
+      color: "hover:text-blue-600",
+    },
+    {
+      icon: FaGithub,
+      url: "https://github.com/Mokim2005",
+      color: "hover:text-gray-300",
+    },
   ];
 
   return (
     <footer
       ref={footerRef}
       style={{
-        backgroundImage: `url('https://t3.ftcdn.net/jpg/08/79/64/26/360_F_879642658_OhKUCLV2Iukh3TgwPS5a8tbaaGA9qW08.jpg')`,
+        backgroundImage:
+          "url('https://t3.ftcdn.net/jpg/08/79/64/26/360_F_879642658_OhKUCLV2Iukh3TgwPS5a8tbaaGA9qW08.jpg')",
         backgroundAttachment: "fixed",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
       className="relative text-white overflow-hidden"
     >
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black/85 backdrop-blur-[2px]"></div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+      {/* Animated background */}
+      <motion.div
+        className="absolute top-10 left-10 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ repeat: Infinity, duration: 10 }}
+      />
+      <motion.div
+        className="absolute bottom-10 right-10 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ repeat: Infinity, duration: 12 }}
+      />
+
+      <div className="relative z-10 container mx-auto px-4 py-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
 
           {/* Logo */}
-          <div ref={(el) => (sectionsRef.current[0] = el)} className="flex flex-col items-center md:items-start">
+          <div ref={(el) => (sectionsRef.current[0] = el)}>
             <motion.div
               ref={logoRef}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-4 mb-4 shadow-xl"
+              whileHover={{ scale: 1.1 }}
+              className="bg-white/10 p-4 rounded-xl mb-4 w-fit mx-auto md:mx-0"
             >
-              <img src={Logo} alt="City Fix Logo" className="w-16 h-16 object-contain" />
+              <img
+                src={Logo}
+                alt="City Fix Logo"
+                className="w-14 h-14 object-contain"
+              />
             </motion.div>
-            <h3 className="font-black text-2xl bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-3">
+
+            <h3 className="text-2xl font-bold text-purple-400">
               City Fix
             </h3>
+
+            <p className="text-gray-300 text-sm mt-2">
+              Improving your city's infrastructure, one report at a time.
+            </p>
+
+            {/* NEW LINE ADDED */}
+            <p className="text-gray-400 text-xs mt-2">
+              A smart platform to report and solve city problems efficiently.
+            </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Links */}
           <div ref={(el) => (sectionsRef.current[1] = el)}>
-            <h4 className="font-bold text-lg mb-4 text-purple-300">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <a href={link.path} className="text-gray-300 hover:text-purple-400">
-                    ▸ {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <h4 className="mb-4 text-purple-300 font-bold">Quick Links</h4>
+            {quickLinks.map((link, i) => (
+              <a
+                key={i}
+                href={link.path}
+                className="block text-gray-300 hover:text-purple-400 mb-2"
+              >
+                ▸ {link.name}
+              </a>
+            ))}
           </div>
 
           {/* Contact */}
           <div ref={(el) => (sectionsRef.current[2] = el)}>
-            <h4 className="font-bold text-lg mb-4 text-purple-300">Contact Us</h4>
-            <p className="text-gray-300 text-sm">123 City Center, Dhaka</p>
+            <h4 className="mb-4 text-purple-300 font-bold">Contact</h4>
+
+            <p className="flex gap-2 text-sm">
+              <FaMapMarkerAlt /> Dhaka, Bangladesh
+            </p>
+
+            <p className="flex gap-2 text-sm">
+              <FaEnvelope /> support@cityfix.com
+            </p>
+
+            <p className="flex gap-2 text-sm">
+              <FaPhone /> +880 1700-000000
+            </p>
           </div>
 
           {/* Social */}
           <div ref={(el) => (sectionsRef.current[3] = el)}>
-            <h4 className="font-bold text-lg mb-4 text-purple-300">Follow Us</h4>
+            <h4 className="mb-4 text-purple-300 font-bold">Follow</h4>
 
             <div className="flex gap-3">
               {socialLinks.map((social, index) => (
@@ -141,9 +199,8 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className={`p-3 rounded-xl bg-white/10 border border-white/20 ${social.color}`}
+                  whileHover={{ scale: 1.2 }}
+                  className={`bg-white/10 p-3 rounded-xl ${social.color}`}
                 >
                   <social.icon />
                 </motion.a>
@@ -151,12 +208,17 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
+        {/* Bottom */}
+        <div className="border-t border-white/20 pt-4 text-center text-gray-400 text-sm">
+          © {new Date().getFullYear()} City Fix
+        </div>
       </div>
 
       {/* Scroll top */}
       <motion.button
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 bg-purple-600 p-4 rounded-full"
+        className="fixed bottom-6 right-6 bg-purple-600 p-3 rounded-full"
       >
         <FaArrowUp />
       </motion.button>
