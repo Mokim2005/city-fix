@@ -144,7 +144,7 @@ const Banner = () => {
             <div className="flex flex-wrap gap-4">
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-xl"
+                className="px-8 py-4 rounded-full hover:cursor-pointer bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-xl"
                 onClick={() => navigate("/issus-form")}
               >
                 🚀 Get Started
@@ -152,7 +152,7 @@ const Banner = () => {
 
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="px-8 py-4 rounded-full border border-white/30 text-white"
+                className="px-8 py-4 rounded-full border hover:cursor-pointer border-white/30 text-white"
                 onClick={() => navigate("/about")}
               >
                 📖 Learn More
@@ -196,8 +196,11 @@ const Banner = () => {
                 </div>
               </div>
 
-              <button className="mt-5 w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold">
-                Submit Report
+              <button
+                className="mt-5 w-full py-3 rounded-lg hover:cursor-pointer  bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold"
+                onClick={() => navigate("/issus-form")}
+              >
+                Report
               </button>
             </motion.div>
 
