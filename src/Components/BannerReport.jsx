@@ -54,12 +54,12 @@ const BannerReport = () => {
   return (
     <section className="relative py-20 lg:py-28 text-white overflow-hidden">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 md:px-10 relative z-10">
-        <motion.h2
+          <motion.h2
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-16 md:mb-20 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-2xl"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-16 md:mb-20 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 bg-clip-text text-transparent drop-shadow-2xl"
         >
           How City Fix Works
         </motion.h2>
@@ -100,12 +100,12 @@ const BannerReport = () => {
               className="relative group"
             >
               {/* Main Card with Glassy Effect */}
-              <div className="relative p-6 sm:p-8 lg:p-10 backdrop-blur-2xl bg-white/5 rounded-3xl border border-white/10 shadow-2xl group-hover:shadow-purple-500/50 group-hover:border-purple-500/50 transition-all duration-500 group-hover:-translate-y-4">
+              <div className="relative p-6 sm:p-8 lg:p-10 backdrop-blur-2xl bg-white/5 rounded-3xl border border-white/10 shadow-2xl group-hover:shadow-green-500/50 group-hover:border-green-500/50 transition-all duration-500 group-hover:-translate-y-4">
                 {/* Inner glow on hover */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-600/20 via-pink-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-green-600/20 via-emerald-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                 {/* Floating shadow */}
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 -z-10" />
+                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-green-600/30 to-emerald-600/30 blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 -z-10" />
 
                 <div className="relative z-20 text-center">
                   <motion.div

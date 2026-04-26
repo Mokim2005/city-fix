@@ -92,9 +92,9 @@ const LatestResolvedIssues = () => {
                 <span className="text-lg">📍</span> {issue.location}
               </p>
 
-              <Link
+                <Link
                 to={`/Issus-details/${issue._id}`}
-                className="inline-block w-full text-center px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-green-500/50 transition-all duration-300"
+                className="inline-block w-full text-center px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-green-500/50 transition-all duration-300"
               >
                 View Details
               </Link>

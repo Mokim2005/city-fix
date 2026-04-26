@@ -70,7 +70,7 @@ const FeatureCard = ({ feature, index }) => {
   const background = useTransform(
     [mouseX, mouseY],
     ([x, y]) =>
-      `radial-gradient(600px circle at ${x}px ${y}px, rgba(168,85,247,0.25), transparent 70%)`
+      `radial-gradient(600px circle at ${x}px ${y}px, rgba(34,197,94,0.25), transparent 70%)`
   );
 
   function handleMouseMove(e) {
@@ -94,7 +94,7 @@ const FeatureCard = ({ feature, index }) => {
       />
 
       <div className="relative z-10">
-        <div className="mb-4 text-purple-400">
+        <div className="mb-4 text-green-400">
           <feature.icon />
         </div>
 

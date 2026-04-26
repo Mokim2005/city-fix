@@ -144,7 +144,7 @@ const Banner = () => {
             <div className="flex flex-wrap gap-4">
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="px-8 py-4 rounded-full hover:cursor-pointer bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-xl"
+                className="px-8 py-4 rounded-full hover:cursor-pointer bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold shadow-xl"
                 onClick={() => navigate("/issus-form")}
               >
                 🚀 Get Started
@@ -152,7 +152,7 @@ const Banner = () => {
 
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="px-8 py-4 rounded-full border hover:cursor-pointer border-white/30 text-white"
+                className="px-8 py-4 rounded-full border hover:cursor-pointer border-green-500/50 bg-green-600/20 text-white"
                 onClick={() => navigate("/about")}
               >
                 📖 Learn More
@@ -185,41 +185,49 @@ const Banner = () => {
               </h3>
 
               <div className="space-y-3">
-                <div className="bg-white/10 p-3 rounded-lg text-gray-300">
+                <div className="bg-green-600/10 p-3 rounded-lg text-green-300 border border-green-500/20">
                   Road Damage
                 </div>
-                <div className="bg-white/10 p-3 rounded-lg text-gray-300">
+                <div className="bg-green-600/10 p-3 rounded-lg text-green-300 border border-green-500/20">
                   Broken Street Light
                 </div>
-                <div className="bg-white/10 p-3 rounded-lg text-gray-300">
+                <div className="bg-green-600/10 p-3 rounded-lg text-green-300 border border-green-500/20">
                   Garbage Issue
                 </div>
               </div>
 
               <button
-                className="mt-5 w-full py-3 rounded-lg hover:cursor-pointer  bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold"
+                className="mt-5 w-full py-3 rounded-lg hover:cursor-pointer bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold"
                 onClick={() => navigate("/issus-form")}
               >
                 Report
               </button>
             </motion.div>
 
-            {/* Floating small cards */}
-            <motion.div
-              className="absolute -top-10 -left-10 bg-purple-500/20 p-4 rounded-xl backdrop-blur-lg"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 3 }}
-            >
-              🚨 Alert
-            </motion.div>
+      {/* Floating small cards */}
+      <motion.div
+        className="absolute -top-10 -left-10 bg-green-600/20 p-4 rounded-xl backdrop-blur-lg border border-green-500/20"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ repeat: Infinity, duration: 3 }}
+      >
+        🚨 Alert
+      </motion.div>
 
-            <motion.div
-              className="absolute -bottom-10 -right-10 bg-pink-500/20 p-4 rounded-xl backdrop-blur-lg"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 3 }}
-            >
-              📊 Tracking
-            </motion.div>
+      <motion.div
+        className="absolute -bottom-10 -right-10 bg-emerald-600/20 p-4 rounded-xl backdrop-blur-lg border border-emerald-500/20"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 3 }}
+      >
+        📊 Tracking
+      </motion.div>
+
+      <motion.div
+        className="absolute -bottom-10 -right-10 bg-emerald-600/20 p-4 rounded-xl backdrop-blur-lg"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 3 }}
+      >
+        📊 Tracking
+      </motion.div>
           </div>
         </div>
       </div>
