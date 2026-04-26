@@ -143,24 +143,6 @@ const App = () => {
           Build smarter cities together.
         </p>
 
-        {/* BUTTONS */}
-        <div className="mt-8 flex justify-center gap-4">
-
-          <button
-            className="px-6 py-3 bg-purple-600 rounded-full hover:bg-purple-700 hover:scale-105 transition"
-            onClick={() => navigate("/issus-form")}
-          >
-            Get Started Now
-          </button>
-
-          <button
-            className="px-6 py-3 border border-white/30 rounded-full hover:bg-white/10 hover:scale-105 transition"
-            onClick={() => navigate("/about")}
-          >
-            Learn More
-          </button>
-
-        </div>
       </header>
 
       {/* FEATURES */}
