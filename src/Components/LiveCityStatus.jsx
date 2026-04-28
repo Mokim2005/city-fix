@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { FaRoad, FaTint, FaBolt, FaCheckCircle } from "react-icons/fa";
+import UseAxiosSecure from "../Hooks/UseAxiosSecure";
+import UserAuth from "../Hooks/UserAuth";
 
-const stats = [
+const staticStats = [
   {
     icon: FaRoad,
     label: "Road Issues",
@@ -29,6 +33,56 @@ const stats = [
 ];
 
 const LiveCityStatus = () => {
+  const { user } = UserAuth();
+  const axiosSecure = UseAxiosSecure();
+
+  const { data: issues = [], isLoading, isError } = useQuery({
+    queryKey: ["issues"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/issus");
+      return res.data;
+    },
+    enabled: !!user,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+
+  const dynamicStats = useMemo(() => {
+    if (!user || isLoading || isError) return null;
+    const road = issues.filter((i) => i.category === "Road").length;
+    const water = issues.filter((i) => i.category === "Water").length;
+    const electricity = issues.filter((i) => i.category === "Electricity").length;
+    const resolved = issues.filter(
+      (i) => i.status?.toLowerCase() === "resolved"
+    ).length;
+    return [
+      {
+        icon: FaRoad,
+        label: "Road Issues",
+        value: road,
+        color: "text-yellow-400",
+      },
+      {
+        icon: FaTint,
+        label: "Water Issues",
+        value: water,
+        color: "text-blue-400",
+      },
+      {
+        icon: FaBolt,
+        label: "Electricity Issues",
+        value: electricity,
+        color: "text-purple-400",
+      },
+      {
+        icon: FaCheckCircle,
+        label: "Resolved Issues",
+        value: resolved,
+        color: "text-green-400",
+      },
+    ];
+  }, [user, isLoading, isError, issues]);
+
+  const stats = dynamicStats || staticStats;
   return (
     <section className="py-20 px-4 md:px-10 text-white relative">
       
