@@ -3,6 +3,7 @@ import Banner from "../Components/Banner";
 import ExploreBanner from "../Components/ExploreBanner";
 import BannerReport from "../Components/BannerReport";
 import LatestResolvedIssues from "../Components/HomePreview";
+import HowItWorks from "../Components/HowItWork";
 
 const Home = () => {
   return (
@@ -31,7 +32,8 @@ const Home = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-10">
           <ExploreBanner />
           <BannerSlider />
-          <BannerReport />
+          <HowItWorks />
+        
           <LatestResolvedIssues />
         </div>
       </div>
