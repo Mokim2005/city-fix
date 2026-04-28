@@ -74,7 +74,7 @@ const LatestResolvedIssues = () => {
               ref={(el) => (cardsRef.current[index] = el)}
               whileHover={{ y: -10, scale: 1.02 }}
               transition={{ duration: 0.3 }}
-              className="backdrop-blur-2xl bg-white/5 border border-white/10 p-5 sm:p-6 rounded-3xl shadow-2xl hover:shadow-purple-500/40 hover:border-purple-500/50 transition-all duration-300 group"
+               className="backdrop-blur-2xl bg-white/5 border border-white/10 p-5 sm:p-6 rounded-3xl shadow-2xl hover:shadow-green-500/40 hover:border-green-500/50 transition-all duration-300 group"
             >
               <div className="relative overflow-hidden rounded-2xl mb-4">
                 <img
@@ -85,7 +85,7 @@ const LatestResolvedIssues = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               
-              <h3 className="text-xl sm:text-2xl font-semibold text-white mt-4 mb-2 group-hover:text-purple-300 transition-colors duration-300">
+               <h3 className="text-xl sm:text-2xl font-semibold text-white mt-4 mb-2 group-hover:text-green-300 transition-colors duration-300">
                 {issue.title}
               </h3>
               <p className="text-gray-300 mb-4 flex items-center gap-2">

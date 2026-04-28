@@ -128,7 +128,7 @@ const LiveCityStatus = () => {
             </p>
 
             {/* glow circle */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 blur-xl opacity-0 hover:opacity-100 transition"></div>
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/10 to-emerald-500/10 blur-xl opacity-0 hover:opacity-100 transition"></div>
           </motion.div>
         ))}
       </div>

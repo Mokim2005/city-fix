@@ -54,8 +54,8 @@ const HowItWorks = () => {
                        shadow-lg hover:shadow-purple-500/30 
                        transition-all"
           >
-            {/* ICON */}
-            <div className="text-purple-400 text-3xl mb-4">
+             {/* ICON */}
+            <div className="text-green-400 text-3xl mb-4">
               <step.icon />
             </div>
 

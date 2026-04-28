@@ -68,13 +68,13 @@ const BannerSlider = () => {
           </motion.div>
 
           {/* Right Side - Slider with Glassy Border */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:w-1/2 w-full"
-          >
+           <motion.div
+             initial={{ opacity: 0, x: -50 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.8 }}
+             className="lg:w-1/2 text-center lg:text-left space-y-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl hover:shadow-green-500/40 hover:border-green-500/50 transition-all duration-300"
+           >
             <div className="rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 backdrop-blur-sm">
               <Carousel
                 autoPlay
