@@ -99,7 +99,7 @@ const MyIssus = () => {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg"
+          className="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg"
         >
           My Issues ({filteredReports.length})
         </motion.h1>
@@ -123,8 +123,8 @@ const MyIssus = () => {
               className={`px-6 py-3 rounded-full font-medium transition-all 
                 ${
                   filter === status
-                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                    : "backdrop-blur-xl bg-white/10 text-white border border-white/30 hover:border-purple-400"
+                    ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/50"
+                    : "backdrop-blur-xl bg-white/10 text-white border border-white/30 hover:border-green-400"
                 }`}
             >
               {status.replace("-", " ").toUpperCase()}
@@ -147,7 +147,7 @@ const MyIssus = () => {
             <div className="overflow-x-auto">
               <table className="table w-full">
                 <thead>
-                  <tr className="bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-white">
+                  <tr className="bg-gradient-to-r from-green-600/50 to-emerald-600/50 text-white">
                     <th className="pl-6">#</th>
                     <th>Title</th>
                     <th>Location</th>
@@ -187,7 +187,7 @@ const MyIssus = () => {
                             <motion.button
                               whileHover={{ scale: 1.2, rotate: 10 }}
                               onClick={() => setEditData(report)}
-                              className="btn btn-sm bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-0 shadow-lg"
+                               className="btn btn-sm bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0 shadow-lg"
                             >
                               <FaEdit />
                             </motion.button>
@@ -195,7 +195,7 @@ const MyIssus = () => {
                           <Link to={`/Issus-details/${report._id}`}>
                             <motion.button
                               whileHover={{ scale: 1.2 }}
-                              className="btn btn-sm bg-gradient-to-r from-green-600 to-teal-600 text-white border-0 shadow-lg"
+                               className="btn btn-sm bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0 shadow-lg"
                             >
                               <FcViewDetails size={18} />
                             </motion.button>
@@ -203,7 +203,7 @@ const MyIssus = () => {
                           <motion.button
                             whileHover={{ scale: 1.2, rotate: -10 }}
                             onClick={() => handleDelete(report._id)}
-                            className="btn btn-sm bg-gradient-to-r from-red-600 to-pink-600 text-white border-0 shadow-lg"
+                             className="btn btn-sm bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0 shadow-lg"
                           >
                             <MdDelete />
                           </motion.button>
@@ -231,7 +231,7 @@ const MyIssus = () => {
             transition={{ type: "spring", damping: 20 }}
             className="backdrop-blur-xl bg-white/10 p-8 rounded-2xl w-full max-w-lg border border-white/30 shadow-2xl"
           >
-            <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg">
+            <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg">
               Edit Issue
             </h2>
 
@@ -239,28 +239,28 @@ const MyIssus = () => {
               <input
                 name="title"
                 defaultValue={editData.title}
-                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-purple-400 text-white placeholder-gray-300"
+                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-green-400 text-white placeholder-gray-300"
                 placeholder="Title"
                 required
               />
               <textarea
                 name="description"
                 defaultValue={editData.description}
-                className="textarea textarea-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-purple-400 text-white placeholder-gray-300 h-32"
+                className="textarea textarea-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-green-400 text-white placeholder-gray-300 h-32"
                 placeholder="Description"
                 required
               />
               <input
                 name="location"
                 defaultValue={editData.location}
-                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-purple-400 text-white placeholder-gray-300"
+                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-green-400 text-white placeholder-gray-300"
                 placeholder="Location"
                 required
               />
               <input
                 name="category"
                 defaultValue={editData.category}
-                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-purple-400 text-white placeholder-gray-300"
+                className="input input-bordered w-full backdrop-blur-md bg-white/10 border-white/30 focus:border-green-400 text-white placeholder-gray-300"
                 placeholder="Category"
                 required
               />
@@ -280,7 +280,7 @@ const MyIssus = () => {
                     boxShadow: "0 0 25px rgba(168, 85, 247, 0.6)",
                   }}
                   type="submit"
-                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-semibold shadow-lg text-white"
+                   className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg font-semibold shadow-lg text-white"
                 >
                   Save Changes
                 </motion.button>
