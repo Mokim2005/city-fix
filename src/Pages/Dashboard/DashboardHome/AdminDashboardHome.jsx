@@ -46,8 +46,8 @@ const AdminDashboardHome = () => {
       {
         label: "Issues by Status",
         data: stats.statusStats.map((s) => s.count),
-        backgroundColor: "rgba(99, 102, 241, 0.6)", 
-        borderColor: "rgba(99, 102, 241, 1)",
+        backgroundColor: "rgba(34, 197, 94, 0.6)", 
+        borderColor: "rgba(34, 197, 94, 1)",
         borderWidth: 1,
       },
     ],
@@ -90,7 +90,7 @@ const AdminDashboardHome = () => {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg"
+        className="text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg"
       >
         Admin Dashboard
       </motion.h2>
@@ -108,7 +108,7 @@ const AdminDashboardHome = () => {
           {
             label: "Total Issues",
             value: stats.totalIssues,
-            color: "from-blue-600 to-blue-800",
+            color: "from-teal-600 to-teal-800",
           },
           {
             label: "Resolved",
@@ -128,7 +128,7 @@ const AdminDashboardHome = () => {
           {
             label: "Total Payments",
             value: `${stats.totalPaymentAmount} BDT`,
-            color: "from-purple-600 to-purple-800",
+            color: "from-emerald-600 to-emerald-800",
           },
         ].map((item, index) => (
           <motion.div
@@ -156,7 +156,7 @@ const AdminDashboardHome = () => {
         transition={{ duration: 0.8, delay: 0.3 }}
         className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-8 mb-10 border border-white/30"
       >
-        <h3 className="text-2xl font-semibold mb-6 text-purple-300">
+        <h3 className="text-2xl font-semibold mb-6 text-green-300">
           Issues by Status
         </h3>
         <div className="h-96">
@@ -199,7 +199,7 @@ const AdminDashboardHome = () => {
             className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 border border-white/30"
             whileHover={{ y: -5 }}
           >
-            <h3 className="text-xl font-semibold mb-5 text-purple-300">
+            <h3 className="text-xl font-semibold mb-5 text-green-300">
               {section.title}
             </h3>
             <ul className="space-y-4">

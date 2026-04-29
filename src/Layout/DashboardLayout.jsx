@@ -54,12 +54,12 @@ const DashboardLayout = () => {
 
       {/* Background Orbs */}
       <motion.div
-        className="absolute top-20 left-10 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"
+        className="absolute top-20 left-10 w-64 h-64 bg-green-600/20 rounded-full blur-3xl pointer-events-none"
         animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
         transition={{ repeat: Infinity, duration: 10 }}
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"
+        className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"
         animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.4, 0.2] }}
         transition={{ repeat: Infinity, duration: 12 }}
       />
@@ -69,7 +69,7 @@ const DashboardLayout = () => {
 
         {/* CONTENT */}
         <div className="drawer-content flex flex-col min-h-screen">
-          <motion.nav className="navbar backdrop-blur-xl bg-gradient-to-r from-purple-900/80 to-pink-900/80 border-b border-white/20 shadow-xl sticky top-0 z-20">
+          <motion.nav className="navbar backdrop-blur-xl bg-gradient-to-r from-green-900/80 to-emerald-900/80 border-b border-white/20 shadow-xl sticky top-0 z-20">
             <label
               htmlFor="my-drawer-4"
               className="btn btn-square btn-ghost lg:hidden backdrop-blur-xl bg-white/20 border border-white/30 text-white"
@@ -93,7 +93,7 @@ const DashboardLayout = () => {
           {/* ✅ FIX 1: overflow-visible added */}
           <motion.div
             ref={sidebarRef}
-            className="flex min-h-full flex-col backdrop-blur-2xl bg-gradient-to-b from-purple-900/90 to-pink-900/90 border-r border-white/20 shadow-2xl is-drawer-close:w-20 is-drawer-open:w-72 overflow-visible"
+            className="flex min-h-full flex-col backdrop-blur-2xl bg-gradient-to-b from-green-900/90 to-emerald-900/90 border-r border-white/20 shadow-2xl is-drawer-close:w-20 is-drawer-open:w-72 overflow-visible"
           >
             <ul className="menu w-full grow p-4 space-y-2 overflow-visible">
               

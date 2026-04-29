@@ -127,12 +127,12 @@ const StafDashboardHome = () => {
       variants={containerVariants}
     >
       <title>Staff Dashboard</title>
-      <motion.h2
-        className="text-3xl md:text-4xl font-extrabold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 drop-shadow-lg"
-        variants={itemVariants}
-      >
-        Staff Dashboard Overview
-      </motion.h2>
+        <motion.h2
+          className="text-3xl md:text-4xl font-extrabold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-400 drop-shadow-lg"
+          variants={itemVariants}
+        >
+          Staff Dashboard Overview
+        </motion.h2>
 
       <motion.div
         className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
@@ -192,25 +192,25 @@ const StafDashboardHome = () => {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <motion.div
-          className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl"
-          variants={chartVariants}
-        >
-          <h3 className="text-2xl font-bold mb-4 text-purple-300">
-            Issues by Status
-          </h3>
+          <motion.div
+            className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl"
+            variants={chartVariants}
+          >
+            <h3 className="text-2xl font-bold mb-4 text-green-300">
+              Issues by Status
+            </h3>
           <div className="h-80">
             <Bar data={statusChartData} options={chartOptions} />
           </div>
         </motion.div>
 
-        <motion.div
-          className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl"
-          variants={chartVariants}
-        >
-          <h3 className="text-2xl font-bold mb-4 text-pink-300">
-            Issues by Priority
-          </h3>
+          <motion.div
+            className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl p-6 shadow-2xl"
+            variants={chartVariants}
+          >
+            <h3 className="text-2xl font-bold mb-4 text-emerald-300">
+              Issues by Priority
+            </h3>
           <div className="h-80">
             <Bar data={priorityChartData} options={chartOptions} />
           </div>
