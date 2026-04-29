@@ -8,7 +8,7 @@ const PaymentCanceld = () => {
     <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden p-4">
      <title>Payment Cancelled</title>
       {/* Optional subtle background effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-black to-purple-900/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-black to-green-900/20" />
 
       <motion.div
         className="relative bg-gray-900 rounded-2xl shadow-2xl p-10 max-w-lg w-full text-center border border-gray-800"
