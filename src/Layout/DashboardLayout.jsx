@@ -124,43 +124,86 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
 
-              {/* Admin */}
-              {role === "admin" && (
-                <>
-                  <li>
-                    <NavLink
-                      to="/dashboard/all-issus-table"
-                      className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
-                      data-tip="View All Issues"
-                    >
-                      <MdOutlineViewCarousel />
-                    </NavLink>
-                  </li>
+               {/* Admin */}
+               {role === "admin" && (
+                 <>
+                   <li>
+                     <NavLink
+                       to="/dashboard/all-issus-table"
+                       className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                       data-tip="All Issues"
+                     >
+                       <MdOutlineViewCarousel />
+                     </NavLink>
+                   </li>
 
-                  <li>
-                    <NavLink
-                      to="/dashboard/manage-staff"
-                      className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
-                      data-tip="Manage Staff"
-                    >
-                      <MdManageAccounts />
-                    </NavLink>
-                  </li>
-                </>
-              )}
+                   <li>
+                     <NavLink
+                       to="/dashboard/user-management"
+                       className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                       data-tip="User Management"
+                     >
+                       <FaUsers />
+                     </NavLink>
+                   </li>
 
-              {/* User */}
-              {role === "user" && (
-                <li>
-                  <NavLink
-                    to="/dashboard/my-issus"
-                    className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
-                    data-tip="My Issues"
-                  >
-                    <TbReportSearch />
-                  </NavLink>
-                </li>
-              )}
+                   <li>
+                     <NavLink
+                       to="/dashboard/manage-staff"
+                       className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                       data-tip="Manage Staff"
+                     >
+                       <MdManageAccounts />
+                     </NavLink>
+                   </li>
+
+                   <li>
+                     <NavLink
+                       to="/dashboard/user-block-manage"
+                       className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                       data-tip="Blocked Users"
+                     >
+                       <MdOutlineAppBlocking />
+                     </NavLink>
+                   </li>
+
+                   <li>
+                     <NavLink
+                       to="/dashboard/view-payments"
+                       className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                       data-tip="View Payments"
+                     >
+                       <RiSecurePaymentFill />
+                     </NavLink>
+                   </li>
+                 </>
+               )}
+
+               {/* Staff */}
+               {role === "staff" && (
+                 <li>
+                   <NavLink
+                     to="/dashboard/assigned-issues"
+                     className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                     data-tip="Assigned Issues"
+                   >
+                     <MdOutlineAssignmentTurnedIn />
+                   </NavLink>
+                 </li>
+               )}
+
+               {/* User */}
+               {role === "user" && (
+                 <li>
+                   <NavLink
+                     to="/dashboard/my-issus"
+                     className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                     data-tip="My Issues"
+                   >
+                     <TbReportSearch />
+                   </NavLink>
+                 </li>
+               )}
             </ul>
           </motion.div>
         </div>

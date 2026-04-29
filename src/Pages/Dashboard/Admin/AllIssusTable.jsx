@@ -182,7 +182,7 @@ const AllIssusTable = () => {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-3xl md:text-4xl font-extrabold mb-8 md:mb-10 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg"
+        className="text-3xl md:text-4xl font-extrabold mb-8 md:mb-10 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg"
       >
         All Issues Management ({sortedIssues.length})
       </motion.h2>
@@ -197,7 +197,7 @@ const AllIssusTable = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-left text-xs md:text-sm font-semibold uppercase tracking-wider">
+                <tr className="bg-gradient-to-r from-green-600/50 to-emerald-600/50 text-xs md:text-sm uppercase">
                 <th className="px-3 md:px-6 py-4 md:py-5">Title</th>
                 <th className="px-3 md:px-6 py-4 md:py-5 hidden sm:table-cell">Category</th>
                 <th className="px-3 md:px-6 py-4 md:py-5">Status</th>
@@ -269,7 +269,7 @@ const AllIssusTable = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleAssign(issue)}
-                            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-purple-500/30 transition"
+                             className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
                           >
                             Assign
                           </motion.button>
@@ -279,7 +279,7 @@ const AllIssusTable = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleReject(issue._id)}
-                            className="bg-gradient-to-r from-red-600 to-pink-600 text-white px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-red-500/30 transition"
+                             className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
                           >
                             Reject
                           </motion.button>
@@ -328,7 +328,7 @@ const AllIssusTable = () => {
                   onClick={() => handlePageChange(page)}
                   className={`px-4 py-2 rounded-lg font-medium transition ${
                     currentPage === page
-                      ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
+                      ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/50"
                       : "backdrop-blur-xl bg-white/10 border border-white/30 text-white hover:bg-white/20"
                   }`}
                 >
@@ -375,7 +375,7 @@ const AllIssusTable = () => {
               className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 md:p-8 max-w-md w-full border border-white/30"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-xl md:text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <h3 className="text-xl md:text-2xl font-bold mb-6 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
                 Assign Staff to:{" "}
                 <span className="text-white block mt-2">{selectedIssue?.title}</span>
               </h3>
@@ -383,7 +383,7 @@ const AllIssusTable = () => {
               <select
                 value={selectedStaff}
                 onChange={(e) => setSelectedStaff(e.target.value)}
-                className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent mb-6"
+                className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent mb-6"
               >
                 <option value="" className="bg-gray-800">Select a staff member</option>
                 {staffList.map((s) => (

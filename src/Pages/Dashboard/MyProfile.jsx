@@ -185,7 +185,7 @@ const MyProfile = () => {
       <div className="relative w-full max-w-2xl">
         <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl border border-white/30 p-10">
           <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center gap-2">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center gap-2">
               <FaUser /> {role?.toUpperCase()}
             </div>
           </div>
@@ -226,14 +226,14 @@ const MyProfile = () => {
               <div className="mt-10 flex flex-col gap-4">
                 <button
                   onClick={() => setIsEditMode(true)}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 px-10 rounded-2xl font-bold text-lg shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-3"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold text-lg shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-3"
                 >
                   <FaCamera /> Edit Profile
                 </button>
 
                 {!currentUser.isPremium && !currentUser.blocked && (
                   <Link to="/dashboard/payment">
-                    <button className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white py-4 px-10 rounded-2xl font-bold text-lg shadow-xl transform hover:scale-105 transition-all">
+                    <button                       className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold text-lg shadow-xl transform hover:scale-105 transition-all">
                       Upgrade to Premium - 1000 BDT
                     </button>
                   </Link>
@@ -255,7 +255,7 @@ const MyProfile = () => {
                     alt="Preview"
                     className="w-40 h-40 rounded-full border-8 border-white/30 shadow-2xl object-cover"
                   />
-                  <label className="absolute bottom-0 right-0 bg-purple-600 p-4 rounded-full cursor-pointer hover:bg-purple-700 transition shadow-lg">
+                  <label className="absolute bottom-0 right-0 bg-green-600 p-4 rounded-full cursor-pointer hover:bg-green-700 transition shadow-lg">
                     <FaCamera className="text-2xl text-white" />
                     <input
                       type="file"
@@ -276,7 +276,7 @@ const MyProfile = () => {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-4 focus:ring-purple-500/50 placeholder-gray-400"
+                     className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-4 focus:ring-green-500/50 placeholder-gray-400"
                     placeholder="Enter your name"
                     required
                   />
@@ -286,7 +286,7 @@ const MyProfile = () => {
                   <button
                     type="submit"
                     disabled={updateProfileMutation.isPending}
-                    className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold shadow-xl transform hover:scale-105 transition-all flex items-center gap-3 disabled:opacity-70"
+                    className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold shadow-xl transform hover:scale-105 transition-all flex items-center gap-3 disabled:opacity-70"
                   >
                     <FaCheck />
                     {updateProfileMutation.isPending

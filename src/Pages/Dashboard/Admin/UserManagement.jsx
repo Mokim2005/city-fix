@@ -100,7 +100,7 @@ const UsersManagement = () => {
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl md:text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"
+        className="text-3xl md:text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent"
       >
         Users Management
       </motion.h2>

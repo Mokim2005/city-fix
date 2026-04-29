@@ -134,7 +134,7 @@ const ManageStaff = () => {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-3xl md:text-4xl font-extrabold mb-8 md:mb-10 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg"
+        className="text-3xl md:text-4xl font-extrabold mb-8 md:mb-10 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg"
       >
         Manage Staff ({staff.length})
       </motion.h2>
@@ -161,7 +161,7 @@ const ManageStaff = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-left text-xs md:text-sm font-semibold uppercase tracking-wider">
+               <tr className="bg-gradient-to-r from-green-600/50 to-emerald-600/50 text-left text-xs md:text-sm font-semibold uppercase tracking-wider">
                 <th className="px-4 md:px-8 py-4 md:py-6">Name</th>
                 <th className="px-4 md:px-8 py-4 md:py-6 hidden sm:table-cell">Email</th>
                 <th className="px-4 md:px-8 py-4 md:py-6 hidden lg:table-cell">Phone</th>
@@ -187,10 +187,10 @@ const ManageStaff = () => {
                           <img
                             src={s.photoURL}
                             alt={s.displayName}
-                            className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-purple-400"
+                             className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-green-400"
                           />
                         ) : (
-                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-sm md:text-lg font-bold">
+                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center text-sm md:text-lg font-bold">
                             {s.displayName.charAt(0).toUpperCase()}
                           </div>
                         )}
@@ -211,7 +211,7 @@ const ManageStaff = () => {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => openUpdate(s)}
-                          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-blue-500/30 transition"
+                            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
                         >
                           Update
                         </motion.button>
@@ -219,7 +219,7 @@ const ManageStaff = () => {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => handleDelete(s._id)}
-                          className="bg-gradient-to-r from-red-600 to-pink-600 text-white px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-red-500/30 transition"
+                            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
                         >
                           Delete
                         </motion.button>
