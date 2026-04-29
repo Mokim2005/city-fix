@@ -113,16 +113,27 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-              {/* Dashboard */}
-              <li>
-                <NavLink
-                  to="/dashboard"
-                  className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
-                  data-tip="Dashboard Home"
-                >
-                  <FaHome />
-                </NavLink>
-              </li>
+               {/* Dashboard */}
+               <li>
+                 <NavLink
+                   to="/dashboard"
+                   className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                   data-tip="Dashboard Home"
+                 >
+                   <FaHome />
+                 </NavLink>
+               </li>
+
+               {/* My Profile - Accessible to all roles */}
+               <li>
+                 <NavLink
+                   to="/dashboard/my-profile"
+                   className="relative z-10 backdrop-blur-xl border border-white/30 rounded-xl tooltip tooltip-right bg-white/10 text-white"
+                   data-tip="My Profile"
+                 >
+                   <ImProfile />
+                 </NavLink>
+               </li>
 
                {/* Admin */}
                {role === "admin" && (
