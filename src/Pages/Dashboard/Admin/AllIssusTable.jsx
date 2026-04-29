@@ -97,7 +97,7 @@ const AllIssusTable = () => {
       title: "Confirm Assignment",
       html: `
         <p>Assign this issue to:</p>
-        <p class="font-bold text-lg text-indigo-400">${staff.displayName}</p>
+        <p class="font-bold text-lg text-green-400">${staff.displayName}</p>
         <p class="text-sm text-gray-300">(${staff.email})</p>
         <br>
         <p class="font-semibold">Issue: ${selectedIssue.title}</p>

@@ -108,7 +108,7 @@ const ViewPayments = () => {
         <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
           Payment History
         </h2>
-        <div className="w-32 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full" />
+        <div className="w-32 h-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" />
       </div>
 
       {/* Total Revenue Card */}
@@ -175,7 +175,7 @@ const ViewPayments = () => {
           <>
             {/* Desktop Table */}
             <div className="hidden md:block overflow-x-auto">
-              <table className="bg-gray-400/30 g-gradient-to-r from-indigo-600/40 to-purple-600/40 text-xs md:text-sm uppercase">
+               <table className="bg-gray-400/30 bg-gradient-to-r from-green-600/40 to-emerald-600/40 text-xs md:text-sm uppercase">
                 <thead className="bg-gray-700/80">
                   <tr>
                     <th className="px-6 py-4 text-left">Date</th>
@@ -222,7 +222,7 @@ const ViewPayments = () => {
                       <td className="px-6 py-5 text-center">
                         <button
                           onClick={() => downloadReceipt(payment)}
-                          className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-bold text-white flex items-center gap-2 mx-auto transition"
+                          className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 rounded-xl font-bold text-white flex items-center gap-2 mx-auto shadow-lg hover:shadow-green-500/30 transition"
                         >
                           <FaDownload />
                           Download
@@ -276,7 +276,7 @@ const ViewPayments = () => {
 
                     <button
                       onClick={() => downloadReceipt(payment)}
-                      className="mt-6 w-full py-4 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-bold text-white flex items-center justify-center gap-3"
+                      className="mt-6 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 rounded-xl font-bold text-white flex items-center justify-center gap-3 shadow-lg hover:shadow-green-500/30 transition"
                     >
                       <FaDownload className="w-5 h-5" />
                       Download Receipt

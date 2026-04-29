@@ -141,7 +141,7 @@ const MyIssus = () => {
         >
           {isLoading ? (
             <div className="p-20 text-center">
-              <div className="loading loading-spinner loading-lg text-purple-500"></div>
+               <div className="loading loading-spinner loading-lg text-green-500"></div>
             </div>
           ) : (
             <div className="overflow-x-auto">

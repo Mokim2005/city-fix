@@ -65,22 +65,22 @@ const Loading = () => {
       <div className="absolute inset-0 bg-black/80 backdrop-blur-[3px]"></div>
 
       {/* Animated Background Orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-64 h-64 bg-purple-600/30 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.4, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-      />
+        <motion.div
+          className="absolute top-20 left-10 w-64 h-64 bg-green-600/30 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.4, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+        />
 
       {/* Loading Container */}
       <div className="relative z-10 flex flex-col items-center">
@@ -94,18 +94,18 @@ const Loading = () => {
           {/* Spinner Container */}
           <div ref={logoRef} className="relative w-32 h-32 mx-auto mb-8">
             {/* Outer Spinning Ring */}
-            <div className="spinner-ring absolute inset-0 rounded-full border-4 border-transparent border-t-purple-500 border-r-pink-500"></div>
+            <div className="spinner-ring absolute inset-0 rounded-full border-4 border-transparent border-t-green-500 border-r-emerald-500"></div>
 
             {/* Middle Ring */}
             <motion.div
-              className="absolute inset-2 rounded-full border-4 border-transparent border-t-cyan-400 border-l-blue-400"
+              className="absolute inset-2 rounded-full border-4 border-transparent border-t-green-400 border-l-emerald-400"
               animate={{ rotate: -360 }}
               transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
             />
 
             {/* Inner Pulsing Circle */}
             <motion.div
-              className="absolute inset-6 rounded-full bg-gradient-to-br from-purple-500/50 to-pink-500/50 backdrop-blur-sm"
+              className="absolute inset-6 rounded-full bg-gradient-to-br from-green-500/50 to-emerald-500/50 backdrop-blur-sm"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.5, 0.8, 0.5],
@@ -127,9 +127,9 @@ const Loading = () => {
               className="absolute inset-0 rounded-full"
               animate={{
                 boxShadow: [
-                  "0 0 20px rgba(168, 85, 247, 0.5)",
-                  "0 0 40px rgba(168, 85, 247, 0.8)",
-                  "0 0 20px rgba(168, 85, 247, 0.5)",
+                  "0 0 20px rgba(34, 197, 94, 0.5)",
+                  "0 0 40px rgba(34, 197, 94, 0.8)",
+                  "0 0 20px rgba(34, 197, 94, 0.5)",
                 ],
               }}
               transition={{ repeat: Infinity, duration: 2 }}
@@ -138,7 +138,7 @@ const Loading = () => {
 
           {/* Loading Text */}
           <div ref={textRef} className="text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent mb-3">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent mb-3">
               City Fix
             </h2>
             <p className="text-gray-300 text-base sm:text-lg mb-4">
@@ -168,7 +168,7 @@ const Loading = () => {
             {/* Progress Bar */}
             <div className="w-64 h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
               <motion.div
-                className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500"
+                className="h-full bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500"
                 animate={{
                   x: ["-100%", "100%"],
                 }}
@@ -195,7 +195,7 @@ const Loading = () => {
 
       {/* Decorative Floating Elements */}
       <motion.div
-        className="absolute top-1/4 right-1/4 w-16 h-16 border-4 border-purple-400/30 rounded-full"
+        className="absolute top-1/4 right-1/4 w-16 h-16 border-4 border-green-400/30 rounded-full"
         animate={{
           y: [0, -20, 0],
           rotate: 360,
@@ -207,7 +207,7 @@ const Loading = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-1/4 left-1/4 w-12 h-12 border-4 border-pink-400/30 rounded-lg"
+        className="absolute bottom-1/4 left-1/4 w-12 h-12 border-4 border-emerald-400/30 rounded-lg"
         animate={{
           y: [0, 20, 0],
           rotate: -360,

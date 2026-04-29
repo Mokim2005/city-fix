@@ -108,7 +108,7 @@ const UserDashboardHome = () => {
           className="stat backdrop-blur-xl bg-white/10 rounded-xl shadow-lg border border-white/30"
         >
           <div className="stat-title text-gray-200">Total Payments</div>
-          <div className="stat-value text-purple-300">${stats.payments}</div>
+           <div className="stat-value text-green-300">${stats.payments}</div>
         </motion.div>
       </div>
 

@@ -85,7 +85,7 @@ const UserBlockManage = () => {
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl md:text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"
+        className="text-3xl md:text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent"
       >
         Manage Users ({users.length})
       </motion.h2>
@@ -99,7 +99,7 @@ const UserBlockManage = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-indigo-600/40 to-purple-600/40 text-left text-xs md:text-sm font-semibold uppercase">
+               <tr className="bg-gradient-to-r from-green-600/40 to-emerald-600/40 text-left text-xs md:text-sm font-semibold uppercase">
                 <th className="px-4 md:px-6 py-4">Name</th>
                 <th className="px-4 md:px-6 py-4 hidden sm:table-cell">Email</th>
                 <th className="px-4 md:px-6 py-4">Subscription</th>
@@ -145,7 +145,7 @@ const UserBlockManage = () => {
                       <span
                         className={`px-3 py-1 rounded-full text-xs ${
                           user.isPremium
-                            ? "bg-purple-500/30 text-purple-300"
+                            ? "bg-green-500/30 text-green-300"
                             : "bg-gray-500/30 text-gray-300"
                         }`}
                       >
@@ -168,19 +168,15 @@ const UserBlockManage = () => {
 
                     {/* Action */}
                     <td className="px-4 md:px-6 py-4 text-center">
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() =>
-                          handleBlock(user, !user.blocked)
-                        }
-                        disabled={blockMutation.isPending}
-                        className={`px-4 py-2 rounded-lg text-white text-sm ${
-                          user.blocked
-                            ? "bg-green-600"
-                            : "bg-red-600"
-                        }`}
-                      >
+                       <motion.button
+                         whileHover={{ scale: 1.05 }}
+                         whileTap={{ scale: 0.95 }}
+                         onClick={() =>
+                           handleBlock(user, !user.blocked)
+                         }
+                         disabled={blockMutation.isPending}
+                         className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
+                       >
                         {blockMutation.isPending
                           ? "Processing..."
                           : user.blocked
@@ -215,7 +211,7 @@ const UserBlockManage = () => {
                 onClick={() => handlePageChange(page)}
                 className={`px-4 py-2 rounded-lg ${
                   currentPage === page
-                    ? "bg-indigo-500 text-white"
+                    ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
                     : "bg-white/10"
                 }`}
               >

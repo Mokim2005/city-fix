@@ -340,9 +340,9 @@ const ManageStaff = () => {
               className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 md:p-8 max-w-lg w-full border border-white/30"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                Update Staff
-              </h3>
+               <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                 Update Staff
+               </h3>
               <div className="space-y-4 md:space-y-5">
                 <input
                   placeholder="Full Name"
@@ -350,7 +350,7 @@ const ManageStaff = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, displayName: e.target.value })
                   }
-                  className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 md:px-5 py-3 md:py-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                   className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 md:px-5 py-3 md:py-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
                 <input
                   placeholder="Phone"
@@ -358,7 +358,7 @@ const ManageStaff = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
-                  className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 md:px-5 py-3 md:py-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                   className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 md:px-5 py-3 md:py-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
                 <input
                   placeholder="Photo URL (optional)"
@@ -366,7 +366,7 @@ const ManageStaff = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, photoURL: e.target.value })
                   }
-                  className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 md:px-5 py-3 md:py-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                   className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 md:px-5 py-3 md:py-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
               <div className="flex flex-col sm:flex-row justify-end gap-3 sm:space-x-4 mt-6 md:mt-8">
@@ -383,7 +383,7 @@ const ManageStaff = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={handleUpdate}
                   disabled={updateMutation.isPending}
-                  className="px-6 md:px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-indigo-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                   className="px-6 md:px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition"
                 >
                   {updateMutation.isPending ? "Updating..." : "Save Changes"}
                 </motion.button>

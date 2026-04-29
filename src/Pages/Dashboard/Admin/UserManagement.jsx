@@ -116,7 +116,7 @@ const UsersManagement = () => {
           placeholder="Search users..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/30 backdrop-blur-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+           className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/30 backdrop-blur-md text-white focus:outline-none focus:ring-2 focus:ring-green-500"
         />
       </div>
 
@@ -129,7 +129,7 @@ const UsersManagement = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-indigo-600/40 to-purple-600/40 text-xs md:text-sm uppercase">
+               <tr className="bg-gradient-to-r from-green-600/40 to-emerald-600/40 text-xs md:text-sm uppercase">
                 <th className="px-4 md:px-6 py-4">#</th>
                 <th className="px-4 md:px-6 py-4">User</th>
                 <th className="px-4 md:px-6 py-4 hidden sm:table-cell">
@@ -163,7 +163,7 @@ const UsersManagement = () => {
                           className="w-10 h-10 rounded-full border border-white/30"
                         />
                       ) : (
-                        <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center">
                           {user.displayName?.charAt(0) || "U"}
                         </div>
                       )}
@@ -181,11 +181,11 @@ const UsersManagement = () => {
 
                     <td className="px-4 md:px-6 py-4">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs ${
-                          user.role === "admin"
-                            ? "bg-purple-500/30 text-purple-300"
-                            : "bg-gray-500/30 text-gray-300"
-                        }`}
+                         className={`px-3 py-1 rounded-full text-xs ${
+                           user.role === "admin"
+                             ? "bg-green-500/30 text-green-300"
+                             : "bg-gray-500/30 text-gray-300"
+                         }`}
                       >
                         {user.role || "user"}
                       </span>
@@ -195,14 +195,14 @@ const UsersManagement = () => {
                       {user.role === "admin" ? (
                         <button
                           onClick={() => handleRemoveAdmin(user)}
-                          className="bg-red-500 p-3 rounded-lg"
+                          className="bg-gradient-to-r from-green-600 to-emerald-600 p-3 rounded-lg text-white shadow-lg hover:shadow-green-500/30 transition"
                         >
                           <FiShieldOff />
                         </button>
                       ) : (
                         <button
                           onClick={() => handleMakeAdmin(user)}
-                          className="bg-green-500 p-3 rounded-lg"
+                          className="bg-gradient-to-r from-green-600 to-emerald-600 p-3 rounded-lg text-white shadow-lg hover:shadow-green-500/30 transition"
                         >
                           <FaUserShield />
                         </button>
@@ -235,7 +235,7 @@ const UsersManagement = () => {
                 onClick={() => handlePageChange(page)}
                 className={`px-4 py-2 rounded-lg ${
                   currentPage === page
-                    ? "bg-indigo-500 text-white"
+                    ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
                     : "bg-white/10"
                 }`}
               >

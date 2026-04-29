@@ -86,7 +86,7 @@ const Payment = () => {
         <h1 className="text-3xl font-bold mb-6">Upgrade to Premium</h1>
         <p className="text-xl mb-8 text-gray-300">Unlock exclusive features</p>
 
-        <div className="text-5xl font-extrabold mb-8 text-purple-400">
+        <div className="text-5xl font-extrabold mb-8 text-green-400">
           ৳1000{" "}
           <span className="text-lg font-normal text-gray-400">/ one time</span>
         </div>
@@ -102,11 +102,11 @@ const Payment = () => {
           <button
             onClick={handlePayment}
             disabled={isProcessing} 
-            className={`mt-6 w-full py-4 px-10 rounded-xl font-bold text-lg shadow-lg transition-all ${
-              isProcessing
-                ? "bg-gray-600 cursor-not-allowed opacity-70"
-                : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover:scale-105"
-            }`}
+             className={`mt-6 w-full py-4 px-10 rounded-xl font-bold text-lg shadow-lg transition-all ${
+               isProcessing
+                 ? "bg-gray-600 cursor-not-allowed opacity-70"
+                 : "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 hover:scale-105"
+             }`}
           >
             {isProcessing ? "Processing... Please wait" : "Pay Now"}
           </button>

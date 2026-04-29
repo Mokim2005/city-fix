@@ -104,7 +104,7 @@ const AssignedIssues = () => {
         <title>Assigned Issues</title>
 
         <motion.h2
-          className="text-3xl md:text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-violet-500"
+          className="text-3xl md:text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-400"
           variants={itemVariants}
         >
           My Assigned Issues ({issues.length})
@@ -118,7 +118,7 @@ const AssignedIssues = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="flex-1 px-6 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+             className="flex-1 px-6 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-green-500"
           >
             <option value="All">All Status</option>
             <option value="pending">Pending</option>
@@ -132,7 +132,7 @@ const AssignedIssues = () => {
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="flex-1 px-6 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+             className="flex-1 px-6 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-green-500"
           >
             <option value="All">All Priority</option>
             <option value="Normal">Normal</option>
@@ -230,7 +230,7 @@ const AssignedIssues = () => {
                           }
                           value=""
                           disabled={mutation.isPending}
-                          className="px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+                           className="px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                         >
                           <option value="" disabled>
                             Change Status →
