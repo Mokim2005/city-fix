@@ -49,12 +49,12 @@ const Error = () => {
 
   return (
     <div
-      style={{
-        backgroundImage: `url('https://t3.ftcdn.net/jpg/08/07/76/36/360_F_807763620_eApG3aDaoQ6Y5SWOLGQSciiDQshXh1fz.jpg')`,
-        backgroundAttachment: "fixed",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      // style={{
+      //   backgroundImage: `url('https://t3.ftcdn.net/jpg/08/07/76/36/360_F_807763620_eApG3aDaoQ6Y5SWOLGQSciiDQshXh1fz.jpg')`,
+      //   backgroundAttachment: "fixed",
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      // }}
       className="min-h-screen w-full flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 relative overflow-hidden"
     >
       <title>403 - Forbidden</title>
