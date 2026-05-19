@@ -32,7 +32,7 @@ const Home = () => {
         {/* 🔥 Content Container (Centered) */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-10">
           <ExploreBanner />
-          <LiveCityStatus />
+          {/* <LiveCityStatus /> */}
           <BannerSlider />
           <HowItWorks />
           <LatestResolvedIssues />
