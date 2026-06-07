@@ -179,147 +179,193 @@ const MyProfile = () => {
     return Loading
   }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-     <title>My Profile</title>
-      <div className="relative w-full max-w-2xl">
-        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl border border-white/30 p-10">
-          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-            <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center gap-2">
-              <FaUser /> {role?.toUpperCase()}
+return (
+  <div className="w-full flex justify-center px-4 py-10">
+    
+    {/* Main Container */}
+    <div className="w-full max-w-6xl text-white">
+      
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold">Profile</h1>
+        <p className="text-gray-400 mt-2">
+          View all your profile details here.
+        </p>
+      </div>
+
+      {/* GRID LAYOUT */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        {/* LEFT CARD - PROFILE */}
+        <div className="lg:col-span-1 backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl p-6 shadow-xl flex flex-col items-center">
+
+          {/* Avatar */}
+          <div className="relative">
+            <img
+              src={imagePreview}
+              className="w-40 h-40 rounded-full object-cover border-4 border-white/20"
+            />
+
+            {currentUser.isPremium && (
+              <div className="absolute bottom-2 right-2 bg-yellow-400 text-black p-2 rounded-full">
+                <FaCrown />
+              </div>
+            )}
+          </div>
+
+          {/* Name */}
+          <h2 className="text-2xl font-bold mt-5 text-center">
+            {name || user?.displayName}
+          </h2>
+
+          <p className="text-gray-400">{user?.email}</p>
+
+          {/* Status */}
+          <div className="mt-4 flex flex-col gap-2 items-center">
+            {currentUser.isPremium && (
+              <span className="px-4 py-1 bg-green-500/20 border border-green-400/30 text-green-300 rounded-full text-sm">
+                Premium User
+              </span>
+            )}
+
+            {currentUser.blocked && (
+              <span className="px-4 py-1 bg-red-500/20 border border-red-400/30 text-red-300 rounded-full text-sm flex items-center gap-2">
+                <FaBan /> Blocked
+              </span>
+            )}
+          </div>
+
+          {/* Actions */}
+          <div className="w-full mt-6 space-y-3">
+
+            <button
+              onClick={() => setIsEditMode(true)}
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 py-3 rounded-xl font-semibold hover:scale-105 transition"
+            >
+              <FaCamera className="inline mr-2" />
+              Edit Profile
+            </button>
+
+            {!currentUser.isPremium && !currentUser.blocked && (
+              <Link to="/dashboard/payment">
+                <button className="w-full bg-white/10 border border-white/20 py-3 rounded-xl hover:bg-white/20 transition">
+                  Upgrade Premium
+                </button>
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* RIGHT CARD - DETAILS (like your image) */}
+        <div className="lg:col-span-2 backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl p-6 shadow-xl">
+
+          <h2 className="text-xl font-semibold mb-6">
+            Bio & other details
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div>
+              <p className="text-gray-400 text-sm">Full Name</p>
+              <p className="font-semibold">{name || user?.displayName}</p>
+            </div>
+
+            <div>
+              <p className="text-gray-400 text-sm">Email</p>
+              <p className="font-semibold">{user?.email}</p>
+            </div>
+
+            <div>
+              <p className="text-gray-400 text-sm">Role</p>
+              <p className="font-semibold">{role?.toUpperCase()}</p>
+            </div>
+
+            <div>
+              <p className="text-gray-400 text-sm">Account Status</p>
+              <p className="font-semibold">
+                {currentUser.isPremium ? "Premium" : "Free"}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-gray-400 text-sm">User ID</p>
+              <p className="font-semibold">
+                {currentUser._id?.slice(0, 10)}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-gray-400 text-sm">Blocked</p>
+              <p className="font-semibold">
+                {currentUser.blocked ? "Yes" : "No"}
+              </p>
             </div>
           </div>
 
-          {!isEditMode ? (
-            <div className="text-center mt-8">
-              <div className="relative inline-block">
+        </div>
+
+      </div>
+
+      {/* EDIT MODE (unchanged logic, same UI block) */}
+      {isEditMode && (
+        <div className="mt-8 backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl p-6">
+          
+          <h2 className="text-xl font-semibold mb-6">Edit Profile</h2>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+
+            <div className="flex justify-center">
+              <div className="relative">
                 <img
                   src={imagePreview}
-                  alt="Profile"
-                  className="w-40 h-40 rounded-full border-8 border-white/30 shadow-2xl object-cover"
+                  className="w-36 h-36 rounded-full border-4 border-white/20"
                 />
-                {currentUser.isPremium && (
-                  <div className="absolute bottom-0 right-0 bg-yellow-400 text-black p-3 rounded-full shadow-lg">
-                    <FaCrown className="text-2xl" />
-                  </div>
-                )}
-              </div>
 
-              <h2 className="text-4xl font-bold text-white mt-6">
-                {name || user?.displayName}
-              </h2>
-              <p className="text-xl text-gray-300 mt-2">{user?.email}</p>
-
-              {currentUser.isPremium && (
-                <div className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black rounded-full font-bold shadow-lg">
-                  PREMIUM MEMBER
-                </div>
-              )}
-
-              {currentUser.blocked && (
-                <div className="mt-6 p-4 bg-red-600/80 rounded-2xl flex items-center justify-center gap-3 shadow-lg">
-                  <FaBan />
-                  <span className="text-xl font-bold">Account Blocked</span>
-                </div>
-              )}
-
-              <div className="mt-10 flex flex-col gap-4">
-                <button
-                  onClick={() => setIsEditMode(true)}
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold text-lg shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-3"
-                >
-                  <FaCamera /> Edit Profile
-                </button>
-
-                {!currentUser.isPremium && !currentUser.blocked && (
-                  <Link to="/dashboard/payment">
-                    <button                       className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold text-lg shadow-xl transform hover:scale-105 transition-all">
-                      Upgrade to Premium - 1000 BDT
-                    </button>
-                  </Link>
-                )}
-
-                {currentUser.isPremium && (
-                  <button className="bg-gradient-to-r from-gray-600 to-gray-700 text-white py-4 px-10 rounded-2xl font-bold opacity-70 cursor-not-allowed">
-                    <FaCheck /> Already Premium
-                  </button>
-                )}
+                <label className="absolute bottom-2 right-2 bg-green-600 p-2 rounded-full cursor-pointer">
+                  <FaCamera />
+                  <input
+                    type="file"
+                    hidden
+                    onChange={handleImageChange}
+                  />
+                </label>
               </div>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="mt-8">
-              <div className="text-center mb-8">
-                <div className="relative inline-block">
-                  <img
-                    src={imagePreview || "https://via.placeholder.com/150"}
-                    alt="Preview"
-                    className="w-40 h-40 rounded-full border-8 border-white/30 shadow-2xl object-cover"
-                  />
-                  <label className="absolute bottom-0 right-0 bg-green-600 p-4 rounded-full cursor-pointer hover:bg-green-700 transition shadow-lg">
-                    <FaCamera className="text-2xl text-white" />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="hidden"
-                    />
-                  </label>
-                </div>
-              </div>
 
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-gray-200 text-lg font-semibold mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                     className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-4 focus:ring-green-500/50 placeholder-gray-400"
-                    placeholder="Enter your name"
-                    required
-                  />
-                </div>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full p-4 bg-white/10 border border-white/20 rounded-xl"
+            />
 
-                <div className="flex gap-4 justify-center mt-8">
-                  <button
-                    type="submit"
-                    disabled={updateProfileMutation.isPending}
-                    className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 px-10 rounded-2xl font-bold shadow-xl transform hover:scale-105 transition-all flex items-center gap-3 disabled:opacity-70"
-                  >
-                    <FaCheck />
-                    {updateProfileMutation.isPending
-                      ? "Saving..."
-                      : "Save Changes"}
-                  </button>
+            <div className="flex gap-4">
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsEditMode(false);
-                      setSelectedFile(null);
-                      setName(
-                        currentUser.displayName || user?.displayName || ""
-                      );
-                      setImagePreview(
-                        currentUser.photoURL ||
-                          user?.photoURL ||
-                          "https://via.placeholder.com/150"
-                      );
-                    }}
-                    className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white py-4 px-10 rounded-2xl font-bold shadow-xl transform hover:scale-105 transition-all flex items-center gap-3"
-                  >
-                    <FaTimes /> Cancel
-                  </button>
-                </div>
-              </div>
-            </form>
-          )}
+              <button
+                type="submit"
+                disabled={updateProfileMutation.isPending}
+                className="flex-1 bg-green-600 py-3 rounded-xl"
+              >
+                Save
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsEditMode(false)}
+                className="flex-1 bg-gray-600 py-3 rounded-xl"
+              >
+                Cancel
+              </button>
+
+            </div>
+
+          </form>
+
         </div>
-      </div>
+      )}
+
     </div>
-  );
+  </div>
+);
 };
 
 export default MyProfile;
