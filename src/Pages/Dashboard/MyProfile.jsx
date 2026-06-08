@@ -73,8 +73,8 @@ const MyProfile = () => {
         setName(updatedUser.displayName || user?.displayName || "");
         setImagePreview(
           updatedUser.photoURL ||
-            user?.photoURL ||
-            "https://via.placeholder.com/150"
+          user?.photoURL ||
+          "https://via.placeholder.com/150"
         );
         setSelectedFile(null);
         setIsEditMode(false);
@@ -119,9 +119,8 @@ const MyProfile = () => {
       const formData = new FormData();
       formData.append("image", selectedFile);
 
-      const imgApiUrl = `https://api.imgbb.com/1/upload?key=${
-        import.meta.env.VITE_image_host_key
-      }`;
+      const imgApiUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key
+        }`;
 
       Swal.fire({
         title: "Uploading Image...",
@@ -241,12 +240,12 @@ const MyProfile = () => {
         .btn-upgrade {
           transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
         }
-        .btn-upgrade:hover {
+        .btn-upgrade:hover:not(:disabled) {
           background: rgba(255,255,255,0.2);
           transform: translateY(-2px);
           box-shadow: 0 6px 18px rgba(255,255,255,0.1);
         }
-        .btn-upgrade:active { transform: scale(0.98); }
+        .btn-upgrade:active:not(:disabled) { transform: scale(0.98); }
 
         .btn-save {
           transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
@@ -355,14 +354,20 @@ const MyProfile = () => {
                   Edit Profile
                 </button>
 
-                {/* Upgrade button — only shown when NOT premium and NOT blocked */}
-                {!currentUser.isPremium && !currentUser.blocked && (
-                  <Link to="/dashboard/payment">
-                    <button className="btn-upgrade w-full bg-white/10 border border-white/20 py-3 rounded-xl mt-3">
-                      Upgrade Premium
-                    </button>
-                  </Link>
-                )}
+                {/* Upgrade button — সর্বদা দৃশ্যমান থাকবে, প্রিমিয়াম বা ব্লকড হলে ডিজেবলড থাকবে */}
+                <Link to={currentUser.isPremium ? "#" : "/dashboard/payment"} className={currentUser.isPremium ? "pointer-events-none" : ""}>
+                  <button
+                    disabled={currentUser.isPremium || currentUser.blocked}
+                    className={`btn-upgrade w-full py-3 rounded-xl mt-3 border ${currentUser.isPremium
+                        ? "bg-green-500/20 border-green-400/30 text-green-300 cursor-not-allowed opacity-70"
+                        : currentUser.blocked
+                          ? "bg-red-500/20 border-red-400/30 text-red-300 cursor-not-allowed opacity-70"
+                          : "bg-white/10 border-white/20"
+                      }`}
+                  >
+                    {currentUser.isPremium ? "Premium Activated" : "Upgrade Premium"}
+                  </button>
+                </Link>
               </div>
             </div>
 
@@ -388,7 +393,7 @@ const MyProfile = () => {
                   <p className="font-semibold">{role?.toUpperCase()}</p>
                 </div>
 
-                {/* Upgrade button hidden means premium (paid), visible means free */}
+                {/* Account Status */}
                 <div className="detail-row">
                   <p className="text-gray-400 text-sm">Account Status</p>
                   <p className={`font-semibold ${(!currentUser.isPremium && !currentUser.blocked) ? "text-gray-300" : "text-yellow-300"}`}>
@@ -441,21 +446,21 @@ const MyProfile = () => {
                 />
 
                 <div className="flex gap-4">
-                  <button
-                    type="submit"
-                    disabled={updateProfileMutation.isPending}
-                    className="btn-save flex-1 bg-green-600 py-3 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {updateProfileMutation.isPending ? "Saving..." : "Save"}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setIsEditMode(false)}
-                    className="btn-cancel flex-1 bg-gray-600 py-3 rounded-xl font-semibold"
-                  >
-                    Cancel
-                  </button>
+                  {/* Edit Mode এর বাটনটিও এখন প্রিমিয়াম ইউজারদের জন্য হাইড না হয়ে ডিজেবলড থাকবে */}
+                  <Link to={currentUser.isPremium ? "#" : "/dashboard/payment"} className={`w-full ${currentUser.isPremium ? "pointer-events-none" : ""}`}>
+                    <button
+                      type="button"
+                      disabled={currentUser.isPremium || currentUser.blocked}
+                      className={`btn-upgrade w-full py-3 rounded-xl mt-3 border ${currentUser.isPremium
+                          ? "bg-green-500/20 border-green-400/30 text-green-300 cursor-not-allowed opacity-70"
+                          : currentUser.blocked
+                            ? "bg-red-500/20 border-red-400/30 text-red-300 cursor-not-allowed opacity-70"
+                            : "bg-white/10 border-white/20"
+                        }`}
+                    >
+                      {currentUser.isPremium ? "Premium Activated" : "Upgrade Premium"}
+                    </button>
+                  </Link>
                 </div>
 
               </form>
