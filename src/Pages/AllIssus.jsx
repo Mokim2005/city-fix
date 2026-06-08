@@ -7,7 +7,7 @@ import UseAxiosSecure from "../Hooks/UseAxiosSecure";
 import UserAuth from "../Hooks/UserAuth";
 import Swal from "sweetalert2";
 import Loading from "../Components/Loading";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query"; // useQueryClient যুক্ত করা হয়েছে
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +15,7 @@ const AllIssus = () => {
   const axiosSecure = UseAxiosSecure();
   const { user } = UserAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient(); // queryClient ডিক্লেয়ার করা হয়েছে
 
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -95,7 +96,10 @@ const AllIssus = () => {
         email: user.email,
       });
 
-      if (!res.data?.success) {
+      // এই চেকটি মডিফাই করা হয়েছে যাতে সফল হলে সাথে সাথে কুয়েরি ইনভ্যালিডেট (রিয়েল-টাইম রি-ফেচ) হয়
+      if (res.data?.success) {
+        queryClient.invalidateQueries({ queryKey: ["issues"] });
+      } else {
         Swal.fire("Error", res.data?.message || "Upvote failed", "error");
       }
     } catch (err) {
