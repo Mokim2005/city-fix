@@ -73,7 +73,7 @@ const Login = () => {
                 className="input input-bordered w-full bg-white/10 text-white placeholder-gray-400 border-white/20 focus:border-cyan-400 focus:outline-none pr-14"
                 placeholder="Enter your password"
               />
-{/* 
+
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
@@ -85,7 +85,7 @@ const Login = () => {
                   <FaEye className="w-5 h-5" />
                 )}
               </button>
-            </div> */}
+            </div>
 
             {errors.password?.type === "required" && (
               <p className="text-red-400 text-sm mt-1">Password is required</p>
