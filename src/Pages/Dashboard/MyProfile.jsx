@@ -137,12 +137,12 @@ const MyProfile = () => {
         } else {
           throw new Error("Image upload failed");
         }
-      } catch (err) {
-        Swal.close();
-        Swal.fire("Error!", "Failed to upload image", "error");
-        return;
-      } finally {
-        Swal.close();
+      // } catch (err) {
+      //   Swal.close();
+      //   Swal.fire("Error!", "Failed to upload image", "error");
+      //   return;
+      // } finally {
+        // Swal.close();
       }
     }
 
