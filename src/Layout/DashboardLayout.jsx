@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { TbReportSearch } from "react-icons/tb";
 import { Link, NavLink, Outlet } from "react-router-dom";
@@ -34,6 +34,7 @@ const navLinkClassCollapsed = ({ isActive }) =>
 const DashboardLayout = () => {
   const { role } = UseRole();
   const [collapsed, setCollapsed] = useState(false);
+
   const sidebarRef = useRef(null);
   const logoRef = useRef(null);
 
@@ -56,6 +57,7 @@ const DashboardLayout = () => {
         { scale: 1, rotate: 0, opacity: 1, duration: 1, ease: "elastic.out(1, 0.5)" }
       );
     }
+
     if (sidebarRef.current) {
       gsap.fromTo(
         sidebarRef.current,
@@ -65,12 +67,11 @@ const DashboardLayout = () => {
     }
   }, []);
 
-  const sidebarWidth = collapsed ? "w-[72px]" : "w-64";
-
   return (
     <div
       style={{
-        backgroundImage: `url('https://media.istockphoto.com/id/1389713219/photo/%E0%B8%97%E0%B8%B4%E0%B8%A7%E0%B8%97%E0%B8%B1%E0%B8%A8%E0%B8%99%E0%B9%8C%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%9A%E0%B8%8D%E0%B8%88%E0%B8%81%E0%B8%B4%E0%B8%95%E0%B8%B4%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99.jpg?s=612x612&w=0&k=20&c=qU8DjzGALzq9wNvEx0-jU3iXfLUAaO_ud_SG4iDVnCc=')`,
+        backgroundImage:
+          "url('https://media.istockphoto.com/id/1389713219/photo/thailand-garden-landscape.jpg')",
         backgroundAttachment: "fixed",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -78,7 +79,7 @@ const DashboardLayout = () => {
       className="min-h-screen w-full relative"
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]"></div>
+      <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" />
 
       {/* Background Orbs */}
       <motion.div
@@ -92,12 +93,12 @@ const DashboardLayout = () => {
         transition={{ repeat: Infinity, duration: 12 }}
       />
 
-      <div className="drawer lg:drawer-open w-full relative z-10">
+      {/* DRAWER (FIXED) */}
+      <div className="drawer lg:drawer-open drawer-mobile w-full relative z-10">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
 
         {/* MAIN CONTENT */}
-        <div className="drawer-content flex flex-col min-h-screen flex-1 min-w-0 overflow-x-hidden">
-          {/* Navbar */}
+        <div className="drawer-content flex flex-col min-h-screen flex-1 overflow-x-hidden">
           <motion.nav className="navbar backdrop-blur-xl bg-gradient-to-r from-green-900/80 to-emerald-900/80 border-b border-white/20 shadow-xl sticky top-0 z-20">
             <label
               htmlFor="my-drawer-4"
@@ -110,172 +111,141 @@ const DashboardLayout = () => {
             </div>
           </motion.nav>
 
-          {/* Page Content */}
-          <div className="flex-1 min-w-0 overflow-x-hidden p-4 md:p-6">
+          <div className="flex-1 p-4 md:p-6">
             <Outlet />
           </div>
         </div>
 
-        {/* SIDEBAR */}
+        {/* SIDEBAR (FIXED RESPONSIVE) */}
         <div className="drawer-side z-30">
-          <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
+          <label htmlFor="my-drawer-4" className="drawer-overlay" />
 
-          <motion.div
+          <div
             ref={sidebarRef}
-            animate={{ width: collapsed ? 72 : 256 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="flex min-h-full flex-col backdrop-blur-2xl bg-gradient-to-b from-green-900/90 to-emerald-900/90 border-r border-white/20 shadow-2xl overflow-visible"
-            style={{ minWidth: collapsed ? 72 : 256 }}
+            className={`flex min-h-full flex-col backdrop-blur-2xl bg-gradient-to-b from-green-900/90 to-emerald-900/90 border-r border-white/20 shadow-2xl transition-all duration-300 overflow-y-auto
+              ${collapsed ? "w-[72px] lg:w-[72px]" : "w-64 lg:w-64"}`}
           >
-            {/* Scrollable nav area */}
-            <ul className="menu w-full grow p-3 space-y-1.5 overflow-visible overflow-y-auto">
+            <ul className="menu w-full grow p-3 space-y-1.5">
 
-              {/* Logo */}
+              {/* LOGO */}
               <li className="mb-3">
                 <Link
                   to="/"
                   className={`flex items-center backdrop-blur-xl bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl transition-all duration-200 ${
-                    collapsed ? "justify-center w-10 h-10 mx-auto p-0 tooltip tooltip-right" : "gap-3 px-3 py-2"
+                    collapsed
+                      ? "justify-center w-10 h-10 mx-auto p-0 tooltip tooltip-right"
+                      : "gap-3 px-3 py-2"
                   }`}
                   data-tip="Homepage"
                 >
                   <motion.img
                     ref={logoRef}
-                    className={collapsed ? "w-7 h-7 object-contain" : "w-9 h-9 object-contain"}
+                    className={collapsed ? "w-7 h-7" : "w-9 h-9"}
                     src={logo}
                     alt="logo"
                   />
                   {!collapsed && (
-                    <span className="text-white font-bold text-sm whitespace-nowrap">City Fix</span>
+                    <span className="text-white font-bold text-sm">
+                      City Fix
+                    </span>
                   )}
                 </Link>
               </li>
 
-              {/* Dashboard */}
+              {/* DASHBOARD */}
               <li>
                 <NavLink
                   to="/dashboard"
                   end
                   className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                  data-tip={collapsed ? "Dashboard" : undefined}
                 >
-                  <FaHome className="shrink-0 text-lg" />
-                  {!collapsed && <span className="text-sm font-medium whitespace-nowrap">Dashboard</span>}
+                  <FaHome />
+                  {!collapsed && <span>Dashboard</span>}
                 </NavLink>
               </li>
 
-              {/* My Profile */}
+              {/* PROFILE */}
               <li>
                 <NavLink
                   to="/dashboard/my-profile"
                   className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                  data-tip={collapsed ? "My Profile" : undefined}
                 >
-                  <ImProfile className="shrink-0 text-lg" />
-                  {!collapsed && <span className="text-sm font-medium whitespace-nowrap">My Profile</span>}
+                  <ImProfile />
+                  {!collapsed && <span>My Profile</span>}
                 </NavLink>
               </li>
 
-              {/* Admin Routes */}
+              {/* ADMIN */}
               {role === "admin" && (
                 <>
                   <li>
-                    <NavLink
-                      to="/dashboard/all-issus-table"
-                      className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                      data-tip={collapsed ? "All Issues" : undefined}
-                    >
-                      <MdOutlineViewCarousel className="shrink-0 text-lg" />
-                      {!collapsed && <span className="text-sm font-medium whitespace-nowrap">All Issues</span>}
+                    <NavLink to="/dashboard/all-issus-table" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                      <MdOutlineViewCarousel />
+                      {!collapsed && <span>All Issues</span>}
                     </NavLink>
                   </li>
 
                   <li>
-                    <NavLink
-                      to="/dashboard/user-management"
-                      className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                      data-tip={collapsed ? "User Management" : undefined}
-                    >
-                      <FaUsers className="shrink-0 text-lg" />
-                      {!collapsed && <span className="text-sm font-medium whitespace-nowrap">User Management</span>}
+                    <NavLink to="/dashboard/user-management" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                      <FaUsers />
+                      {!collapsed && <span>User Management</span>}
                     </NavLink>
                   </li>
 
                   <li>
-                    <NavLink
-                      to="/dashboard/manage-staff"
-                      className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                      data-tip={collapsed ? "Manage Staff" : undefined}
-                    >
-                      <MdManageAccounts className="shrink-0 text-lg" />
-                      {!collapsed && <span className="text-sm font-medium whitespace-nowrap">Manage Staff</span>}
+                    <NavLink to="/dashboard/manage-staff" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                      <MdManageAccounts />
+                      {!collapsed && <span>Manage Staff</span>}
                     </NavLink>
                   </li>
 
                   <li>
-                    <NavLink
-                      to="/dashboard/user-block-manage"
-                      className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                      data-tip={collapsed ? "Blocked Users" : undefined}
-                    >
-                      <MdOutlineAppBlocking className="shrink-0 text-lg" />
-                      {!collapsed && <span className="text-sm font-medium whitespace-nowrap">Blocked Users</span>}
+                    <NavLink to="/dashboard/user-block-manage" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                      <MdOutlineAppBlocking />
+                      {!collapsed && <span>Blocked Users</span>}
                     </NavLink>
                   </li>
 
                   <li>
-                    <NavLink
-                      to="/dashboard/view-payments"
-                      className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                      data-tip={collapsed ? "View Payments" : undefined}
-                    >
-                      <RiSecurePaymentFill className="shrink-0 text-lg" />
-                      {!collapsed && <span className="text-sm font-medium whitespace-nowrap">View Payments</span>}
+                    <NavLink to="/dashboard/view-payments" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                      <RiSecurePaymentFill />
+                      {!collapsed && <span>View Payments</span>}
                     </NavLink>
                   </li>
                 </>
               )}
 
-              {/* Staff Routes */}
+              {/* STAFF */}
               {role === "staff" && (
                 <li>
-                  <NavLink
-                    to="/dashboard/assigned-issues"
-                    className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                    data-tip={collapsed ? "Assigned Issues" : undefined}
-                  >
-                    <MdOutlineAssignmentTurnedIn className="shrink-0 text-lg" />
-                    {!collapsed && <span className="text-sm font-medium whitespace-nowrap">Assigned Issues</span>}
+                  <NavLink to="/dashboard/assigned-issues" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                    <MdOutlineAssignmentTurnedIn />
+                    {!collapsed && <span>Assigned Issues</span>}
                   </NavLink>
                 </li>
               )}
 
-              {/* User Routes */}
+              {/* USER */}
               {role === "user" && (
                 <li>
-                  <NavLink
-                    to="/dashboard/my-issus"
-                    className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                    data-tip={collapsed ? "My Issues" : undefined}
-                  >
-                    <TbReportSearch className="shrink-0 text-lg" />
-                    {!collapsed && <span className="text-sm font-medium whitespace-nowrap">My Issues</span>}
+                  <NavLink to="/dashboard/my-issus" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                    <TbReportSearch />
+                    {!collapsed && <span>My Issues</span>}
                   </NavLink>
                 </li>
               )}
             </ul>
 
-            {/* Collapse Toggle Button — Desktop only */}
-            <div className="hidden lg:flex justify-center pb-4 pt-2">
+            {/* COLLAPSE BUTTON */}
+            <div className="hidden lg:flex justify-center pb-4">
               <button
                 onClick={() => setCollapsed(!collapsed)}
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 text-white transition-all duration-200"
-                title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 text-white"
               >
                 {collapsed ? <FaChevronRight size={11} /> : <FaChevronLeft size={11} />}
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
