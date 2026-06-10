@@ -17,18 +17,16 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 
 const navLinkClass = ({ isActive }) =>
   `relative z-10 flex items-center gap-3 px-3 py-2.5 rounded-xl border transition-all duration-200 w-full
-  ${
-    isActive
-      ? "bg-white/30 border-white/50 text-white font-semibold shadow-md shadow-green-500/20"
-      : "bg-white/10 border-white/20 text-white/75 hover:bg-white/20 hover:text-white hover:border-white/40"
+  ${isActive
+    ? "bg-white/30 border-white/50 text-white font-semibold shadow-md shadow-green-500/20"
+    : "bg-white/10 border-white/20 text-white/75 hover:bg-white/20 hover:text-white hover:border-white/40"
   }`;
 
 const navLinkClassCollapsed = ({ isActive }) =>
   `relative z-10 flex items-center justify-center w-10 h-10 mx-auto rounded-xl border transition-all duration-200 tooltip tooltip-right
-  ${
-    isActive
-      ? "bg-white/30 border-white/50 text-white shadow-md shadow-green-500/20"
-      : "bg-white/10 border-white/20 text-white/75 hover:bg-white/20 hover:text-white hover:border-white/40"
+  ${isActive
+    ? "bg-white/30 border-white/50 text-white shadow-md shadow-green-500/20"
+    : "bg-white/10 border-white/20 text-white/75 hover:bg-white/20 hover:text-white hover:border-white/40"
   }`;
 
 const DashboardLayout = () => {
@@ -70,8 +68,7 @@ const DashboardLayout = () => {
   return (
     <div
       style={{
-        backgroundImage:
-          "url('https://media.istockphoto.com/id/1389713219/photo/thailand-garden-landscape.jpg')",
+        backgroundImage: `url("https://media.istockphoto.com/id/1389713219/photo/%E0%B8%97%E0%B8%B4%E0%B8%A7%E0%B8%97%E0%B8%B1%E0%B8%A8%E0%B8%99%E0%B9%8C%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%9A%E0%B8%8D%E0%B8%88%E0%B8%81%E0%B8%B4%E0%B8%95%E0%B8%B4%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99.jpg?s=612x612&w=0&k=20&c=qU8DjzGALzq9wNvEx0-jU3iXfLUAaO_ud_SG4iDVnCc=")`,
         backgroundAttachment: "fixed",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -131,11 +128,10 @@ const DashboardLayout = () => {
               <li className="mb-3">
                 <Link
                   to="/"
-                  className={`flex items-center backdrop-blur-xl bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl transition-all duration-200 ${
-                    collapsed
+                  className={`flex items-center backdrop-blur-xl bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl transition-all duration-200 ${collapsed
                       ? "justify-center w-10 h-10 mx-auto p-0 tooltip tooltip-right"
                       : "gap-3 px-3 py-2"
-                  }`}
+                    }`}
                   data-tip="Homepage"
                 >
                   <motion.img
