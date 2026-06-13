@@ -92,11 +92,11 @@ const Footer = () => {
       url: "https://www.linkedin.com/in/abdul-mokim1/",
       color: "hover:text-blue-600",
     },
-    // {
-    //   icon: FaGithub,
-    //   url: "https://github.com/Mokim2005",
-    //   color: "hover:text-gray-300",
-    // },
+    {
+      icon: FaGithub,
+      url: "https://github.com/Mokim2005",
+      color: "hover:text-gray-300",
+    },
   ];
 
   return (
