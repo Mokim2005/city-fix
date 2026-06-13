@@ -1,7 +1,6 @@
 import BannerSlider from "../Components/BannerSlider";
 import Banner from "../Components/Banner";
 import ExploreBanner from "../Components/ExploreBanner";
-import BannerReport from "../Components/BannerReport";
 import LatestResolvedIssues from "../Components/HomePreview";
 import HowItWorks from "../Components/HowItWork";
 import LiveCityStatus from "../Components/LiveCityStatus";
