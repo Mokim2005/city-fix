@@ -4,7 +4,6 @@ import ExploreBanner from "../Components/ExploreBanner";
 import LatestResolvedIssues from "../Components/HomePreview";
 import HowItWorks from "../Components/HowItWork";
 import LiveCityStatus from "../Components/LiveCityStatus";
-import UserShow from "../Components/UserShow";
 
 const Home = () => {
   return (
@@ -34,7 +33,7 @@ const Home = () => {
           <ExploreBanner />
           <LiveCityStatus />
           <BannerSlider />
-          <UserShow />
+          {/* <UserShow /> */}
           <HowItWorks />
           <LatestResolvedIssues />
         </div>
