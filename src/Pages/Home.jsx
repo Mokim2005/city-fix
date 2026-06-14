@@ -34,7 +34,7 @@ const Home = () => {
           <ExploreBanner />
           <LiveCityStatus />
           <BannerSlider />
-          <UserShow /> 
+          <UserShow />
           <HowItWorks />
           <LatestResolvedIssues />
         </div>
