@@ -216,34 +216,60 @@ const MyProfile = () => {
         .btn-edit {
           position: relative;
           overflow: hidden;
-          transition: transform 0.2s, box-shadow 0.2s;
+          border-radius: 12px;
+          transition: transform 0.3s, box-shadow 0.3s;
+          background: linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%);
+          color: white;
+          box-shadow: 0 4px 14px rgba(15, 118, 110, 0.25);
         }
         .btn-edit::after {
           content: '';
           position: absolute;
-          inset: 0;
-          background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
-          background-size: 200% 100%;
+          bottom: -100%;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%);
           opacity: 0;
-          transition: opacity 0.2s;
+          transition: bottom 0.5s ease-out, opacity 0.3s;
         }
         .btn-edit:hover {
-          transform: translateY(-2px) scale(1.025);
-          box-shadow: 0 8px 24px rgba(16,185,129,0.35);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
         }
         .btn-edit:hover::after {
+          bottom: 0;
           opacity: 1;
-          animation: shimmer 0.8s linear;
         }
         .btn-edit:active { transform: scale(0.98); }
 
         .btn-upgrade {
-          transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+          position: relative;
+          overflow: hidden;
+          border-radius: 12px;
+          transition: transform 0.3s, box-shadow 0.3s;
+          background: linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%);
+          color: white;
+          box-shadow: 0 4px 14px rgba(15, 118, 110, 0.25);
+        }
+        .btn-upgrade::after {
+          content: '';
+          position: absolute;
+          bottom: -100%;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%);
+          opacity: 0;
+          transition: bottom 0.5s ease-out, opacity 0.3s;
         }
         .btn-upgrade:hover:not(:disabled) {
-          background: rgba(255,255,255,0.2);
           transform: translateY(-2px);
-          box-shadow: 0 6px 18px rgba(255,255,255,0.1);
+          box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+        }
+        .btn-upgrade:hover:not(:disabled)::after {
+          bottom: 0;
+          opacity: 1;
         }
         .btn-upgrade:active:not(:disabled) { transform: scale(0.98); }
 

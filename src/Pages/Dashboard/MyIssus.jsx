@@ -184,29 +184,32 @@ const MyIssus = () => {
                       <td className="pr-6">
                         <div className="flex justify-end gap-3">
                           {report.status === "pending" && (
-                            <motion.button
-                              whileHover={{ scale: 1.2, rotate: 10 }}
-                              onClick={() => setEditData(report)}
-                               className="btn btn-sm bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0 shadow-lg"
-                            >
-                              <FaEdit />
-                            </motion.button>
+<motion.button
+                               whileHover={{ scale: 1.2, rotate: 10 }}
+                               onClick={() => setEditData(report)}
+                               className="relative overflow-hidden btn btn-sm rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
+                               style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                             >
+                               <FaEdit />
+                             </motion.button>
                           )}
                           <Link to={`/Issus-details/${report._id}`}>
-                            <motion.button
-                              whileHover={{ scale: 1.2 }}
-                               className="btn btn-sm bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0 shadow-lg"
-                            >
-                              <FcViewDetails size={18} />
-                            </motion.button>
+<motion.button
+                               whileHover={{ scale: 1.2 }}
+                               className="relative overflow-hidden btn btn-sm rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
+                               style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                             >
+                               <FcViewDetails size={18} />
+                             </motion.button>
                           </Link>
-                          <motion.button
-                            whileHover={{ scale: 1.2, rotate: -10 }}
-                            onClick={() => handleDelete(report._id)}
-                             className="btn btn-sm bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0 shadow-lg"
-                          >
-                            <MdDelete />
-                          </motion.button>
+<motion.button
+                             whileHover={{ scale: 1.2, rotate: -10 }}
+                             onClick={() => handleDelete(report._id)}
+                              className="relative overflow-hidden btn btn-sm rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
+                              style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                           >
+                             <MdDelete />
+                           </motion.button>
                         </div>
                       </td>
                     </motion.tr>
@@ -266,24 +269,25 @@ const MyIssus = () => {
               />
 
               <div className="flex justify-end gap-4 mt-8">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  type="button"
-                  onClick={() => setEditData(null)}
-                  className="px-6 py-3 backdrop-blur-md bg-white/10 rounded-lg hover:bg-white/20 transition text-white"
-                >
-                  Cancel
-                </motion.button>
-                <motion.button
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 0 25px rgba(168, 85, 247, 0.6)",
-                  }}
-                  type="submit"
-                   className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg font-semibold shadow-lg text-white"
-                >
-                  Save Changes
-                </motion.button>
+<motion.button
+                   whileHover={{ scale: 1.05 }}
+                   type="button"
+                   onClick={() => setEditData(null)}
+                   className="relative overflow-hidden px-6 py-3 rounded-xl font-semibold shadow-lg text-white transition-all duration-500 ease-out"
+                   style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                 >
+                   Cancel
+                 </motion.button>
+<motion.button
+                   whileHover={{
+                     scale: 1.05,
+                   }}
+                   type="submit"
+                   className="relative overflow-hidden px-6 py-3 rounded-xl font-semibold shadow-lg text-white transition-all duration-500 ease-out"
+                   style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                 >
+                   Save Changes
+                 </motion.button>
               </div>
             </form>
           </motion.div>

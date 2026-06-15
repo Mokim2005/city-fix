@@ -90,7 +90,8 @@ const DashboardLayout = () => {
             >
               <label
                 htmlFor="my-drawer-4"
-                className="btn btn-square btn-ghost lg:hidden border border-cyan-500/30 text-cyan-400"
+                className="relative overflow-hidden btn btn-square btn-ghost lg:hidden rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
+                style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
               >
                 ☰
               </label>
@@ -267,13 +268,13 @@ const DashboardLayout = () => {
 
               {/* COLLAPSE BUTTON */}
               <div className="hidden lg:flex justify-center py-4">
-                <button
-                  onClick={() => setCollapsed(!collapsed)}
-                  className="w-8 h-8 rounded-full border text-cyan-400 transition-all duration-200 hover:bg-cyan-500/10"
-                  style={{ borderColor: "rgba(0,194,168,0.3)", backgroundColor: "rgba(0,194,168,0.05)" }}
-                >
-                  {collapsed ? <FaChevronRight size={11} /> : <FaChevronLeft size={11} />}
-                </button>
+<button
+                   onClick={() => setCollapsed(!collapsed)}
+                   className="relative overflow-hidden w-8 h-8 rounded-full font-semibold text-white shadow-lg transition-all duration-500 ease-out flex items-center justify-center"
+                   style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                 >
+                   {collapsed ? <FaChevronRight size={11} /> : <FaChevronLeft size={11} />}
+                 </button>
               </div>
             </div>
           </div>
