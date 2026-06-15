@@ -59,16 +59,9 @@ const Register = () => {
 
   return (
     <div
-      className="relative min-h-screen flex justify-center items-center p-6 bg-cover bg-center"
-      style={{
-        backgroundImage:
-          "url('https://t4.ftcdn.net/jpg/02/28/24/19/360_F_228241978_A0fCb310dVpIxcc20icBRYO6JqCA8nb8.jpg')",
-      }}
+      className="relative min-h-screen flex justify-center items-center p-6"
     >
       <title>Register</title>
-
-      {/* 🔥 Overlay */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
       {/* 🔥 Glass Card */}
       <div className="relative w-full max-w-md backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8 z-10">

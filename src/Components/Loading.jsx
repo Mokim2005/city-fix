@@ -53,35 +53,8 @@ const Loading = () => {
 
   return (
     <div
-      style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2l0eXxlbnwwfHwwfHx8MA%3D%3D')`,
-        backgroundAttachment: "fixed",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
       className="flex flex-col justify-center items-center min-h-screen relative overflow-hidden"
     >
-      {/* Background Overlay */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-[3px]"></div>
-
-      {/* Animated Background Orbs */}
-        <motion.div
-          className="absolute top-20 left-10 w-64 h-64 bg-green-600/30 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.4, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-        />
-
       {/* Loading Container */}
       <div className="relative z-10 flex flex-col items-center">
         {/* Glassy Container */}

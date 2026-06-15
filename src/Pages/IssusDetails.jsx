@@ -67,16 +67,7 @@ const IssueDetails = () => {
   return (
     <div
       className="min-h-screen text-white relative overflow-hidden"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1527690499469-ef2eff9c6735?fm=jpg&q=60&w=3000&auto=format&fit=crop')",
-        backgroundSize: "cover",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
-      }}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-12">
 
         {/* MAIN CARD */}

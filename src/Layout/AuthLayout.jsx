@@ -1,10 +1,12 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
 import logo from "../assets/logo.png";
+import AnimatedBackground from "../Components/AnimatedBackground";
 
 const AuthLayout = () => {
   return (
     <div className="max-w-7xl mx-auto">
+      <AnimatedBackground />
       <Link to='/'>
         <img className="w-[50px]" src={logo} alt="" />
       </Link>

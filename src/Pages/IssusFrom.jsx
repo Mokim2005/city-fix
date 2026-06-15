@@ -73,16 +73,7 @@ const IssueForm = () => {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4 py-10 relative overflow-hidden"
-      style={{
-        backgroundImage:
-          "url('https://plus.unsplash.com/premium_photo-1682960971720-1beb427d524e?fm=jpg&q=60&w=3000&auto=format&fit=crop')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
     >
-      {/* overlay */}
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" />
 
       <motion.div
         initial={{ opacity: 0, y: 40 }}

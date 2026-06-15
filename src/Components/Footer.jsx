@@ -102,30 +102,8 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      style={{
-        backgroundImage:
-          "url('https://t3.ftcdn.net/jpg/08/79/64/26/360_F_879642658_OhKUCLV2Iukh3TgwPS5a8tbaaGA9qW08.jpg')",
-        backgroundAttachment: "fixed",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
       className="relative text-white overflow-hidden"
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/85 backdrop-blur-[2px]"></div>
-
-      {/* Animated background */}
-      <motion.div
-        className="absolute top-10 left-10 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
-        transition={{ repeat: Infinity, duration: 10 }}
-      />
-      <motion.div
-        className="absolute bottom-10 right-10 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.4, 0.2] }}
-        transition={{ repeat: Infinity, duration: 12 }}
-      />
-
       <div className="relative z-10 container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
 

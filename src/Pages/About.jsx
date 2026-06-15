@@ -24,20 +24,6 @@ const About = () => {
   return (
     <div className="relative min-h-screen text-white overflow-hidden">
 
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1535689077097-a8726b5ff822?auto=format&fit=crop&w=3000&q=60')",
-        }}
-      />
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-
-      {/* Floating Blobs */}
-      <div className="absolute top-10 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-
       {/* Content */}
       <div className="relative z-10 px-4 md:px-10 py-20">
 

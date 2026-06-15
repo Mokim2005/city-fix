@@ -169,36 +169,9 @@ const AllIssus = () => {
 
   return (
     <div
-      style={{
-        backgroundImage: `url('https://media.gettyimages.com/id/687917386/photo/empty-downtown-street-intersection-shot-in-shanghai.jpg?s=612x612&w=gi&k=20&c=JOM5VuxixrIxvcIS6hLBguLPejiz_1UoW7LHX_nLWLs=')`,
-        backgroundAttachment: "fixed",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
       className="min-h-screen relative py-12 px-4 sm:px-6 lg:px-12"
     >
       <title>All Issues</title>
-
-      {/* Background Overlay */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
-
-      {/* Animated Background Orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.4, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-      />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
