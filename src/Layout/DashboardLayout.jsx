@@ -19,15 +19,15 @@ import AnimatedBackground from "../Components/AnimatedBackground";
 const navLinkClass = ({ isActive }) =>
   `relative z-10 flex items-center gap-3 px-3 py-2.5 rounded-xl border transition-all duration-200 w-full
   ${isActive
-    ? "bg-white/30 border-white/50 text-white font-semibold shadow-md shadow-green-500/20"
-    : "bg-white/10 border-white/20 text-white/75 hover:bg-white/20 hover:text-white hover:border-white/40"
+    ? "bg-cyan-500/20 border-cyan-400/50 text-cyan-300 font-semibold shadow-md shadow-cyan-500/20"
+    : "bg-white/5 border-white/10 text-white/65 hover:bg-cyan-500/10 hover:text-cyan-300 hover:border-cyan-400/30"
   }`;
 
 const navLinkClassCollapsed = ({ isActive }) =>
   `relative z-10 flex items-center justify-center w-10 h-10 mx-auto rounded-xl border transition-all duration-200 tooltip tooltip-right
   ${isActive
-    ? "bg-white/30 border-white/50 text-white shadow-md shadow-green-500/20"
-    : "bg-white/10 border-white/20 text-white/75 hover:bg-white/20 hover:text-white hover:border-white/40"
+    ? "bg-cyan-500/20 border-cyan-400/50 text-cyan-300 shadow-md shadow-cyan-500/20"
+    : "bg-white/5 border-white/10 text-white/65 hover:bg-cyan-500/10 hover:text-cyan-300 hover:border-cyan-400/30"
   }`;
 
 const DashboardLayout = () => {
@@ -56,7 +56,6 @@ const DashboardLayout = () => {
         { scale: 1, rotate: 0, opacity: 1, duration: 1, ease: "elastic.out(1, 0.5)" }
       );
     }
-
     if (sidebarRef.current) {
       gsap.fromTo(
         sidebarRef.current,
@@ -67,175 +66,215 @@ const DashboardLayout = () => {
   }, []);
 
   return (
-    <div
-      className="min-h-screen w-full relative"
-    >
+    <div className="min-h-screen w-full" style={{ backgroundColor: "#080d14" }}>
+      {/* Animated cyber background — z-index: -1 inside component */}
       <AnimatedBackground />
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" />
 
-      {/* Background Orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-64 h-64 bg-green-600/20 rounded-full blur-3xl pointer-events-none"
-        animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
-        transition={{ repeat: Infinity, duration: 10 }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"
-        animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.4, 0.2] }}
-        transition={{ repeat: Infinity, duration: 12 }}
-      />
+      {/* All content sits above background */}
+      <div style={{ position: "relative", zIndex: 1 }} className="min-h-screen">
 
-      {/* DRAWER (FIXED) */}
-      <div className="drawer lg:drawer-open drawer-mobile w-full relative z-10">
-        <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+        {/* DRAWER */}
+        <div className="drawer lg:drawer-open w-full">
+          <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
 
-        {/* MAIN CONTENT */}
-        <div className="drawer-content flex flex-col min-h-screen flex-1 overflow-x-hidden">
-          <motion.nav className="navbar backdrop-blur-xl bg-gradient-to-r from-green-900/80 to-emerald-900/80 border-b border-white/20 shadow-xl sticky top-0 z-20">
-            <label
-              htmlFor="my-drawer-4"
-              className="btn btn-square btn-ghost lg:hidden backdrop-blur-xl bg-white/20 border border-white/30 text-white"
+          {/* MAIN CONTENT */}
+          <div className="drawer-content flex flex-col min-h-screen flex-1 overflow-x-hidden">
+
+            {/* NAVBAR */}
+            <motion.nav
+              initial={{ y: -40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="navbar sticky top-0 z-20 border-b border-cyan-500/20 shadow-lg shadow-black/40"
+              style={{ backgroundColor: "rgba(8, 13, 20, 0.85)", backdropFilter: "blur(16px)" }}
             >
-              ☰
-            </label>
-            <div className="px-4 text-xl font-black text-white">
-              City Fix Dashboard
-            </div>
-          </motion.nav>
-
-          <div className="flex-1 p-4 md:p-6">
-            <Outlet />
-          </div>
-        </div>
-
-        {/* SIDEBAR (FIXED RESPONSIVE) */}
-        <div className="drawer-side z-30">
-          <label htmlFor="my-drawer-4" className="drawer-overlay" />
-
-          <div
-            ref={sidebarRef}
-            className={`flex min-h-full flex-col backdrop-blur-2xl bg-gradient-to-b from-green-900/90 to-emerald-900/90 border-r border-white/20 shadow-2xl transition-all duration-300 overflow-y-auto
-              ${collapsed ? "w-[72px] lg:w-[72px]" : "w-64 lg:w-64"}`}
-          >
-            <ul className="menu w-full grow p-3 space-y-1.5">
-
-              {/* LOGO */}
-              <li className="mb-3">
-                <Link
-                  to="/"
-                  className={`flex items-center backdrop-blur-xl bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl transition-all duration-200 ${collapsed
-                      ? "justify-center w-10 h-10 mx-auto p-0 tooltip tooltip-right"
-                      : "gap-3 px-3 py-2"
-                    }`}
-                  data-tip="Homepage"
-                >
-                  <motion.img
-                    ref={logoRef}
-                    className={collapsed ? "w-7 h-7" : "w-9 h-9"}
-                    src={logo}
-                    alt="logo"
-                  />
-                  {!collapsed && (
-                    <span className="text-white font-bold text-sm">
-                      City Fix
-                    </span>
-                  )}
-                </Link>
-              </li>
-
-              {/* DASHBOARD */}
-              <li>
-                <NavLink
-                  to="/dashboard"
-                  end
-                  className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                >
-                  <FaHome />
-                  {!collapsed && <span>Dashboard</span>}
-                </NavLink>
-              </li>
-
-              {/* PROFILE */}
-              <li>
-                <NavLink
-                  to="/dashboard/my-profile"
-                  className={collapsed ? navLinkClassCollapsed : navLinkClass}
-                >
-                  <ImProfile />
-                  {!collapsed && <span>My Profile</span>}
-                </NavLink>
-              </li>
-
-              {/* ADMIN */}
-              {role === "admin" && (
-                <>
-                  <li>
-                    <NavLink to="/dashboard/all-issus-table" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
-                      <MdOutlineViewCarousel />
-                      {!collapsed && <span>All Issues</span>}
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink to="/dashboard/user-management" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
-                      <FaUsers />
-                      {!collapsed && <span>User Management</span>}
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink to="/dashboard/manage-staff" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
-                      <MdManageAccounts />
-                      {!collapsed && <span>Manage Staff</span>}
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink to="/dashboard/user-block-manage" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
-                      <MdOutlineAppBlocking />
-                      {!collapsed && <span>Blocked Users</span>}
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink to="/dashboard/view-payments" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
-                      <RiSecurePaymentFill />
-                      {!collapsed && <span>View Payments</span>}
-                    </NavLink>
-                  </li>
-                </>
-              )}
-
-              {/* STAFF */}
-              {role === "staff" && (
-                <li>
-                  <NavLink to="/dashboard/assigned-issues" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
-                    <MdOutlineAssignmentTurnedIn />
-                    {!collapsed && <span>Assigned Issues</span>}
-                  </NavLink>
-                </li>
-              )}
-
-              {/* USER */}
-              {role === "user" && (
-                <li>
-                  <NavLink to="/dashboard/my-issus" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
-                    <TbReportSearch />
-                    {!collapsed && <span>My Issues</span>}
-                  </NavLink>
-                </li>
-              )}
-            </ul>
-
-            {/* COLLAPSE BUTTON */}
-            <div className="hidden lg:flex justify-center pb-4">
-              <button
-                onClick={() => setCollapsed(!collapsed)}
-                className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 text-white"
+              <label
+                htmlFor="my-drawer-4"
+                className="btn btn-square btn-ghost lg:hidden border border-cyan-500/30 text-cyan-400"
               >
-                {collapsed ? <FaChevronRight size={11} /> : <FaChevronLeft size={11} />}
-              </button>
+                ☰
+              </label>
+              <div className="px-4 text-xl font-black tracking-widest"
+                style={{ color: "#00C2A8", textShadow: "0 0 20px rgba(0,194,168,0.4)" }}>
+                CITY FIX
+              </div>
+            </motion.nav>
+
+            {/* PAGE CONTENT */}
+            <div className="flex-1 p-4 md:p-6">
+              <Outlet />
+            </div>
+          </div>
+
+          {/* SIDEBAR */}
+          <div className="drawer-side z-30">
+            <label htmlFor="my-drawer-4" className="drawer-overlay" />
+
+            <div
+              ref={sidebarRef}
+              className={`flex min-h-full flex-col border-r border-cyan-500/20 shadow-2xl transition-all duration-300 overflow-y-auto
+                ${collapsed ? "w-[72px] lg:w-[72px]" : "w-64 lg:w-64"}`}
+              style={{
+                backgroundColor: "rgba(8, 13, 20, 0.95)",
+                backdropFilter: "blur(24px)",
+                boxShadow: "4px 0 30px rgba(0,194,168,0.08)",
+              }}
+            >
+              {/* Sidebar inner top glow line */}
+              <div style={{
+                height: "1px",
+                background: "linear-gradient(90deg, transparent, rgba(0,194,168,0.5), transparent)"
+              }} />
+
+              <ul className="menu w-full grow p-3 space-y-1.5">
+
+                {/* LOGO */}
+                <li className="mb-3">
+                  <Link
+                    to="/"
+                    className={`flex items-center border border-cyan-500/20 rounded-xl transition-all duration-200 hover:border-cyan-400/40 hover:bg-cyan-500/10 ${
+                      collapsed ? "justify-center w-10 h-10 mx-auto p-0 tooltip tooltip-right" : "gap-3 px-3 py-2"
+                    }`}
+                    style={{ backgroundColor: "rgba(0,194,168,0.08)" }}
+                    data-tip="Homepage"
+                  >
+                    <motion.img
+                      ref={logoRef}
+                      className={collapsed ? "w-7 h-7" : "w-9 h-9"}
+                      src={logo}
+                      alt="logo"
+                    />
+                    {!collapsed && (
+                      <span className="font-bold text-sm tracking-widest" style={{ color: "#00C2A8" }}>
+                        CITY FIX
+                      </span>
+                    )}
+                  </Link>
+                </li>
+
+                {/* Divider */}
+                {!collapsed && (
+                  <li className="px-3 py-1">
+                    <span className="text-xs tracking-widest" style={{ color: "rgba(0,194,168,0.4)" }}>
+                      NAVIGATION
+                    </span>
+                  </li>
+                )}
+
+                {/* DASHBOARD */}
+                <li>
+                  <NavLink to="/dashboard" end className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                    <FaHome />
+                    {!collapsed && <span>Dashboard</span>}
+                  </NavLink>
+                </li>
+
+                {/* PROFILE */}
+                <li>
+                  <NavLink to="/dashboard/my-profile" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                    <ImProfile />
+                    {!collapsed && <span>My Profile</span>}
+                  </NavLink>
+                </li>
+
+                {/* ADMIN */}
+                {role === "admin" && (
+                  <>
+                    {!collapsed && (
+                      <li className="px-3 py-1">
+                        <span className="text-xs tracking-widest" style={{ color: "rgba(0,194,168,0.4)" }}>
+                          ADMIN
+                        </span>
+                      </li>
+                    )}
+                    <li>
+                      <NavLink to="/dashboard/all-issus-table" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                        <MdOutlineViewCarousel />
+                        {!collapsed && <span>All Issues</span>}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/dashboard/user-management" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                        <FaUsers />
+                        {!collapsed && <span>User Management</span>}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/dashboard/manage-staff" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                        <MdManageAccounts />
+                        {!collapsed && <span>Manage Staff</span>}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/dashboard/user-block-manage" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                        <MdOutlineAppBlocking />
+                        {!collapsed && <span>Blocked Users</span>}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/dashboard/view-payments" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                        <RiSecurePaymentFill />
+                        {!collapsed && <span>View Payments</span>}
+                      </NavLink>
+                    </li>
+                  </>
+                )}
+
+                {/* STAFF */}
+                {role === "staff" && (
+                  <>
+                    {!collapsed && (
+                      <li className="px-3 py-1">
+                        <span className="text-xs tracking-widest" style={{ color: "rgba(0,194,168,0.4)" }}>
+                          STAFF
+                        </span>
+                      </li>
+                    )}
+                    <li>
+                      <NavLink to="/dashboard/assigned-issues" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                        <MdOutlineAssignmentTurnedIn />
+                        {!collapsed && <span>Assigned Issues</span>}
+                      </NavLink>
+                    </li>
+                  </>
+                )}
+
+                {/* USER */}
+                {role === "user" && (
+                  <>
+                    {!collapsed && (
+                      <li className="px-3 py-1">
+                        <span className="text-xs tracking-widest" style={{ color: "rgba(0,194,168,0.4)" }}>
+                          MY AREA
+                        </span>
+                      </li>
+                    )}
+                    <li>
+                      <NavLink to="/dashboard/my-issus" className={collapsed ? navLinkClassCollapsed : navLinkClass}>
+                        <TbReportSearch />
+                        {!collapsed && <span>My Issues</span>}
+                      </NavLink>
+                    </li>
+                  </>
+                )}
+              </ul>
+
+              {/* Bottom glow line */}
+              <div style={{
+                height: "1px",
+                background: "linear-gradient(90deg, transparent, rgba(0,194,168,0.3), transparent)"
+              }} />
+
+              {/* COLLAPSE BUTTON */}
+              <div className="hidden lg:flex justify-center py-4">
+                <button
+                  onClick={() => setCollapsed(!collapsed)}
+                  className="w-8 h-8 rounded-full border text-cyan-400 transition-all duration-200 hover:bg-cyan-500/10"
+                  style={{ borderColor: "rgba(0,194,168,0.3)", backgroundColor: "rgba(0,194,168,0.05)" }}
+                >
+                  {collapsed ? <FaChevronRight size={11} /> : <FaChevronLeft size={11} />}
+                </button>
+              </div>
             </div>
           </div>
         </div>

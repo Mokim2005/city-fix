@@ -1,10 +1,19 @@
-html, body, #root {
-  background-color: #0F1623;
+/* ============================================
+   CITY FIX — CYBER DARK BACKGROUND SYSTEM
+   Inspired by: Sentinel Shield aesthetic
+   ============================================ */
+
+html,
+body,
+#root {
+  background-color: #080d14;
+  color: #e8edf5;
   min-height: 100vh;
   margin: 0;
   padding: 0;
 }
 
+/* ── Base animated background container ── */
 .animated-bg {
   position: fixed;
   top: 0;
@@ -12,67 +21,155 @@ html, body, #root {
   width: 100%;
   height: 100%;
   z-index: -1;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(0, 194, 168, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(245, 166, 35, 0.04) 0%, transparent 50%),
-    #0F1623;
+    radial-gradient(ellipse at 15% 40%, rgba(0, 194, 168, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(138, 43, 226, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(0, 180, 255, 0.04) 0%, transparent 50%),
+    #080d14;
 }
 
+/* ── Glowing Orbs ── */
+.orb-1,
+.orb-2,
+.orb-3,
+.orb-4 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Cyan orb — top left */
 .orb-1 {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.07;
-  width: 400px;
-  height: 400px;
-  background: #00C2A8;
-  top: 10%;
-  left: 5%;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(0, 194, 168, 0.18) 0%, transparent 70%);
+  top: -5%;
+  left: -5%;
+  opacity: 0.9;
 }
 
+/* Purple orb — top right */
 .orb-2 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.16) 0%, transparent 70%);
+  top: 5%;
+  right: -5%;
+  opacity: 0.85;
+}
+
+/* Blue orb — bottom center */
+.orb-3 {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(0, 150, 255, 0.12) 0%, transparent 70%);
+  bottom: 10%;
+  left: 35%;
+  opacity: 0.8;
+}
+
+/* Teal orb — bottom left */
+.orb-4 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(0, 194, 168, 0.10) 0%, transparent 70%);
+  bottom: 5%;
+  left: 5%;
+  opacity: 0.7;
+}
+
+/* ── Cyber Grid Overlay ── */
+.cyber-grid {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.07;
+  inset: 0;
+  opacity: 0.045;
+  background-image:
+    linear-gradient(rgba(0, 194, 168, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 194, 168, 0.6) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ── Scanline effect ── */
+.scanline {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 194, 168, 0.15) 2px,
+    rgba(0, 194, 168, 0.15) 4px
+  );
+  pointer-events: none;
+}
+
+/* ── Corner Glow Accents ── */
+.corner-glow {
+  position: absolute;
   width: 300px;
   height: 300px;
-  background: #F5A623;
-  top: 60%;
-  right: 10%;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
 }
 
-.orb-3 {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.07;
-  width: 250px;
-  height: 250px;
-  background: #00C2A8;
-  bottom: 20%;
-  left: 40%;
+.corner-tl {
+  top: -80px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(0, 194, 168, 0.12) 0%, transparent 70%);
+}
+
+.corner-br {
+  bottom: -80px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.10) 0%, transparent 70%);
+}
+
+/* ============================================
+   RESPONSIVE — Mobile & Tablet
+   ============================================ */
+@media (max-width: 1024px) {
+  .orb-1 { width: 340px; height: 340px; }
+  .orb-2 { width: 280px; height: 280px; }
+  .orb-3 { width: 240px; height: 240px; }
+  .orb-4 { width: 200px; height: 200px; }
+  .cyber-grid { background-size: 45px 45px; }
 }
 
 @media (max-width: 768px) {
-  .orb-1 {
-    width: 200px;
-    height: 200px;
-  }
-  .orb-2 {
-    width: 150px;
-    height: 150px;
-  }
-  .orb-3 {
-    width: 125px;
-    height: 125px;
-  }
+  .orb-1 { width: 240px; height: 240px; filter: blur(60px); }
+  .orb-2 { width: 200px; height: 200px; filter: blur(60px); }
+  .orb-3 { width: 180px; height: 180px; filter: blur(50px); }
+  .orb-4 { width: 150px; height: 150px; filter: blur(50px); }
+  .corner-glow { width: 180px; height: 180px; }
+  .cyber-grid { background-size: 35px 35px; opacity: 0.03; }
 }
 
+@media (max-width: 480px) {
+  .orb-1 { width: 180px; height: 180px; }
+  .orb-2 { width: 160px; height: 160px; }
+  .orb-3 { display: none; }
+  .orb-4 { display: none; }
+  .cyber-grid { background-size: 28px 28px; }
+  .scanline { display: none; }
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+   ============================================ */
 @media (prefers-reduced-motion: reduce) {
   .orb-1,
   .orb-2,
-  .orb-3 {
+  .orb-3,
+  .orb-4,
+  .scanline,
+  .cyber-grid {
     animation: none !important;
+    transition: none !important;
   }
 }

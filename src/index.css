@@ -1,13 +1,13 @@
-* {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
 html,
 body,
 #root {
-  background: #0F1623 !important;
+  background-color: #080d14 !important;
+  color: #e8edf5;
   min-height: 100vh;
-  color: #E8EDF5;
   margin: 0;
   padding: 0;
 }
