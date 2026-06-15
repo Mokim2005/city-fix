@@ -15,18 +15,13 @@ const Navbar = () => {
   const logoRef = useRef(null);
 
   useEffect(() => {
-    // Logo animation on mount
     gsap.fromTo(
       logoRef.current,
       { scale: 0, rotate: -180, opacity: 0 },
       { scale: 1, rotate: 0, opacity: 1, duration: 0.8, ease: "elastic.out(1, 0.5)" }
     );
 
-    // Scroll effect
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -48,6 +43,21 @@ const Navbar = () => {
     { name: "My Issues", path: "/dashboard/my-issus" },
   ];
 
+  // Reusable NavLink class — Portfolio style (ইমেজের মতো হুবহু ফিক্সড করা হয়েছে)
+  const desktopNavClass = ({ isActive }) =>
+    `relative text-[13px] font-bold tracking-[0.15em] uppercase transition-all duration-200 pb-2
+    ${isActive
+      ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-[#00C2A8] after:content-['']"
+      : "text-white/55 hover:text-white"
+    }`;
+
+  const mobileNavClass = ({ isActive }) =>
+    `relative block w-full text-sm font-medium px-3 py-2.5 rounded-lg transition-all duration-200
+    ${isActive
+      ? "text-[#00C2A8] bg-[rgba(0,194,168,0.08)] border-l-2 border-[#00C2A8]"
+      : "text-white/60 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
+    }`;
+
   return (
     <motion.nav
       ref={navRef}
@@ -55,140 +65,107 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "shadow-2xl border-b border-white/20"
-          : "border-b border-white/10"
+        scrolled ? "shadow-2xl border-b border-white/20" : "border-b border-white/10"
       }`}
     >
-      {/* Stronger Background Overlay for better text visibility */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/65 to-black/70 backdrop-blur-sm"></div>
-      {/* Fixed Width Container */}
+      {/* Background overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/65 to-black/70 backdrop-blur-sm" />
+
+      {/* Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-17">
-          {/* Logo Section */}
-          <NavLink to="/" className="flex items-center gap-3 group">
+        <div className="flex items-center justify-between h-16">
+
+          {/* Logo */}
+          <NavLink to="/" className="flex items-center gap-3 group shrink-0">
             <motion.div
               ref={logoRef}
               whileHover={{ scale: 1.1, rotate: 5 }}
               className="backdrop-blur-xl bg-white/20 border-2 border-white/30 rounded-2xl p-2 shadow-2xl"
             >
-              <img src={logo} alt="City Fix Logo" className="w-10 h-10 object-contain" />
+              <img src={logo} alt="City Fix Logo" className="w-8 h-8 object-contain" />
             </motion.div>
-            <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]">
+            <span className="text-xl sm:text-2xl font-black bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
               City Fix
             </span>
           </NavLink>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-2">
+          {/* Desktop Nav Links */}
+          <div className="hidden lg:flex items-center gap-6">
             {navLinks.map((link, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <NavLink
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `relative text-sm font-medium tracking-widest uppercase transition-all duration-200 pb-1
-                    ${isActive
-                      ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#00C2A8] after:rounded-full"
-                      : "text-white/60 hover:text-white"
-                    }`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              </motion.div>
+              <NavLink key={index} to={link.path} end={link.path === "/"} className={desktopNavClass}>
+                {link.name}
+              </NavLink>
             ))}
 
-            {user &&
-              userLinks.map((link, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <NavLink
-                    to={link.path}
-                    className={({ isActive }) =>
-                      `relative text-sm font-medium tracking-widest uppercase transition-all duration-200 pb-1
-                      ${isActive
-                        ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#00C2A8] after:rounded-full"
-                        : "text-white/60 hover:text-white"
-                      }`
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
-                </motion.div>
-              ))}
+            {user && userLinks.map((link, index) => (
+              <NavLink key={index} to={link.path} className={desktopNavClass}>
+                {link.name}
+              </NavLink>
+            ))}
           </div>
 
           {/* Right Section */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+
             {/* User Profile or Login */}
             {user ? (
               <div className="relative hidden lg:block">
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="cityfix-btn cityfix-btn-ghost flex items-center gap-2 backdrop-blur-xl bg-white/20 border-2 border-white/30 py-2 px-3 rounded-full shadow-2xl hover:bg-white/30 hover:border-cyan-400/50 transition-all duration-300"
+                  className="flex items-center gap-2 backdrop-blur-xl bg-white/10 border border-white/20 py-1.5 px-3 rounded-full hover:bg-white/20 hover:border-cyan-400/40 transition-all duration-200"
                 >
                   <img
                     src={user.photoURL}
                     alt={user.displayName}
-                    className="w-9 h-9 rounded-full border-2 border-cyan-400 object-cover shadow-lg"
+                    className="w-8 h-8 rounded-full border-2 border-cyan-400 object-cover"
                   />
-                  <span className="text-white font-bold hidden xl:block max-w-[100px] truncate drop-shadow-lg">
+                  <span className="text-white text-sm font-medium hidden xl:block max-w-[90px] truncate">
                     {user.displayName}
                   </span>
                   <ChevronDown
-                    className={`text-white transition-transform duration-300 ${
-                      profileOpen ? "rotate-180" : ""
-                    }`}
-                    size={18}
+                    className={`text-white/70 transition-transform duration-300 ${profileOpen ? "rotate-180" : ""}`}
+                    size={16}
                   />
                 </motion.button>
 
-                {/* Dropdown Menu */}
+                {/* Dropdown */}
                 <AnimatePresence>
                   {profileOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      initial={{ opacity: 0, y: -8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-3 w-56 backdrop-blur-2xl bg-black/90 border-2 border-white/30 rounded-2xl shadow-2xl overflow-hidden"
+                      exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 mt-3 w-52 backdrop-blur-2xl bg-black/90 border border-white/20 rounded-2xl shadow-2xl overflow-hidden"
                     >
-                      <div className="p-4 border-b border-white/20 bg-gradient-to-r from-cyan-500/20 to-blue-500/20">
-                        <p className="font-bold text-white truncate drop-shadow-lg">{user.displayName}</p>
-                        <p className="text-sm text-cyan-300 truncate">{user.email}</p>
+                      <div className="p-3 border-b border-white/10 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
+                        <p className="font-semibold text-white text-sm truncate">{user.displayName}</p>
+                        <p className="text-xs text-cyan-300 truncate">{user.email}</p>
                       </div>
-
                       <div className="p-2">
                         <NavLink
                           to="/dashboard"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/90 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 font-semibold"
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:text-cyan-300 hover:bg-white/5 transition-all duration-200 text-sm"
                         >
-                          <LayoutDashboard size={18} />
+                          <LayoutDashboard size={16} />
                           Dashboard
                         </NavLink>
                         <NavLink
                           to="/dashboard/my-issus"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/90 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 font-semibold"
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:text-cyan-300 hover:bg-white/5 transition-all duration-200 text-sm"
                         >
-                          <FileText size={18} />
+                          <FileText size={16} />
                           My Issues
                         </NavLink>
                         <button
                           onClick={handleLogOut}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/20 rounded-xl transition-all duration-300 font-semibold"
+                          className="w-full flex items-center gap-3 px-3 py-2.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all duration-200 text-sm"
                         >
-                          <LogOut size={18} />
+                          <LogOut size={16} />
                           Logout
                         </button>
                       </div>
@@ -197,23 +174,21 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <NavLink
-                  to="/login"
-                  className="text-sm font-medium tracking-widest uppercase border border-white/40 text-white px-4 py-1.5 rounded-lg hover:border-[#00C2A8] hover:text-[#00C2A8] transition-all duration-200"
-                >
-                  Login
-                </NavLink>
-              </motion.div>
+              <NavLink
+                to="/login"
+                className="hidden lg:inline-flex items-center text-[11px] font-semibold tracking-[0.18em] uppercase border border-white/40 text-white px-5 py-2 rounded-lg hover:border-[#00C2A8] hover:text-[#00C2A8] transition-all duration-200"
+              >
+                Login
+              </NavLink>
             )}
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden backdrop-blur-xl bg-white/20 border-2 border-white/30 p-2 rounded-xl text-white shadow-lg"
+              className="lg:hidden bg-white/10 border border-white/20 p-2 rounded-xl text-white"
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </motion.button>
           </div>
         </div>
@@ -226,22 +201,17 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden backdrop-blur-2xl bg-black/90 border-t border-white/20"
+            transition={{ duration: 0.25 }}
+            className="lg:hidden backdrop-blur-2xl bg-black/90 border-t border-white/10 overflow-hidden"
           >
-            <div className="max-w-7xl mx-auto px-4 py-6 space-y-2">
+            <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
               {navLinks.map((link, index) => (
                 <NavLink
                   key={index}
                   to={link.path}
+                  end={link.path === "/"}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `relative text-sm font-medium tracking-widest uppercase transition-all duration-200 pb-1
-                    ${isActive
-                      ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#00C2A8] after:rounded-full"
-                      : "text-white/60 hover:text-white"
-                    }`
-                  }
+                  className={mobileNavClass}
                 >
                   {link.name}
                 </NavLink>
@@ -254,49 +224,43 @@ const Navbar = () => {
                       key={index}
                       to={link.path}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={({ isActive }) =>
-                        `relative text-sm font-medium tracking-widest uppercase transition-all duration-200 pb-1
-                        ${isActive
-                          ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#00C2A8] after:rounded-full"
-                          : "text-white/60 hover:text-white"
-                        }`
-                      }
+                      className={mobileNavClass}
                     >
                       {link.name}
                     </NavLink>
                   ))}
 
-                  <div className="pt-4 border-t border-white/20">
-                    <div className="flex items-center gap-3 px-4 py-3 mb-2 backdrop-blur-xl bg-white/10 rounded-xl">
+                  <div className="pt-3 mt-2 border-t border-white/10">
+                    <div className="flex items-center gap-3 px-3 py-2.5 mb-2 bg-white/5 rounded-xl">
                       <img
                         src={user.photoURL}
                         alt={user.displayName}
-                        className="w-10 h-10 rounded-full border-2 border-cyan-400 shadow-lg"
+                        className="w-9 h-9 rounded-full border-2 border-cyan-400"
                       />
                       <div>
-                        <p className="text-white font-bold drop-shadow-lg">{user.displayName}</p>
-                        <p className="text-sm text-cyan-300">{user.email}</p>
+                        <p className="text-white text-sm font-semibold">{user.displayName}</p>
+                        <p className="text-xs text-cyan-300">{user.email}</p>
                       </div>
                     </div>
                     <button
-                      onClick={() => {
-                        handleLogOut();
-                        setMobileMenuOpen(false);
-                      }}
-                      className="cityfix-btn cityfix-btn-ghost w-full px-4 py-3 rounded-xl text-left font-bold text-red-200 hover:text-white hover:bg-red-500/25"
+                      onClick={() => { handleLogOut(); setMobileMenuOpen(false); }}
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 text-sm"
                     >
+                      <LogOut size={16} />
                       Logout
                     </button>
                   </div>
                 </>
               ) : (
-                <NavLink
-                  to="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="cityfix-btn cityfix-btn-primary block px-4 py-3 rounded-xl text-center shadow-lg shadow-cyan-500/50"
-                >
-                  Login
-                </NavLink>
+                <div className="pt-2">
+                  <NavLink
+                    to="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full text-center text-sm font-medium border border-white/30 text-white/80 px-4 py-2.5 rounded-lg hover:border-[#00C2A8] hover:text-[#00C2A8] transition-all duration-200"
+                  >
+                    Login
+                  </NavLink>
+                </div>
               )}
             </div>
           </motion.div>
