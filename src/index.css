@@ -12,8 +12,52 @@ body,
   padding: 0;
 }
 
+:root {
+  --card-bg: #1E2A3A;
+  --hover-accent: #F5A623;
+  --card-border: rgba(255, 255, 255, 0.12);
+}
+
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* Global card / panel surfaces */
+[class*="rounded-xl"][class*="bg-white/10"],
+[class*="rounded-2xl"][class*="bg-white/10"],
+[class*="rounded-3xl"][class*="bg-white/10"],
+[class*="rounded-xl"][class*="bg-white/5"],
+[class*="rounded-2xl"][class*="bg-white/5"],
+[class*="rounded-3xl"][class*="bg-white/5"],
+[class*="backdrop-blur-"][class*="rounded-xl"],
+[class*="backdrop-blur-"][class*="rounded-2xl"],
+[class*="backdrop-blur-"][class*="rounded-3xl"] {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+[class*="rounded-xl"][class*="bg-white/10"]:hover,
+[class*="rounded-2xl"][class*="bg-white/10"]:hover,
+[class*="rounded-3xl"][class*="bg-white/10"]:hover,
+[class*="rounded-xl"][class*="bg-white/5"]:hover,
+[class*="rounded-2xl"][class*="bg-white/5"]:hover,
+[class*="rounded-3xl"][class*="bg-white/5"]:hover,
+[class*="backdrop-blur-"][class*="rounded-xl"]:hover,
+[class*="backdrop-blur-"][class*="rounded-2xl"]:hover,
+[class*="backdrop-blur-"][class*="rounded-3xl"]:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 0 20px rgba(245, 166, 35, 0.25);
+}
+
+.card-surface,
+.card-panel,
+.stat,
+.profile-card,
+.details-card,
+.edit-card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
 
 /* Premium button treatments */
 button,
