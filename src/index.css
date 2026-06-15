@@ -16,6 +16,120 @@ body,
 @plugin "daisyui";
 
 /* Premium button treatments */
+button,
+[type="button"],
+[type="submit"],
+button[class*="rounded"],
+a[class*="rounded-xl"],
+a[class*="rounded-full"],
+.cityfix-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  color: #fff !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em;
+  text-align: center;
+  transition: transform 180ms ease, box-shadow 300ms ease, border-color 300ms ease, background-color 300ms ease, color 300ms ease;
+  will-change: transform;
+}
+
+button::after,
+[type="button"]::after,
+[type="submit"]::after,
+button[class*="rounded"]::after,
+a[class*="rounded-xl"]::after,
+a[class*="rounded-full"]::after,
+.cityfix-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 35%, rgba(255,255,255,0.12) 100%);
+  transform: translateY(100%);
+  transition: transform 450ms cubic-bezier(0.2, 0.65, 0.2, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+button > *,
+[type="button"] > *,
+[type="submit"] > *,
+button[class*="rounded"] > *,
+a[class*="rounded-xl"] > *,
+a[class*="rounded-full"] > *,
+.cityfix-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+button:hover,
+[type="button"]:hover,
+[type="submit"]:hover,
+button[class*="rounded"]:hover,
+a[class*="rounded-xl"]:hover,
+a[class*="rounded-full"]:hover,
+.cityfix-btn:hover {
+  transform: translateY(-2px);
+}
+
+button:active,
+[type="button"]:active,
+[type="submit"]:active,
+button[class*="rounded"]:active,
+a[class*="rounded-xl"]:active,
+a[class*="rounded-full"]:active,
+.cityfix-btn:active {
+  transform: scale(0.98);
+}
+
+button:focus-visible,
+[type="button"]:focus-visible,
+[type="submit"]:focus-visible,
+button[class*="rounded"]:focus-visible,
+a[class*="rounded-xl"]:focus-visible,
+a[class*="rounded-full"]:focus-visible,
+.cityfix-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.35), 0 14px 30px rgba(15, 118, 110, 0.25);
+}
+
+button:hover::after,
+[type="button"]:hover::after,
+[type="submit"]:hover::after,
+button[class*="rounded"]:hover::after,
+a[class*="rounded-xl"]:hover::after,
+a[class*="rounded-full"]:hover::after,
+.cityfix-btn:hover::after {
+  transform: translateY(0);
+}
+
+button,
+[type="button"],
+[type="submit"],
+button[class*="rounded"],
+a[class*="rounded-xl"],
+a[class*="rounded-full"],
+.cityfix-btn {
+  background: linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%) !important;
+  box-shadow: 0 14px 28px rgba(15, 118, 110, 0.35), 0 6px 14px rgba(13, 148, 136, 0.20) !important;
+}
+
+button:hover,
+[type="button"]:hover,
+[type="submit"]:hover,
+button[class*="rounded"]:hover,
+a[class*="rounded-xl"]:hover,
+a[class*="rounded-full"]:hover,
+.cityfix-btn:hover {
+  box-shadow: 0 18px 36px rgba(15, 118, 110, 0.45), 0 10px 18px rgba(45, 212, 191, 0.25) !important;
+}
+
+/* Premium button treatments */
 .cityfix-btn {
   position: relative;
   overflow: hidden;

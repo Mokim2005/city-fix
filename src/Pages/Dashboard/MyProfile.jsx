@@ -374,7 +374,7 @@ const MyProfile = () => {
               <div className="w-full mt-6 space-y-3">
                 <button
                   onClick={() => setIsEditMode(true)}
-                  className="btn-edit w-full bg-gradient-to-r from-green-600 to-emerald-600 py-3 rounded-xl font-semibold"
+                  className="cityfix-btn cityfix-btn-primary btn-edit w-full py-3 rounded-xl"
                 >
                   <FaCamera className="inline mr-2" />
                   Edit Profile
@@ -384,11 +384,11 @@ const MyProfile = () => {
                 <Link to={currentUser.isPremium ? "#" : "/dashboard/payment"} className={currentUser.isPremium ? "pointer-events-none" : ""}>
                   <button
                     disabled={currentUser.isPremium || currentUser.blocked}
-                    className={`btn-upgrade w-full py-3 rounded-xl mt-3 border ${currentUser.isPremium
+                    className={`cityfix-btn ${currentUser.isPremium || currentUser.blocked ? "cityfix-btn-ghost" : "cityfix-btn-secondary"} btn-upgrade w-full py-3 rounded-xl mt-3 border ${currentUser.isPremium
                         ? "bg-green-500/20 border-green-400/30 text-green-300 cursor-not-allowed opacity-70"
                         : currentUser.blocked
                           ? "bg-red-500/20 border-red-400/30 text-red-300 cursor-not-allowed opacity-70"
-                          : "bg-white/10 border-white/20"
+                          : ""
                       }`}
                   >
                     {currentUser.isPremium ? "Premium Activated" : "Upgrade Premium"}
@@ -477,11 +477,11 @@ const MyProfile = () => {
                     <button
                       type="button"
                       disabled={currentUser.isPremium || currentUser.blocked}
-                      className={`btn-upgrade w-full py-3 rounded-xl mt-3 border ${currentUser.isPremium
+                      className={`cityfix-btn ${currentUser.isPremium || currentUser.blocked ? "cityfix-btn-ghost" : "cityfix-btn-secondary"} btn-upgrade w-full py-3 rounded-xl mt-3 border ${currentUser.isPremium
                           ? "bg-green-500/20 border-green-400/30 text-green-300 cursor-not-allowed opacity-70"
                           : currentUser.blocked
                             ? "bg-red-500/20 border-red-400/30 text-red-300 cursor-not-allowed opacity-70"
-                            : "bg-white/10 border-white/20"
+                            : ""
                         }`}
                     >
                       {currentUser.isPremium ? "Premium Activated" : "Upgrade Premium"}

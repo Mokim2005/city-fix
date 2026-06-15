@@ -335,10 +335,10 @@ const AllIssus = () => {
                           whileTap={{ scale: disabled ? 1 : 0.95 }}
                           onClick={() => handleUpvote(issue)}
                           disabled={disabled || isLoading}
-                          className={`px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
+                          className={`cityfix-btn cityfix-btn-primary px-4 py-2 rounded-xl text-sm ${
                             disabled
                               ? "bg-gray-600/50 cursor-not-allowed text-gray-400"
-                              : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-purple-600/50"
+                              : ""
                           }`}
                         >
                           {isLoading ? "..." : `👍 ${issue.upvote || 0}`}
@@ -346,7 +346,7 @@ const AllIssus = () => {
 
                         <Link
                           to={`/Issus-details/${issue._id}`}
-                          className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-semibold text-sm shadow-lg hover:shadow-green-600/50 transition-all"
+                          className="cityfix-btn cityfix-btn-primary px-4 py-2 rounded-xl text-sm shadow-lg hover:shadow-green-600/50"
                         >
                           View Details
                         </Link>
@@ -372,7 +372,7 @@ const AllIssus = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg"
+              className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
             >
               ← Previous
             </motion.button>
@@ -386,7 +386,7 @@ const AllIssus = () => {
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
               disabled={currentPage === totalPages}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg"
+              className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
             >
               Next →
             </motion.button>

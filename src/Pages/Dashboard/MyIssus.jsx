@@ -120,12 +120,11 @@ const MyIssus = () => {
               }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setFilter(status)}
-              className={`px-6 py-3 rounded-full font-medium transition-all 
-                ${
-                  filter === status
-                    ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/50"
-                    : "backdrop-blur-xl bg-white/10 text-white border border-white/30 hover:border-green-400"
-                }`}
+              className={`cityfix-btn ${filter === status ? "cityfix-btn-primary" : "cityfix-btn-ghost"} px-6 py-3 rounded-full font-medium transition-all ${
+                filter === status
+                  ? "shadow-lg shadow-green-500/50"
+                  : "border border-white/30 hover:border-green-400"
+              }`}
             >
               {status.replace("-", " ").toUpperCase()}
             </motion.button>
@@ -187,8 +186,7 @@ const MyIssus = () => {
 <motion.button
                                whileHover={{ scale: 1.2, rotate: 10 }}
                                onClick={() => setEditData(report)}
-                               className="relative overflow-hidden btn btn-sm rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
-                               style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                               className="cityfix-btn cityfix-btn-primary btn btn-sm rounded-xl shadow-lg"
                              >
                                <FaEdit />
                              </motion.button>
@@ -196,8 +194,7 @@ const MyIssus = () => {
                           <Link to={`/Issus-details/${report._id}`}>
 <motion.button
                                whileHover={{ scale: 1.2 }}
-                               className="relative overflow-hidden btn btn-sm rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
-                               style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                               className="cityfix-btn cityfix-btn-primary btn btn-sm rounded-xl shadow-lg"
                              >
                                <FcViewDetails size={18} />
                              </motion.button>
@@ -205,8 +202,7 @@ const MyIssus = () => {
 <motion.button
                              whileHover={{ scale: 1.2, rotate: -10 }}
                              onClick={() => handleDelete(report._id)}
-                              className="relative overflow-hidden btn btn-sm rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
-                              style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                              className="cityfix-btn cityfix-btn-primary btn btn-sm rounded-xl shadow-lg"
                            >
                              <MdDelete />
                            </motion.button>
@@ -273,8 +269,7 @@ const MyIssus = () => {
                    whileHover={{ scale: 1.05 }}
                    type="button"
                    onClick={() => setEditData(null)}
-                   className="relative overflow-hidden px-6 py-3 rounded-xl font-semibold shadow-lg text-white transition-all duration-500 ease-out"
-                   style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                   className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl shadow-lg"
                  >
                    Cancel
                  </motion.button>
@@ -283,8 +278,7 @@ const MyIssus = () => {
                      scale: 1.05,
                    }}
                    type="submit"
-                   className="relative overflow-hidden px-6 py-3 rounded-xl font-semibold shadow-lg text-white transition-all duration-500 ease-out"
-                   style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                   className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl shadow-lg"
                  >
                    Save Changes
                  </motion.button>

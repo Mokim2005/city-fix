@@ -55,13 +55,13 @@ const PaymentCanceld = () => {
           transition={{ delay: 0.9 }}
         >
           <Link to="/dashboard/payment">
-            <button className="px-10 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold text-lg rounded-xl transition shadow-xl transform hover:scale-105">
+            <button className="cityfix-btn cityfix-btn-primary px-10 py-4 text-lg rounded-xl shadow-xl">
               Try Payment Again
             </button>
           </Link>
 
           <Link to="/">
-            <button className="px-10 py-4 bg-gray-700 hover:bg-gray-600 text-white font-bold text-lg rounded-xl transition shadow-xl transform hover:scale-105">
+            <button className="cityfix-btn cityfix-btn-ghost px-10 py-4 text-lg rounded-xl shadow-xl">
               Back to Home
             </button>
           </Link>

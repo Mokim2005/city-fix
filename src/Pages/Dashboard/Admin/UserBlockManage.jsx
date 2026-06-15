@@ -175,7 +175,7 @@ const UserBlockManage = () => {
                            handleBlock(user, !user.blocked)
                          }
                          disabled={blockMutation.isPending}
-                         className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
+                         className="cityfix-btn cityfix-btn-primary px-4 py-2 rounded-lg text-sm shadow-lg hover:shadow-green-500/30"
                        >
                         {blockMutation.isPending
                           ? "Processing..."
@@ -198,7 +198,7 @@ const UserBlockManage = () => {
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg"
+            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg"
           >
             Prev
           </button>
@@ -209,11 +209,7 @@ const UserBlockManage = () => {
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`px-4 py-2 rounded-lg ${
-                  currentPage === page
-                    ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
-                    : "bg-white/10"
-                }`}
+                className={`cityfix-btn ${currentPage === page ? "cityfix-btn-primary" : "cityfix-btn-ghost"} px-4 py-2 rounded-lg ${currentPage === page ? "shadow-lg" : ""}`}
               >
                 {page}
               </button>
@@ -223,7 +219,7 @@ const UserBlockManage = () => {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg"
+            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg"
           >
             Next
           </button>

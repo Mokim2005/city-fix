@@ -159,7 +159,7 @@ const Register = () => {
           </div>
 
           {/* Button */}
-          <button className="relative overflow-hidden btn w-full rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out" style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}>
+          <button className="cityfix-btn cityfix-btn-primary btn w-full rounded-xl shadow-lg">
             Register
           </button>
 

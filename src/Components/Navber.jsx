@@ -283,7 +283,7 @@ const Navbar = () => {
                         handleLogOut();
                         setMobileMenuOpen(false);
                       }}
-                      className="w-full px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/20 rounded-xl transition-all duration-300 text-left font-bold"
+                      className="cityfix-btn cityfix-btn-ghost w-full px-4 py-3 rounded-xl text-left font-bold text-red-200 hover:text-white hover:bg-red-500/25"
                     >
                       Logout
                     </button>
@@ -293,7 +293,7 @@ const Navbar = () => {
                 <NavLink
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl text-center shadow-lg shadow-cyan-500/50"
+                  className="cityfix-btn cityfix-btn-primary block px-4 py-3 rounded-xl text-center shadow-lg shadow-cyan-500/50"
                 >
                   Login
                 </NavLink>

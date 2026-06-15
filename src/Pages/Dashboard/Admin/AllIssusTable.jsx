@@ -269,7 +269,7 @@ const AllIssusTable = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleAssign(issue)}
-                             className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
+                             className="cityfix-btn cityfix-btn-primary px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm shadow-lg hover:shadow-green-500/30"
                           >
                             Assign
                           </motion.button>
@@ -279,7 +279,7 @@ const AllIssusTable = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleReject(issue._id)}
-                             className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
+                             className="cityfix-btn cityfix-btn-primary px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm shadow-lg hover:shadow-green-500/30"
                           >
                             Reject
                           </motion.button>
@@ -307,7 +307,7 @@ const AllIssusTable = () => {
             whileTap={{ scale: 0.95 }}
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 backdrop-blur-xl bg-white/10 border border-white/30 rounded-lg text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/20 transition"
+            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Previous
           </motion.button>
@@ -326,10 +326,10 @@ const AllIssusTable = () => {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePageChange(page)}
-                  className={`px-4 py-2 rounded-lg font-medium transition ${
+                  className={`cityfix-btn ${currentPage === page ? "cityfix-btn-primary" : "cityfix-btn-ghost"} px-4 py-2 rounded-lg ${
                     currentPage === page
-                      ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/50"
-                      : "backdrop-blur-xl bg-white/10 border border-white/30 text-white hover:bg-white/20"
+                      ? "shadow-lg shadow-green-500/50"
+                      : ""
                   }`}
                 >
                   {page}
@@ -350,7 +350,7 @@ const AllIssusTable = () => {
             whileTap={{ scale: 0.95 }}
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 backdrop-blur-xl bg-white/10 border border-white/30 rounded-lg text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/20 transition"
+            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </motion.button>
@@ -398,7 +398,7 @@ const AllIssusTable = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowModal(false)}
-                  className="px-6 py-3 backdrop-blur-md bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition border border-white/30"
+                  className="cityfix-btn cityfix-btn-ghost px-6 py-3 rounded-lg border border-white/30"
                 >
                   Cancel
                 </motion.button>
@@ -407,7 +407,7 @@ const AllIssusTable = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={confirmAssign}
                   disabled={assignMutation.isPending}
-                  className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-lg shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {assignMutation.isPending ? "Assigning..." : "Confirm Assign"}
                 </motion.button>

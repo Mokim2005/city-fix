@@ -219,7 +219,7 @@ const PaymentSuccess = () => {
         >
           <button
             onClick={() => navigate("/")}
-            className="px-10 py-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold text-lg rounded-xl hover:from-emerald-600 hover:to-green-700 transition shadow-xl transform hover:scale-105"
+            className="cityfix-btn cityfix-btn-primary px-10 py-4 text-lg rounded-xl shadow-xl"
           >
             Back to Home
           </button>

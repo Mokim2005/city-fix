@@ -145,7 +145,7 @@ const ManageStaff = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowAddModal(true)}
-          className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold shadow-lg hover:shadow-green-500/30 transition text-base md:text-lg"
+          className="cityfix-btn cityfix-btn-primary px-6 md:px-8 py-3 md:py-4 rounded-xl shadow-lg hover:shadow-green-500/30 text-base md:text-lg"
         >
           + Add New Staff
         </motion.button>
@@ -211,7 +211,7 @@ const ManageStaff = () => {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => openUpdate(s)}
-                            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
+                            className="cityfix-btn cityfix-btn-primary px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm shadow-lg hover:shadow-green-500/30"
                         >
                           Update
                         </motion.button>
@@ -219,7 +219,7 @@ const ManageStaff = () => {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => handleDelete(s._id)}
-                            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm font-medium shadow-lg hover:shadow-green-500/30 transition"
+                            className="cityfix-btn cityfix-btn-primary px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm shadow-lg hover:shadow-green-500/30"
                         >
                           Delete
                         </motion.button>
@@ -303,7 +303,7 @@ const ManageStaff = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={closeAddModal}
-                  className="px-6 md:px-8 py-3 backdrop-blur-md bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition border border-white/30"
+                  className="cityfix-btn cityfix-btn-ghost px-6 md:px-8 py-3 rounded-lg border border-white/30"
                 >
                   Cancel
                 </motion.button>
@@ -312,7 +312,7 @@ const ManageStaff = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={handleAdd}
                   disabled={addMutation.isPending}
-                  className="px-6 md:px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  className="cityfix-btn cityfix-btn-primary px-6 md:px-8 py-3 rounded-lg shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {addMutation.isPending ? "Adding..." : "Add Staff"}
                 </motion.button>
@@ -374,7 +374,7 @@ const ManageStaff = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={closeUpdateModal}
-                  className="px-6 md:px-8 py-3 backdrop-blur-md bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition border border-white/30"
+                  className="cityfix-btn cityfix-btn-ghost px-6 md:px-8 py-3 rounded-lg border border-white/30"
                 >
                   Cancel
                 </motion.button>
@@ -383,7 +383,7 @@ const ManageStaff = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={handleUpdate}
                   disabled={updateMutation.isPending}
-                   className="px-6 md:px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                   className="cityfix-btn cityfix-btn-primary px-6 md:px-8 py-3 rounded-lg shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {updateMutation.isPending ? "Updating..." : "Save Changes"}
                 </motion.button>

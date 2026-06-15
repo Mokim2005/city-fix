@@ -168,21 +168,11 @@ const Payment = () => {
             whileTap={{ scale: 0.95 }}
             onClick={handlePayment}
             disabled={isProcessing}
-            className={`
-              relative
-              w-full
-              py-4
-              rounded-2xl
-              font-bold
-              text-lg
-              overflow-hidden
-              transition-all
-              ${
-                isProcessing
-                  ? "bg-gray-600 cursor-not-allowed opacity-70"
-                  : "bg-gradient-to-r from-green-500 via-emerald-500 to-green-600"
-              }
-            `}
+            className={`cityfix-btn cityfix-btn-primary relative w-full py-4 rounded-2xl text-lg overflow-hidden ${
+              isProcessing
+                ? "bg-gray-600 cursor-not-allowed opacity-70"
+                : ""
+            }`}
           >
             <span className="relative z-10">
               {isProcessing ? "Processing..." : "🚀 Upgrade Now"}

@@ -195,14 +195,14 @@ const UsersManagement = () => {
                       {user.role === "admin" ? (
                         <button
                           onClick={() => handleRemoveAdmin(user)}
-                          className="bg-gradient-to-r from-green-600 to-emerald-600 p-3 rounded-lg text-white shadow-lg hover:shadow-green-500/30 transition"
+                          className="cityfix-btn cityfix-btn-primary p-3 rounded-lg shadow-lg hover:shadow-green-500/30"
                         >
                           <FiShieldOff />
                         </button>
                       ) : (
                         <button
                           onClick={() => handleMakeAdmin(user)}
-                          className="bg-gradient-to-r from-green-600 to-emerald-600 p-3 rounded-lg text-white shadow-lg hover:shadow-green-500/30 transition"
+                          className="cityfix-btn cityfix-btn-primary p-3 rounded-lg shadow-lg hover:shadow-green-500/30"
                         >
                           <FaUserShield />
                         </button>
@@ -222,7 +222,7 @@ const UsersManagement = () => {
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg"
+            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg"
           >
             Prev
           </button>
@@ -233,11 +233,7 @@ const UsersManagement = () => {
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`px-4 py-2 rounded-lg ${
-                  currentPage === page
-                    ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
-                    : "bg-white/10"
-                }`}
+                className={`cityfix-btn ${currentPage === page ? "cityfix-btn-primary" : "cityfix-btn-ghost"} px-4 py-2 rounded-lg ${currentPage === page ? "shadow-lg" : ""}`}
               >
                 {page}
               </button>
@@ -247,7 +243,7 @@ const UsersManagement = () => {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg"
+            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg"
           >
             Next
           </button>

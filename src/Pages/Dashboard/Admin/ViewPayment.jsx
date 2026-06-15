@@ -222,7 +222,7 @@ const ViewPayments = () => {
                       <td className="px-6 py-5 text-center">
                         <button
                           onClick={() => downloadReceipt(payment)}
-                          className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 rounded-xl font-bold text-white flex items-center gap-2 mx-auto shadow-lg hover:shadow-green-500/30 transition"
+                          className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl flex items-center gap-2 mx-auto shadow-lg hover:shadow-green-500/30"
                         >
                           <FaDownload />
                           Download
@@ -276,7 +276,7 @@ const ViewPayments = () => {
 
                     <button
                       onClick={() => downloadReceipt(payment)}
-                      className="mt-6 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 rounded-xl font-bold text-white flex items-center justify-center gap-3 shadow-lg hover:shadow-green-500/30 transition"
+                      className="cityfix-btn cityfix-btn-primary mt-6 w-full py-4 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:shadow-green-500/30"
                     >
                       <FaDownload className="w-5 h-5" />
                       Download Receipt
