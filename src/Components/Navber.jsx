@@ -90,10 +90,10 @@ const Navbar = () => {
                 <NavLink
                   to={link.path}
                   className={({ isActive }) =>
-                    `px-4 py-2 rounded-xl font-bold transition-all duration-300 ${
-                      isActive
-                        ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/50"
-                        : "text-white hover:text-cyan-300 hover:bg-white/20 backdrop-blur-sm"
+                    `relative text-sm font-medium tracking-widest uppercase transition-all duration-200 pb-1
+                    ${isActive
+                      ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#00C2A8] after:rounded-full"
+                      : "text-white/60 hover:text-white"
                     }`
                   }
                 >
@@ -112,10 +112,10 @@ const Navbar = () => {
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `px-4 py-2 rounded-xl font-bold transition-all duration-300 ${
-                        isActive
-                          ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/50"
-                          : "text-white hover:text-cyan-300 hover:bg-white/20 backdrop-blur-sm"
+                      `relative text-sm font-medium tracking-widest uppercase transition-all duration-200 pb-1
+                      ${isActive
+                        ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#00C2A8] after:rounded-full"
+                        : "text-white/60 hover:text-white"
                       }`
                     }
                   >
@@ -171,7 +171,7 @@ const Navbar = () => {
                         <NavLink
                           to="/dashboard"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 text-white hover:text-cyan-300 hover:bg-white/20 rounded-xl transition-all duration-300 font-semibold"
+                          className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/90 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 font-semibold"
                         >
                           <LayoutDashboard size={18} />
                           Dashboard
@@ -179,7 +179,7 @@ const Navbar = () => {
                         <NavLink
                           to="/dashboard/my-issus"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 text-white hover:text-cyan-300 hover:bg-white/20 rounded-xl transition-all duration-300 font-semibold"
+                          className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/90 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 font-semibold"
                         >
                           <FileText size={18} />
                           My Issues
@@ -197,10 +197,10 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <NavLink
                   to="/login"
-                  className="cityfix-btn cityfix-btn-primary hidden lg:flex px-6 py-3 shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/70"
+                  className="text-sm font-medium tracking-widest uppercase border border-white/40 text-white px-4 py-1.5 rounded-lg hover:border-[#00C2A8] hover:text-[#00C2A8] transition-all duration-200"
                 >
                   Login
                 </NavLink>
@@ -236,10 +236,10 @@ const Navbar = () => {
                   to={link.path}
                   onClick={() => setMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `block px-4 py-3 rounded-xl font-bold transition-all duration-300 ${
-                      isActive
-                        ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg"
-                        : "text-white hover:text-cyan-300 hover:bg-white/20"
+                    `relative text-sm font-medium tracking-widest uppercase transition-all duration-200 pb-1
+                    ${isActive
+                      ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#00C2A8] after:rounded-full"
+                      : "text-white/60 hover:text-white"
                     }`
                   }
                 >
@@ -255,10 +255,10 @@ const Navbar = () => {
                       to={link.path}
                       onClick={() => setMobileMenuOpen(false)}
                       className={({ isActive }) =>
-                        `block px-4 py-3 rounded-xl font-bold transition-all duration-300 ${
-                          isActive
-                            ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg"
-                            : "text-white hover:text-cyan-300 hover:bg-white/20"
+                        `relative text-sm font-medium tracking-widest uppercase transition-all duration-200 pb-1
+                        ${isActive
+                          ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#00C2A8] after:rounded-full"
+                          : "text-white/60 hover:text-white"
                         }`
                       }
                     >

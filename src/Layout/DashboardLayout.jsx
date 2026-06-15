@@ -17,17 +17,17 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 import AnimatedBackground from "../Components/AnimatedBackground";
 
 const navLinkClass = ({ isActive }) =>
-  `relative z-10 flex items-center gap-3 px-3 py-2.5 rounded-xl border transition-all duration-200 w-full
+  `relative flex items-center gap-3 px-3 py-2.5 w-full text-sm font-medium tracking-wide transition-all duration-200 rounded-lg
   ${isActive
-    ? "bg-cyan-500/20 border-cyan-400/50 text-cyan-300 font-semibold shadow-md shadow-cyan-500/20"
-    : "bg-white/5 border-white/10 text-white/65 hover:bg-cyan-500/10 hover:text-cyan-300 hover:border-cyan-400/30"
+    ? "text-[#00C2A8] bg-[rgba(0,194,168,0.08)] border-l-2 border-[#00C2A8]"
+    : "text-white/55 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
   }`;
 
 const navLinkClassCollapsed = ({ isActive }) =>
-  `relative z-10 flex items-center justify-center w-10 h-10 mx-auto rounded-xl border transition-all duration-200 tooltip tooltip-right
+  `relative flex items-center justify-center w-10 h-10 mx-auto rounded-lg transition-all duration-200 tooltip tooltip-right
   ${isActive
-    ? "bg-cyan-500/20 border-cyan-400/50 text-cyan-300 shadow-md shadow-cyan-500/20"
-    : "bg-white/5 border-white/10 text-white/65 hover:bg-cyan-500/10 hover:text-cyan-300 hover:border-cyan-400/30"
+    ? "text-[#00C2A8] bg-[rgba(0,194,168,0.08)] border-l-2 border-[#00C2A8]"
+    : "text-white/55 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
   }`;
 
 const DashboardLayout = () => {
