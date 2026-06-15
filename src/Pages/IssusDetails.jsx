@@ -164,7 +164,7 @@ const IssueDetails = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   onClick={handleDelete}
-                  className="px-6 py-3 bg-gray-800 hover:bg-black rounded-xl transition"
+                  className="cityfix-btn cityfix-btn-ghost px-6 py-3 rounded-xl"
                 >
                   Delete
                 </motion.button>
@@ -174,7 +174,7 @@ const IssueDetails = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   onClick={handleBoost}
-                  className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl"
+                  className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl"
                 >
                   Boost Priority
                 </motion.button>

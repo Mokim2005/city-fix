@@ -134,7 +134,7 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-2 backdrop-blur-xl bg-white/20 border-2 border-white/30 py-2 px-3 rounded-full shadow-2xl hover:bg-white/30 hover:border-cyan-400/50 transition-all duration-300"
+                  className="cityfix-btn cityfix-btn-ghost flex items-center gap-2 backdrop-blur-xl bg-white/20 border-2 border-white/30 py-2 px-3 rounded-full shadow-2xl hover:bg-white/30 hover:border-cyan-400/50 transition-all duration-300"
                 >
                   <img
                     src={user.photoURL}
@@ -200,7 +200,7 @@ const Navbar = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <NavLink
                   to="/login"
-                  className="hidden lg:block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/70 transition-all duration-300"
+                  className="cityfix-btn cityfix-btn-primary hidden lg:flex px-6 py-3 shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/70"
                 >
                   Login
                 </NavLink>

@@ -156,7 +156,7 @@ const IssueForm = () => {
             {/* BUTTON GREEN + SMOOTH */}
             <button
               type="submit"
-              className="md:col-span-2 py-4 rounded-xl font-bold bg-green-600 hover:bg-green-700 hover:scale-[1.02] transition-all duration-300 shadow-lg"
+              className="cityfix-btn cityfix-btn-primary md:col-span-2 py-4 rounded-xl shadow-lg"
             >
               Submit Issue
             </button>

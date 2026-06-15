@@ -144,7 +144,7 @@ const Banner = () => {
             <div className="flex flex-wrap gap-4">
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="px-8 py-4 rounded-full hover:cursor-pointer bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold shadow-xl"
+                className="cityfix-btn cityfix-btn-primary px-8 py-4 rounded-full hover:cursor-pointer shadow-xl"
                 onClick={() => navigate("/issus-form")}
               >
                 🚀 Get Started
@@ -152,7 +152,7 @@ const Banner = () => {
 
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="px-8 py-4 rounded-full border hover:cursor-pointer border-green-500/50 bg-green-600/20 text-white"
+                className="cityfix-btn cityfix-btn-secondary px-8 py-4 rounded-full border hover:cursor-pointer border-green-500/50"
                 onClick={() => navigate("/about")}
               >
                 📖 Learn More
@@ -197,7 +197,7 @@ const Banner = () => {
               </div>
 
               <button
-                className="mt-5 w-full py-3 rounded-lg hover:cursor-pointer bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold"
+                className="cityfix-btn cityfix-btn-primary mt-5 w-full py-3 rounded-xl hover:cursor-pointer"
                 onClick={() => navigate("/issus-form")}
               >
                 Report

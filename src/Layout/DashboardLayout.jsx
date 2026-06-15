@@ -90,8 +90,7 @@ const DashboardLayout = () => {
             >
               <label
                 htmlFor="my-drawer-4"
-                className="relative overflow-hidden btn btn-square btn-ghost lg:hidden rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
-                style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                className="cityfix-btn cityfix-btn-primary btn btn-square btn-ghost lg:hidden rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
               >
                 ☰
               </label>
@@ -270,8 +269,7 @@ const DashboardLayout = () => {
               <div className="hidden lg:flex justify-center py-4">
 <button
                    onClick={() => setCollapsed(!collapsed)}
-                   className="relative overflow-hidden w-8 h-8 rounded-full font-semibold text-white shadow-lg transition-all duration-500 ease-out flex items-center justify-center"
-                   style={{ background: "linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%)" }}
+                   className="cityfix-btn cityfix-btn-primary relative overflow-hidden w-8 h-8 rounded-full font-semibold text-white shadow-lg transition-all duration-500 ease-out flex items-center justify-center"
                  >
                    {collapsed ? <FaChevronRight size={11} /> : <FaChevronLeft size={11} />}
                  </button>

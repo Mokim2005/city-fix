@@ -123,7 +123,7 @@ const Error = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   to="/"
-                  className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl font-bold shadow-2xl hover:shadow-purple-500/50 transition-all duration-300"
+                  className="cityfix-btn cityfix-btn-primary flex items-center justify-center gap-2 px-8 py-4 rounded-xl shadow-2xl hover:shadow-purple-500/50"
                 >
                   <Home className="w-5 h-5" />
                   Go to Home
@@ -133,7 +133,7 @@ const Error = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   to="/dashboard"
-                  className="flex items-center justify-center gap-2 px-8 py-4 backdrop-blur-xl bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white rounded-xl font-bold transition-all duration-300"
+                  className="cityfix-btn cityfix-btn-ghost flex items-center justify-center gap-2 px-8 py-4 rounded-xl"
                 >
                   <LayoutDashboard className="w-5 h-5" />
                   Dashboard
@@ -149,7 +149,7 @@ const Error = () => {
             >
               <button
                 onClick={() => window.history.back()}
-                className="flex items-center justify-center gap-2 mx-auto px-6 py-3 backdrop-blur-xl bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/40 text-gray-300 hover:text-white rounded-xl font-semibold transition-all duration-300"
+                className="cityfix-btn cityfix-btn-ghost flex items-center justify-center gap-2 mx-auto px-6 py-3 rounded-xl"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Go Back

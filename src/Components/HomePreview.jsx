@@ -94,7 +94,7 @@ const LatestResolvedIssues = () => {
 
                 <Link
                 to={`/Issus-details/${issue._id}`}
-                className="inline-block w-full text-center px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-green-500/50 transition-all duration-300"
+                className="cityfix-btn cityfix-btn-primary inline-block w-full text-center px-4 py-3 rounded-xl shadow-lg hover:shadow-green-500/50"
               >
                 View Details
               </Link>
