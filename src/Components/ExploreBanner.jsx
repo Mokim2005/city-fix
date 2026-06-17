@@ -144,7 +144,6 @@ const App = () => {
     );
   }, []);
 
-  // LiveCityStatus-এর মত কালার থিম ডাটাতে ম্যাপ করা হয়েছে
   const features = [
     { 
       icon: Icons.Map, 
@@ -203,10 +202,10 @@ const App = () => {
   ];
 
   return (
-    <div className="bg-slate-950 text-white min-h-screen">
+    <>
       {/* HERO */}
       <header ref={headerRef} className="text-center py-24">
-        <h1 className="text-5xl font-black">
+        <h1 className="text-5xl font-black text-white">
           Empowering Citizens <span className="text-cyan-400">Fixing Cities</span>
         </h1>
         <p className="mt-4 text-gray-300">
@@ -220,7 +219,7 @@ const App = () => {
           <FeatureCard key={i} feature={f} index={i} />
         ))}
       </main>
-    </div>
+    </>
   );
 };
 
