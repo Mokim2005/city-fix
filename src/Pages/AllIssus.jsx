@@ -150,21 +150,21 @@ const AllIssus = () => {
     const lowerStatus = status?.toLowerCase();
     switch (lowerStatus) {
       case "pending":
-        return "bg-yellow-500/20 text-yellow-300 border border-yellow-500/50";
+        return "bg-amber-900/40 text-amber-300 border border-amber-700";
       case "in-progress":
-        return "bg-blue-500/20 text-blue-300 border border-blue-500/50";
+        return "bg-cyan-900/30 text-cyan-300 border border-cyan-700";
       case "resolved":
-        return "bg-green-500/20 text-green-300 border border-green-500/50";
+        return "bg-emerald-900/40 text-emerald-300 border border-emerald-700";
       default:
-        return "bg-gray-500/20 text-gray-300 border border-gray-500/50";
+        return "bg-gray-800/50 text-gray-300 border border-gray-700";
     }
   };
 
   const getPriorityStyle = (priority) => {
     if (priority === "High") {
-      return "bg-red-500/20 text-red-300 border border-red-500/50";
+      return "bg-red-900/40 text-red-300 border border-red-800";
     }
-    return "bg-purple-500/20 text-purple-300 border border-purple-500/50";
+    return "bg-cyan-900/30 text-cyan-300 border border-cyan-700";
   };
 
   return (
@@ -176,8 +176,8 @@ const AllIssus = () => {
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-12">
-          <div className="backdrop-blur-xl bg-white/5 border border-white/20 rounded-3xl px-8 py-6 inline-block shadow-2xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent mb-3">
+          <div className="backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl px-8 py-6 inline-block shadow-2xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-300 bg-clip-text text-transparent mb-3">
               All Reported Issues
             </h1>
             <p className="text-gray-300 text-base sm:text-lg">
@@ -199,14 +199,14 @@ const AllIssus = () => {
               placeholder="🔍 Search issues by title..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full p-4 pl-12 rounded-2xl backdrop-blur-xl bg-white/10 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-4 pl-12 rounded-2xl backdrop-blur-xl bg-white/10 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 cursor-pointer"
             />
           </div>
 
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="p-4 rounded-2xl backdrop-blur-xl bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 min-w-[200px]"
+            className="p-4 rounded-2xl backdrop-blur-xl bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-300 min-w-[200px] cursor-pointer"
           >
             <option value="all" className="bg-gray-900">
               All Issues
@@ -275,10 +275,10 @@ const AllIssus = () => {
                   className="group relative"
                 >
                   {/* Glassy Card */}
-                  <div className="h-full backdrop-blur-2xl bg-white/5 border border-white/10 rounded-3xl overflow-hidden shadow-2xl hover:shadow-purple-500/50 hover:border-purple-500/50 transition-all duration-500">
+                  <div className="h-full bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden transition-all duration-300 ease-in-out hover:border-cyan-400 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/15 cursor-pointer">
                     {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-pink-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                    <div className="absolute -inset-1 bg-gradient-to-br from-purple-600/30 to-pink-600/30 blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 -z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/10 via-teal-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    <div className="absolute -inset-1 bg-gradient-to-br from-cyan-600/20 to-teal-600/20 blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 -z-10" />
 
                     {/* Image */}
                     <div className="relative overflow-hidden h-48">
@@ -295,14 +295,14 @@ const AllIssus = () => {
 
                     {/* Content */}
                     <div className="p-6 relative z-10">
-                      <h2 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-purple-300 transition-colors duration-300">
+                      <h2 className="text-xl font-semibold text-white mb-3 line-clamp-2 transition-colors duration-300">
                         {issue.title || "Untitled Issue"}
                       </h2>
 
                       {/* Badges */}
                       <div className="flex flex-wrap gap-2 mb-4">
                         <span
-                          className={`px-3 py-1 text-xs font-semibold rounded-full ${getStatusStyle(
+                          className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusStyle(
                             issue.status
                           )}`}
                         >
@@ -310,7 +310,7 @@ const AllIssus = () => {
                         </span>
 
                         <span
-                          className={`px-3 py-1 text-xs font-semibold rounded-full ${getPriorityStyle(
+                          className={`px-3 py-1 text-xs font-medium rounded-full ${getPriorityStyle(
                             issue.priority
                           )}`}
                         >
@@ -319,7 +319,7 @@ const AllIssus = () => {
                       </div>
 
                       <p className="text-gray-300 text-sm mb-2">
-                        <span className="text-purple-400 font-medium">
+                        <span className="text-cyan-400 font-medium">
                           Category:
                         </span>{" "}
                         {issue.category || "Uncategorized"}
@@ -335,7 +335,7 @@ const AllIssus = () => {
                           whileTap={{ scale: disabled ? 1 : 0.95 }}
                           onClick={() => handleUpvote(issue)}
                           disabled={disabled || isLoading}
-                          className={`cityfix-btn cityfix-btn-primary px-4 py-2 rounded-xl text-sm ${
+                          className={`cityfix-btn cityfix-btn-primary px-4 py-2 rounded-lg text-sm transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/40 cursor-pointer ${
                             disabled
                               ? "bg-gray-600/50 cursor-not-allowed text-gray-400"
                               : ""
@@ -346,7 +346,7 @@ const AllIssus = () => {
 
                         <Link
                           to={`/Issus-details/${issue._id}`}
-                          className="cityfix-btn cityfix-btn-primary px-4 py-2 rounded-xl text-sm shadow-lg hover:shadow-green-600/50"
+                          className="cityfix-btn cityfix-btn-primary px-4 py-2 rounded-lg text-sm shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-400/40 cursor-pointer"
                         >
                           View Details
                         </Link>
@@ -372,7 +372,7 @@ const AllIssus = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+              className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
             >
               ← Previous
             </motion.button>
@@ -386,7 +386,7 @@ const AllIssus = () => {
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
               disabled={currentPage === totalPages}
-              className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+              className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
             >
               Next →
             </motion.button>
@@ -398,7 +398,7 @@ const AllIssus = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-20 backdrop-blur-xl bg-white/5 border border-white/20 rounded-3xl"
+            className="text-center py-20 backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl"
           >
             <p className="text-2xl text-gray-300 mb-2">😔 No issues found</p>
             <p className="text-gray-400">

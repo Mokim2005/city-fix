@@ -90,7 +90,7 @@ const AdminDashboardHome = () => {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg"
+        className="text-4xl font-extrabold mb-8 text-center bg-gradient-to-r from-cyan-400 to-teal-300 bg-clip-text text-transparent drop-shadow-lg"
       >
         Admin Dashboard
       </motion.h2>
@@ -108,42 +108,49 @@ const AdminDashboardHome = () => {
           {
             label: "Total Issues",
             value: stats.totalIssues,
-            color: "from-teal-600 to-teal-800",
+            cardClass: "bg-slate-900 border border-cyan-800",
+            valueClass: "text-cyan-400",
+            labelClass: "text-cyan-300",
           },
           {
             label: "Resolved",
             value: stats.resolvedCount,
-            color: "from-green-600 to-green-800",
+            cardClass: "bg-emerald-950 border border-emerald-700",
+            valueClass: "text-emerald-400",
+            labelClass: "text-gray-200",
           },
           {
             label: "Pending",
             value: stats.pendingCount,
-            color: "from-yellow-600 to-yellow-800",
+            cardClass: "bg-amber-950 border border-amber-700",
+            valueClass: "text-amber-400",
+            labelClass: "text-gray-200",
           },
           {
             label: "Rejected",
             value: stats.rejectedCount,
-            color: "from-red-600 to-red-800",
+            cardClass: "bg-red-950 border border-red-800",
+            valueClass: "text-red-400",
+            labelClass: "text-gray-200",
           },
           {
             label: "Total Payments",
             value: `${stats.totalPaymentAmount} BDT`,
-            color: "from-emerald-600 to-emerald-800",
+            cardClass: "bg-slate-900 border border-teal-700",
+            valueClass: "text-teal-400",
+            labelClass: "text-gray-200",
           },
         ].map((item, index) => (
           <motion.div
             key={index}
             variants={cardVariants}
-            whileHover={{ scale: 1.05, y: -8 }}
+            whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="relative overflow-hidden rounded-2xl backdrop-blur-xl bg-white/10 p-6 shadow-2xl border border-white/30"
+            className={`relative overflow-hidden rounded-xl p-6 shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${item.cardClass}`}
           >
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-30`}
-            />
             <div className="relative z-10">
-              <p className="text-sm font-medium text-gray-200">{item.label}</p>
-              <p className="text-3xl font-bold mt-2 text-white">{item.value}</p>
+              <p className={`text-sm font-medium ${item.labelClass}`}>{item.label}</p>
+              <p className={`text-3xl font-bold mt-2 ${item.valueClass}`}>{item.value}</p>
             </div>
           </motion.div>
         ))}
@@ -154,9 +161,9 @@ const AdminDashboardHome = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-8 mb-10 border border-white/30"
+        className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-8 mb-10 border border-cyan-500/20"
       >
-        <h3 className="text-2xl font-semibold mb-6 text-green-300">
+        <h3 className="text-2xl font-semibold mb-6 text-cyan-300">
           Issues by Status
         </h3>
         <div className="h-96">
@@ -196,10 +203,10 @@ const AdminDashboardHome = () => {
           <motion.div
             key={secIndex}
             variants={cardVariants}
-            className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 border border-white/30"
+            className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 border border-cyan-500/20"
             whileHover={{ y: -5 }}
           >
-            <h3 className="text-xl font-semibold mb-5 text-green-300">
+            <h3 className="text-xl font-semibold mb-5 text-cyan-300">
               {section.title}
             </h3>
             <ul className="space-y-4">
@@ -212,7 +219,7 @@ const AdminDashboardHome = () => {
                     animate="visible"
                     exit="hidden"
                     transition={{ delay: idx * 0.05 }}
-                    className="backdrop-blur-md bg-white/10 rounded-lg px-4 py-3 hover:bg-white/20 transition-colors text-white"
+                    className="backdrop-blur-md bg-white/10 rounded-lg px-4 py-3 hover:bg-cyan-900/20 transition-colors duration-200 text-white"
                   >
                     {section.display(item)}
                   </motion.li>

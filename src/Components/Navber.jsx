@@ -45,17 +45,17 @@ const Navbar = () => {
 
   // Reusable NavLink class — Portfolio style (ইমেজের মতো হুবহু ফিক্সড করা হয়েছে)
   const desktopNavClass = ({ isActive }) =>
-    `relative text-[13px] font-bold tracking-[0.15em] uppercase transition-all duration-200 pb-2
+    `relative text-[13px] font-bold tracking-[0.15em] uppercase transition-all duration-200 pb-2 cursor-pointer
     ${isActive
-      ? "text-[#00C2A8] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-[#00C2A8] after:content-['']"
-      : "text-white/55 hover:text-white"
+      ? "text-cyan-400 underline decoration-cyan-400 decoration-2 underline-offset-8"
+      : "text-gray-300 hover:text-cyan-400"
     }`;
 
   const mobileNavClass = ({ isActive }) =>
-    `relative block w-full text-sm font-medium px-3 py-2.5 rounded-lg transition-all duration-200
+    `relative block w-full text-sm font-medium px-3 py-2.5 rounded-lg transition-all duration-200 cursor-pointer
     ${isActive
-      ? "text-[#00C2A8] bg-[rgba(0,194,168,0.08)] border-l-2 border-[#00C2A8]"
-      : "text-white/60 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
+      ? "text-cyan-400 bg-cyan-900/30 border-l-2 border-cyan-400"
+      : "text-gray-300 hover:text-cyan-400 hover:bg-cyan-900/20 border-l-2 border-transparent"
     }`;
 
   return (
@@ -80,11 +80,11 @@ const Navbar = () => {
             <motion.div
               ref={logoRef}
               whileHover={{ scale: 1.1, rotate: 5 }}
-              className="backdrop-blur-xl bg-white/20 border-2 border-white/30 rounded-2xl p-2 shadow-2xl"
+              className="backdrop-blur-xl bg-gray-900/80 border-2 border-cyan-500/20 rounded-2xl p-2 shadow-2xl cursor-pointer"
             >
               <img src={logo} alt="City Fix Logo" className="w-8 h-8 object-contain" />
             </motion.div>
-            <span className="text-xl sm:text-2xl font-black bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="text-xl sm:text-2xl font-black bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-300 bg-clip-text text-transparent">
               City Fix
             </span>
           </NavLink>
@@ -114,7 +114,7 @@ const Navbar = () => {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-2 backdrop-blur-xl bg-white/10 border border-white/20 py-1.5 px-3 rounded-full hover:bg-white/20 hover:border-cyan-400/40 transition-all duration-200"
+                  className="flex items-center gap-2 backdrop-blur-xl bg-white/10 border border-white/20 py-1.5 px-3 rounded-full hover:bg-cyan-900/20 hover:border-cyan-400/40 transition-all duration-200 cursor-pointer"
                 >
                   <img
                     src={user.photoURL}
@@ -148,7 +148,7 @@ const Navbar = () => {
                         <NavLink
                           to="/dashboard"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:text-cyan-300 hover:bg-white/5 transition-all duration-200 text-sm"
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-cyan-400 hover:bg-cyan-900/20 transition-all duration-200 text-sm cursor-pointer"
                         >
                           <LayoutDashboard size={16} />
                           Dashboard
@@ -156,14 +156,14 @@ const Navbar = () => {
                         <NavLink
                           to="/dashboard/my-issus"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:text-cyan-300 hover:bg-white/5 transition-all duration-200 text-sm"
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-cyan-400 hover:bg-cyan-900/20 transition-all duration-200 text-sm cursor-pointer"
                         >
                           <FileText size={16} />
                           My Issues
                         </NavLink>
                         <button
                           onClick={handleLogOut}
-                          className="w-full flex items-center gap-3 px-3 py-2.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all duration-200 text-sm"
+                          className="w-full flex items-center gap-3 px-3 py-2.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all duration-200 text-sm cursor-pointer"
                         >
                           <LogOut size={16} />
                           Logout
@@ -176,7 +176,7 @@ const Navbar = () => {
             ) : (
               <NavLink
                 to="/login"
-                className="hidden lg:inline-flex items-center text-[11px] font-semibold tracking-[0.18em] uppercase border border-white/40 text-white px-5 py-2 rounded-lg hover:border-[#00C2A8] hover:text-[#00C2A8] transition-all duration-200"
+                className="hidden lg:inline-flex items-center text-[11px] font-semibold tracking-[0.18em] uppercase border border-white/40 text-gray-300 px-5 py-2 rounded-lg hover:border-cyan-400 hover:text-cyan-400 transition-all duration-200 cursor-pointer"
               >
                 Login
               </NavLink>
@@ -186,7 +186,7 @@ const Navbar = () => {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden bg-white/10 border border-white/20 p-2 rounded-xl text-white"
+              className="lg:hidden bg-white/10 border border-white/20 p-2 rounded-xl text-white cursor-pointer transition-all duration-200 hover:bg-cyan-900/20 hover:border-cyan-400/40"
             >
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </motion.button>
@@ -231,7 +231,7 @@ const Navbar = () => {
                   ))}
 
                   <div className="pt-3 mt-2 border-t border-white/10">
-                    <div className="flex items-center gap-3 px-3 py-2.5 mb-2 bg-white/5 rounded-xl">
+                    <div className="flex items-center gap-3 px-3 py-2.5 mb-2 bg-white/5 rounded-xl cursor-pointer">
                       <img
                         src={user.photoURL}
                         alt={user.displayName}
@@ -244,7 +244,7 @@ const Navbar = () => {
                     </div>
                     <button
                       onClick={() => { handleLogOut(); setMobileMenuOpen(false); }}
-                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 text-sm"
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 text-sm cursor-pointer"
                     >
                       <LogOut size={16} />
                       Logout
@@ -256,7 +256,7 @@ const Navbar = () => {
                   <NavLink
                     to="/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full text-center text-sm font-medium border border-white/30 text-white/80 px-4 py-2.5 rounded-lg hover:border-[#00C2A8] hover:text-[#00C2A8] transition-all duration-200"
+                    className="block w-full text-center text-sm font-medium border border-white/30 text-gray-300 px-4 py-2.5 rounded-lg hover:border-cyan-400 hover:text-cyan-400 transition-all duration-200 cursor-pointer"
                   >
                     Login
                   </NavLink>

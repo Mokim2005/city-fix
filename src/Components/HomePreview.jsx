@@ -62,7 +62,7 @@ const LatestResolvedIssues = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent mb-10 sm:mb-12 md:mb-16 text-center"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-300 bg-clip-text text-transparent mb-10 sm:mb-12 md:mb-16 text-center"
         >
           Latest Resolved Issues
         </motion.h2>
@@ -74,7 +74,7 @@ const LatestResolvedIssues = () => {
               ref={(el) => (cardsRef.current[index] = el)}
               whileHover={{ y: -10, scale: 1.02 }}
               transition={{ duration: 0.3 }}
-               className="backdrop-blur-2xl bg-white/5 border border-white/10 p-5 sm:p-6 rounded-3xl shadow-2xl hover:shadow-green-500/40 hover:border-green-500/50 transition-all duration-300 group"
+               className="backdrop-blur-2xl bg-gray-900 border border-gray-800 p-5 sm:p-6 rounded-2xl shadow-2xl hover:shadow-cyan-500/15 hover:border-cyan-400 transition-all duration-300 group cursor-pointer"
             >
               <div className="relative overflow-hidden rounded-2xl mb-4">
                 <img
@@ -85,7 +85,7 @@ const LatestResolvedIssues = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               
-               <h3 className="text-xl sm:text-2xl font-semibold text-white mt-4 mb-2 group-hover:text-green-300 transition-colors duration-300">
+               <h3 className="text-xl sm:text-2xl font-semibold text-white mt-4 mb-2 group-hover:text-cyan-300 transition-colors duration-300">
                 {issue.title}
               </h3>
               <p className="text-gray-300 mb-4 flex items-center gap-2">
@@ -94,7 +94,7 @@ const LatestResolvedIssues = () => {
 
                 <Link
                 to={`/Issus-details/${issue._id}`}
-                className="cityfix-btn cityfix-btn-primary inline-block w-full text-center px-4 py-3 rounded-xl shadow-lg hover:shadow-green-500/50"
+                className="cityfix-btn cityfix-btn-primary inline-block w-full text-center px-4 py-3 rounded-xl shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 cursor-pointer"
               >
                 View Details
               </Link>

@@ -113,13 +113,13 @@ const GradientIcon = ({ icon: IconComponent }) => {
       <svg width="0" height="0" className="absolute">
         <defs>
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop stopColor="#a855f7" offset="0%" /> {/* Purple-500 */}
-            <stop stopColor="#ec4899" offset="100%" /> {/* Pink-500 */}
+            <stop stopColor="#06b6d4" offset="0%" />
+            <stop stopColor="#14b8a6" offset="100%" />
           </linearGradient>
         </defs>
       </svg>
 
-      <div className="p-4 rounded-2xl bg-white/5 border border-white/10 shadow-inner group-hover:border-purple-500/50 transition-all duration-500">
+      <div className="p-4 rounded-2xl bg-white/5 border border-white/10 shadow-inner group-hover:border-cyan-400/50 transition-all duration-500">
         <div
           style={{ stroke: `url(#${gradientId})` }}
           className="text-5xl lg:text-6xl flex items-center justify-center"
@@ -185,10 +185,10 @@ const App = () => {
   };
 
   return (
-    <section className="py-24 bg-[#0a051a] text-white relative overflow-hidden min-h-screen">
+    <section className="py-24 bg-[#0D1117] text-white relative overflow-hidden min-h-screen">
       {/* Background Decor */}
-      <div className="absolute top-0 -left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-20 w-96 h-96 bg-pink-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 -left-20 w-96 h-96 bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 -right-20 w-96 h-96 bg-teal-600/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
@@ -196,7 +196,7 @@ const App = () => {
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
             Key Features of City Fix
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
@@ -217,15 +217,15 @@ const App = () => {
               key={index}
               variants={itemVariants}
               whileHover={{ y: -10 }}
-              className="group"
+              className="group cursor-pointer"
             >
-              <div className="relative p-8 h-full bg-white/[0.03] backdrop-blur-md rounded-[2.5rem] border border-white/5 hover:border-purple-500/30 transition-all duration-500 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative p-8 h-full bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/5 hover:border-cyan-500/30 transition-all duration-300 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative z-10 flex flex-col items-center text-center">
                   <GradientIcon icon={feature.icon} />
 
-                  <h3 className="text-2xl font-bold mb-4 group-hover:text-purple-300 transition-colors">
+                  <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-cyan-300 transition-colors duration-300">
                     {feature.title}
                   </h3>
 
@@ -234,7 +234,7 @@ const App = () => {
                   </p>
                 </div>
 
-                <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-700" />
+                <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-cyan-500 to-teal-400 group-hover:w-full transition-all duration-700" />
               </div>
             </motion.div>
           ))}

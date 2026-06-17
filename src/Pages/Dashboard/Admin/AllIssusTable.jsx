@@ -182,7 +182,7 @@ const AllIssusTable = () => {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-3xl md:text-4xl font-extrabold mb-8 md:mb-10 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg"
+        className="text-3xl md:text-4xl font-extrabold mb-8 md:mb-10 text-center bg-gradient-to-r from-cyan-400 to-teal-300 bg-clip-text text-transparent drop-shadow-lg"
       >
         All Issues Management ({sortedIssues.length})
       </motion.h2>
@@ -197,7 +197,7 @@ const AllIssusTable = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-                <tr className="bg-gradient-to-r from-green-600/50 to-emerald-600/50 text-xs md:text-sm uppercase">
+                <tr className="bg-gradient-to-r from-cyan-600/50 to-teal-600/50 text-xs md:text-sm uppercase">
                 <th className="px-3 md:px-6 py-4 md:py-5">Title</th>
                 <th className="px-3 md:px-6 py-4 md:py-5 hidden sm:table-cell">Category</th>
                 <th className="px-3 md:px-6 py-4 md:py-5">Status</th>
@@ -227,12 +227,12 @@ const AllIssusTable = () => {
                       <span
                         className={`inline-flex px-2 md:px-3 py-1 rounded-full text-xs font-semibold ${
                           issue.status === "pending"
-                            ? "bg-yellow-600/30 text-yellow-300"
+                            ? "bg-amber-900/40 text-amber-300"
                             : issue.status === "resolved"
-                            ? "bg-green-600/30 text-green-300"
+                            ? "bg-emerald-900/40 text-emerald-300"
                             : issue.status === "rejected"
                             ? "bg-red-600/30 text-red-300"
-                            : "bg-indigo-600/30 text-indigo-300"
+                            : "bg-cyan-900/30 text-cyan-300"
                         }`}
                       >
                         {issue.status}
@@ -242,10 +242,10 @@ const AllIssusTable = () => {
                       <span
                         className={`inline-flex px-2 md:px-3 py-1 rounded-full text-xs font-bold ${
                           issue.priority === "High"
-                            ? "bg-red-600/40 text-red-300"
+                            ? "bg-red-900/40 text-red-300"
                             : issue.priority === "Medium"
-                            ? "bg-orange-600/40 text-orange-300"
-                            : "bg-gray-600/40 text-gray-300"
+                            ? "bg-amber-900/40 text-amber-300"
+                            : "bg-gray-700/40 text-gray-300"
                         }`}
                       >
                         {issue.priority}
@@ -269,7 +269,7 @@ const AllIssusTable = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleAssign(issue)}
-                             className="cityfix-btn cityfix-btn-primary px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm shadow-lg hover:shadow-green-500/30"
+                             className="cityfix-btn cityfix-btn-primary px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 cursor-pointer"
                           >
                             Assign
                           </motion.button>
@@ -279,7 +279,7 @@ const AllIssusTable = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleReject(issue._id)}
-                             className="cityfix-btn cityfix-btn-primary px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm shadow-lg hover:shadow-green-500/30"
+                             className="cityfix-btn cityfix-btn-primary px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 cursor-pointer"
                           >
                             Reject
                           </motion.button>
@@ -307,7 +307,7 @@ const AllIssusTable = () => {
             whileTap={{ scale: 0.95 }}
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             Previous
           </motion.button>
@@ -326,9 +326,9 @@ const AllIssusTable = () => {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePageChange(page)}
-                  className={`cityfix-btn ${currentPage === page ? "cityfix-btn-primary" : "cityfix-btn-ghost"} px-4 py-2 rounded-lg ${
+                  className={`cityfix-btn ${currentPage === page ? "cityfix-btn-primary" : "cityfix-btn-ghost"} px-4 py-2 rounded-lg cursor-pointer ${
                     currentPage === page
-                      ? "shadow-lg shadow-green-500/50"
+                      ? "shadow-lg shadow-cyan-500/20"
                       : ""
                   }`}
                 >
@@ -350,7 +350,7 @@ const AllIssusTable = () => {
             whileTap={{ scale: 0.95 }}
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="cityfix-btn cityfix-btn-ghost px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             Next
           </motion.button>
@@ -383,7 +383,7 @@ const AllIssusTable = () => {
               <select
                 value={selectedStaff}
                 onChange={(e) => setSelectedStaff(e.target.value)}
-                className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent mb-6"
+                className="w-full backdrop-blur-md bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent mb-6 cursor-pointer"
               >
                 <option value="" className="bg-gray-800">Select a staff member</option>
                 {staffList.map((s) => (
@@ -398,7 +398,7 @@ const AllIssusTable = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowModal(false)}
-                  className="cityfix-btn cityfix-btn-ghost px-6 py-3 rounded-lg border border-white/30"
+                  className="cityfix-btn cityfix-btn-ghost px-6 py-3 rounded-lg border border-white/30 cursor-pointer"
                 >
                   Cancel
                 </motion.button>
@@ -407,7 +407,7 @@ const AllIssusTable = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={confirmAssign}
                   disabled={assignMutation.isPending}
-                  className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-lg shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="cityfix-btn cityfix-btn-primary px-6 py-3 rounded-lg shadow-lg hover:shadow-cyan-500/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {assignMutation.isPending ? "Assigning..." : "Confirm Assign"}
                 </motion.button>

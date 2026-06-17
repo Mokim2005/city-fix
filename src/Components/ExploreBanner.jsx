@@ -86,7 +86,7 @@ const FeatureCard = ({ feature, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, delay: index * 0.15 }}
-      className="group relative rounded-3xl border border-white/10 backdrop-blur-2xl bg-white/5 p-6 overflow-hidden"
+      className="group relative rounded-2xl border border-white/10 backdrop-blur-2xl bg-white/5 p-6 overflow-hidden cursor-pointer transition-all duration-300 hover:border-cyan-400 hover:shadow-cyan-500/15"
     >
       <motion.div
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100"
@@ -94,12 +94,12 @@ const FeatureCard = ({ feature, index }) => {
       />
 
       <div className="relative z-10">
-        <div className="mb-4 text-green-400">
+        <div className="mb-4 text-cyan-400">
           <feature.icon />
         </div>
 
-        <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-        <p className="text-gray-300">{feature.description}</p>
+        <h3 className="text-xl font-bold mb-2 text-white group-hover:text-cyan-300 transition-colors duration-200">{feature.title}</h3>
+        <p className="text-gray-400">{feature.description}</p>
       </div>
     </motion.div>
   );
@@ -135,8 +135,8 @@ const App = () => {
       {/* HERO */}
       <header ref={headerRef} className="text-center py-24">
 
-        <h1 className="text-5xl font-black">
-          Empowering Citizens <span className="text-purple-400">Fixing Cities</span>
+          <h1 className="text-5xl font-black">
+          Empowering Citizens <span className="text-cyan-400">Fixing Cities</span>
         </h1>
 
         <p className="mt-4 text-gray-300">

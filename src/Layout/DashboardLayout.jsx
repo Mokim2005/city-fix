@@ -17,17 +17,17 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 import AnimatedBackground from "../Components/AnimatedBackground";
 
 const navLinkClass = ({ isActive }) =>
-  `relative flex items-center gap-3 px-3 py-2.5 w-full text-sm font-medium tracking-wide transition-all duration-200 rounded-lg
+  `relative flex items-center gap-3 px-3 py-2.5 w-full text-sm font-medium tracking-wide transition-all duration-200 rounded-lg cursor-pointer
   ${isActive
-    ? "text-[#00C2A8] bg-[rgba(0,194,168,0.08)] border-l-2 border-[#00C2A8]"
-    : "text-white/55 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
+    ? "text-cyan-400 bg-cyan-900/30 border-l-2 border-cyan-400"
+    : "text-gray-300 hover:text-cyan-400 hover:bg-cyan-900/20 border-l-2 border-transparent"
   }`;
 
 const navLinkClassCollapsed = ({ isActive }) =>
-  `relative flex items-center justify-center w-10 h-10 mx-auto rounded-lg transition-all duration-200 tooltip tooltip-right
+  `relative flex items-center justify-center w-10 h-10 mx-auto rounded-lg transition-all duration-200 tooltip tooltip-right cursor-pointer
   ${isActive
-    ? "text-[#00C2A8] bg-[rgba(0,194,168,0.08)] border-l-2 border-[#00C2A8]"
-    : "text-white/55 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
+    ? "text-cyan-400 bg-cyan-900/30 border-l-2 border-cyan-400"
+    : "text-gray-300 hover:text-cyan-400 hover:bg-cyan-900/20 border-l-2 border-transparent"
   }`;
 
 const DashboardLayout = () => {
@@ -66,7 +66,7 @@ const DashboardLayout = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full" style={{ backgroundColor: "#080d14" }}>
+    <div className="min-h-screen w-full" style={{ backgroundColor: "#0D1117" }}>
       {/* Animated cyber background — z-index: -1 inside component */}
       <AnimatedBackground />
 
@@ -86,16 +86,16 @@ const DashboardLayout = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="navbar sticky top-0 z-20 border-b border-cyan-500/20 shadow-lg shadow-black/40"
-              style={{ backgroundColor: "rgba(8, 13, 20, 0.85)", backdropFilter: "blur(16px)" }}
+              style={{ backgroundColor: "rgba(13, 17, 23, 0.85)", backdropFilter: "blur(16px)" }}
             >
               <label
                 htmlFor="my-drawer-4"
-                className="cityfix-btn cityfix-btn-primary btn btn-square btn-ghost lg:hidden rounded-xl font-semibold text-white shadow-lg transition-all duration-500 ease-out"
+                className="cityfix-btn cityfix-btn-primary btn btn-square btn-ghost lg:hidden rounded-xl font-semibold text-white shadow-lg transition-all duration-300 ease-out cursor-pointer"
               >
                 ☰
               </label>
               <div className="px-4 text-xl font-black tracking-widest"
-                style={{ color: "#00C2A8", textShadow: "0 0 20px rgba(0,194,168,0.4)" }}>
+                style={{ color: "#06B6D4", textShadow: "0 0 20px rgba(6,182,212,0.4)" }}>
                 CITY FIX
               </div>
             </motion.nav>
@@ -112,12 +112,12 @@ const DashboardLayout = () => {
 
             <div
               ref={sidebarRef}
-              className={`flex min-h-full flex-col border-r border-cyan-500/20 shadow-2xl transition-all duration-300 overflow-y-auto
+                className={`flex min-h-full flex-col border-r border-cyan-500/20 shadow-2xl transition-all duration-300 overflow-y-auto
                 ${collapsed ? "w-[72px] lg:w-[72px]" : "w-64 lg:w-64"}`}
               style={{
-                backgroundColor: "rgba(8, 13, 20, 0.95)",
+                backgroundColor: "rgba(13, 17, 23, 0.95)",
                 backdropFilter: "blur(24px)",
-                boxShadow: "4px 0 30px rgba(0,194,168,0.08)",
+                boxShadow: "4px 0 30px rgba(6,182,212,0.08)",
               }}
             >
               {/* Sidebar inner top glow line */}
@@ -132,10 +132,10 @@ const DashboardLayout = () => {
                 <li className="mb-3">
                   <Link
                     to="/"
-                    className={`flex items-center border border-cyan-500/20 rounded-xl transition-all duration-200 hover:border-cyan-400/40 hover:bg-cyan-500/10 ${
+                    className={`flex items-center border border-cyan-500/20 rounded-xl transition-all duration-200 hover:border-cyan-400/40 hover:bg-cyan-500/10 cursor-pointer ${
                       collapsed ? "justify-center w-10 h-10 mx-auto p-0 tooltip tooltip-right" : "gap-3 px-3 py-2"
                     }`}
-                    style={{ backgroundColor: "rgba(0,194,168,0.08)" }}
+                    style={{ backgroundColor: "rgba(6,182,212,0.08)" }}
                     data-tip="Homepage"
                   >
                     <motion.img
@@ -145,7 +145,7 @@ const DashboardLayout = () => {
                       alt="logo"
                     />
                     {!collapsed && (
-                      <span className="font-bold text-sm tracking-widest" style={{ color: "#00C2A8" }}>
+                        <span className="font-bold text-sm tracking-widest" style={{ color: "#06B6D4" }}>
                         CITY FIX
                       </span>
                     )}
@@ -155,7 +155,7 @@ const DashboardLayout = () => {
                 {/* Divider */}
                 {!collapsed && (
                   <li className="px-3 py-1">
-                    <span className="text-xs tracking-widest" style={{ color: "rgba(0,194,168,0.4)" }}>
+                    <span className="text-xs tracking-widest" style={{ color: "rgba(6,182,212,0.4)" }}>
                       NAVIGATION
                     </span>
                   </li>
@@ -182,7 +182,7 @@ const DashboardLayout = () => {
                   <>
                     {!collapsed && (
                       <li className="px-3 py-1">
-                        <span className="text-xs tracking-widest" style={{ color: "rgba(0,194,168,0.4)" }}>
+                        <span className="text-xs tracking-widest" style={{ color: "rgba(6,182,212,0.4)" }}>
                           ADMIN
                         </span>
                       </li>
@@ -225,7 +225,7 @@ const DashboardLayout = () => {
                   <>
                     {!collapsed && (
                       <li className="px-3 py-1">
-                        <span className="text-xs tracking-widest" style={{ color: "rgba(0,194,168,0.4)" }}>
+                        <span className="text-xs tracking-widest" style={{ color: "rgba(6,182,212,0.4)" }}>
                           STAFF
                         </span>
                       </li>
@@ -244,7 +244,7 @@ const DashboardLayout = () => {
                   <>
                     {!collapsed && (
                       <li className="px-3 py-1">
-                        <span className="text-xs tracking-widest" style={{ color: "rgba(0,194,168,0.4)" }}>
+                        <span className="text-xs tracking-widest" style={{ color: "rgba(6,182,212,0.4)" }}>
                           MY AREA
                         </span>
                       </li>
@@ -269,7 +269,7 @@ const DashboardLayout = () => {
               <div className="hidden lg:flex justify-center py-4">
 <button
                    onClick={() => setCollapsed(!collapsed)}
-                   className="cityfix-btn cityfix-btn-primary relative overflow-hidden w-8 h-8 rounded-full font-semibold text-white shadow-lg transition-all duration-500 ease-out flex items-center justify-center"
+                   className="cityfix-btn cityfix-btn-primary relative overflow-hidden w-8 h-8 rounded-full font-semibold text-white shadow-lg transition-all duration-300 ease-out flex items-center justify-center cursor-pointer"
                  >
                    {collapsed ? <FaChevronRight size={11} /> : <FaChevronLeft size={11} />}
                  </button>

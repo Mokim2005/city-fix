@@ -73,22 +73,22 @@ const Banner = () => {
       icon: "🚨",
       title: "Report Issue",
       desc: "Quick & Easy",
-      color: "from-red-500/20 to-orange-500/20",
-      borderColor: "border-red-500/30",
+      color: "from-cyan-500/20 to-teal-500/20",
+      borderColor: "border-cyan-500/30",
     },
     {
       icon: "📊",
       title: "Track Status",
       desc: "Real-time Updates",
-      color: "from-blue-500/20 to-cyan-500/20",
-      borderColor: "border-blue-500/30",
+      color: "from-cyan-500/20 to-teal-500/20",
+      borderColor: "border-cyan-500/30",
     },
     {
       icon: "🎯",
       title: "Get Results",
       desc: "Fast Resolution",
-      color: "from-green-500/20 to-emerald-500/20",
-      borderColor: "border-green-500/30",
+      color: "from-cyan-500/20 to-teal-500/20",
+      borderColor: "border-cyan-500/30",
     },
   ];
 
@@ -112,7 +112,7 @@ const Banner = () => {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-block px-4 py-2 rounded-full bg-purple-500/20 text-purple-300 text-sm border border-purple-400/30"
+              className="inline-block px-4 py-2 rounded-full bg-cyan-900/30 text-cyan-300 text-sm border border-cyan-700 transition-all duration-300 cursor-pointer"
             >
               🚀 Smart City Platform
             </motion.div>
@@ -122,7 +122,7 @@ const Banner = () => {
               ref={titleRef}
               className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight"
             >
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
                 Fix Your City
               </span>
               <br />
@@ -144,7 +144,7 @@ const Banner = () => {
             <div className="flex flex-wrap gap-4">
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="cityfix-btn cityfix-btn-primary px-8 py-4 rounded-full hover:cursor-pointer shadow-xl"
+                className="cityfix-btn cityfix-btn-primary px-8 py-4 rounded-full cursor-pointer shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/20"
                 onClick={() => navigate("/issus-form")}
               >
                 🚀 Get Started
@@ -152,7 +152,7 @@ const Banner = () => {
 
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="cityfix-btn cityfix-btn-secondary px-8 py-4 rounded-full border hover:cursor-pointer border-green-500/50"
+                className="cityfix-btn cityfix-btn-secondary px-8 py-4 rounded-full border cursor-pointer border-cyan-500/50 transition-all duration-300 hover:scale-105"
                 onClick={() => navigate("/about")}
               >
                 📖 Learn More
@@ -178,26 +178,26 @@ const Banner = () => {
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              className="w-[320px] sm:w-[400px] backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-6 shadow-2xl"
+              className="w-[320px] sm:w-[400px] backdrop-blur-xl bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-2xl"
             >
               <h3 className="text-white text-xl font-bold mb-4">
                 📍 Report an Issue
               </h3>
 
               <div className="space-y-3">
-                <div className="bg-green-600/10 p-3 rounded-lg text-green-300 border border-green-500/20">
+                <div className="bg-cyan-900/20 p-3 rounded-xl text-cyan-300 border border-cyan-700">
                   Road Damage
                 </div>
-                <div className="bg-green-600/10 p-3 rounded-lg text-green-300 border border-green-500/20">
+                <div className="bg-cyan-900/20 p-3 rounded-xl text-cyan-300 border border-cyan-700">
                   Broken Street Light
                 </div>
-                <div className="bg-green-600/10 p-3 rounded-lg text-green-300 border border-green-500/20">
+                <div className="bg-cyan-900/20 p-3 rounded-xl text-cyan-300 border border-cyan-700">
                   Garbage Issue
                 </div>
               </div>
 
               <button
-                className="cityfix-btn cityfix-btn-primary mt-5 w-full py-3 rounded-xl hover:cursor-pointer"
+                className="cityfix-btn cityfix-btn-primary mt-5 w-full py-3 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/20"
                 onClick={() => navigate("/issus-form")}
               >
                 Report
@@ -206,7 +206,7 @@ const Banner = () => {
 
       {/* Floating small cards */}
       <motion.div
-        className="absolute -top-10 -left-10 bg-green-600/20 p-4 rounded-xl backdrop-blur-lg border border-green-500/20"
+        className="absolute -top-10 -left-10 bg-cyan-900/20 p-4 rounded-xl backdrop-blur-lg border border-cyan-700 cursor-pointer"
         animate={{ y: [0, -10, 0] }}
         transition={{ repeat: Infinity, duration: 3 }}
       >
@@ -214,7 +214,7 @@ const Banner = () => {
       </motion.div>
 
       <motion.div
-        className="absolute -bottom-10 -right-10 bg-emerald-600/20 p-4 rounded-xl backdrop-blur-lg border border-emerald-500/20"
+        className="absolute -bottom-10 -right-10 bg-teal-900/20 p-4 rounded-xl backdrop-blur-lg border border-teal-700 cursor-pointer"
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 3 }}
       >
@@ -222,7 +222,7 @@ const Banner = () => {
       </motion.div>
 
       <motion.div
-        className="absolute -bottom-10 -right-10 bg-emerald-600/20 p-4 rounded-xl backdrop-blur-lg"
+        className="absolute -bottom-10 -right-10 bg-teal-900/20 p-4 rounded-xl backdrop-blur-lg cursor-pointer"
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 3 }}
       >

@@ -100,7 +100,7 @@ const UsersManagement = () => {
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl md:text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent"
+        className="text-3xl md:text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-cyan-400 to-teal-300 bg-clip-text text-transparent"
       >
         Users Management
       </motion.h2>
@@ -183,7 +183,7 @@ const UsersManagement = () => {
                       <span
                          className={`px-3 py-1 rounded-full text-xs ${
                            user.role === "admin"
-                             ? "bg-green-500/30 text-green-300"
+                             ? "bg-cyan-900/30 text-cyan-300"
                              : "bg-gray-500/30 text-gray-300"
                          }`}
                       >
@@ -195,14 +195,14 @@ const UsersManagement = () => {
                       {user.role === "admin" ? (
                         <button
                           onClick={() => handleRemoveAdmin(user)}
-                          className="cityfix-btn cityfix-btn-primary p-3 rounded-lg shadow-lg hover:shadow-green-500/30"
+                          className="cityfix-btn cityfix-btn-primary p-3 rounded-lg shadow-lg hover:shadow-cyan-500/20 cursor-pointer"
                         >
                           <FiShieldOff />
                         </button>
                       ) : (
                         <button
                           onClick={() => handleMakeAdmin(user)}
-                          className="cityfix-btn cityfix-btn-primary p-3 rounded-lg shadow-lg hover:shadow-green-500/30"
+                          className="cityfix-btn cityfix-btn-primary p-3 rounded-lg shadow-lg hover:shadow-cyan-500/20 cursor-pointer"
                         >
                           <FaUserShield />
                         </button>

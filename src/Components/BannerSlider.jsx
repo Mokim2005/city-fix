@@ -39,9 +39,9 @@ const BannerSlider = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:w-1/2 text-center lg:text-left space-y-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl"
+            className="lg:w-1/2 text-center lg:text-left space-y-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8 md:p-10 shadow-2xl"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-300 bg-clip-text text-transparent">
               City's Best Plumbing & Water Service
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed">
@@ -51,16 +51,16 @@ const BannerSlider = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(34, 197, 94, 0.8)" }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(34, 211, 238, 0.8)" }}
                 whileTap={{ scale: 0.95 }}
-                className="cityfix-btn cityfix-btn-primary px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg shadow-lg"
+                className="cityfix-btn cityfix-btn-primary px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg shadow-lg cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/20"
               >
                 Get Free Quote
               </motion.button>
               <motion.button
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(34, 197, 94, 0.2)" }}
+                whileHover={{ scale: 1.05, backgroundColor: "rgba(34, 211, 238, 0.2)" }}
                 whileTap={{ scale: 0.95 }}
-                className="cityfix-btn cityfix-btn-secondary border-2 border-green-500/50 hover:border-green-400 backdrop-blur-md px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg"
+                className="cityfix-btn cityfix-btn-secondary border-2 border-cyan-500/50 hover:border-cyan-400 backdrop-blur-md px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg cursor-pointer transition-all duration-300 hover:scale-105"
               >
                 Call Now: +880 1700-000000
               </motion.button>
@@ -73,9 +73,9 @@ const BannerSlider = () => {
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
              transition={{ duration: 0.8 }}
-             className="lg:w-1/2 text-center lg:text-left space-y-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl hover:shadow-green-500/40 hover:border-green-500/50 transition-all duration-300"
+             className="lg:w-1/2 text-center lg:text-left space-y-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8 md:p-10 shadow-2xl hover:shadow-cyan-500/20 hover:border-cyan-400 transition-all duration-300 cursor-pointer"
            >
-            <div className="rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 backdrop-blur-sm">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 backdrop-blur-sm">
               <Carousel
                 autoPlay
                 infiniteLoop
