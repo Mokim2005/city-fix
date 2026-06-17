@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
@@ -64,42 +64,66 @@ const Icons = {
 
 // --- Feature Card ---
 const FeatureCard = ({ feature, index }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const background = useTransform(
-    [mouseX, mouseY],
-    ([x, y]) =>
-      `radial-gradient(600px circle at ${x}px ${y}px, rgba(34,197,94,0.25), transparent 70%)`
-  );
-
-  function handleMouseMove(e) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  }
-
   return (
     <motion.div
-      onMouseMove={handleMouseMove}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.7, delay: index * 0.15 }}
-      className="group relative rounded-2xl border border-white/10 backdrop-blur-2xl bg-white/5 p-6 overflow-hidden cursor-pointer transition-all duration-300 hover:border-cyan-400 hover:shadow-cyan-500/15"
+      transition={{ duration: 0.5, delay: index * 0.12 }}
+      whileHover={{ y: -6 }}
+      className={`
+        group relative p-6 rounded-2xl cursor-pointer
+        bg-gray-900
+        border border-gray-700
+        ${feature.borderColor}
+        shadow-lg ${feature.glowColor}
+        hover:shadow-xl
+        transition-all duration-300 ease-in-out
+        overflow-hidden
+      `}
     >
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100"
-        style={{ background }}
+      {/* Background glow on hover */}
+      <div
+        className={`
+          absolute inset-0 rounded-2xl 
+          bg-gradient-to-br ${feature.bgGlow}
+          opacity-0 group-hover:opacity-100 
+          transition-opacity duration-300
+        `}
       />
 
+      {/* Content */}
       <div className="relative z-10">
-        <div className="mb-4 text-cyan-400">
+        {/* Icon */}
+        <div
+          className={`
+            text-4xl mb-4 flex justify-start 
+            ${feature.iconColor}
+            transition-transform duration-300 group-hover:scale-110
+          `}
+        >
           <feature.icon />
         </div>
 
-        <h3 className="text-xl font-bold mb-2 text-white group-hover:text-cyan-300 transition-colors duration-200">{feature.title}</h3>
-        <p className="text-gray-400">{feature.description}</p>
+        {/* Title */}
+        <h3 className="text-xl font-bold mb-2 text-white tracking-tight transition-colors duration-200">
+          {feature.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-gray-400 text-sm leading-relaxed">
+          {feature.description}
+        </p>
+
+        {/* Bottom accent line */}
+        <div
+          className={`
+            mt-5 h-0.5 w-0 rounded-full
+            bg-gradient-to-r ${feature.bgGlow.replace("/10", "")}
+            group-hover:w-full
+            transition-all duration-500 ease-out
+          `}
+        />
       </div>
     </motion.div>
   );
@@ -120,38 +144,82 @@ const App = () => {
     );
   }, []);
 
+  // LiveCityStatus-এর মত কালার থিম ডাটাতে ম্যাপ করা হয়েছে
   const features = [
-    { icon: Icons.Map, title: "Real-time Reporting", description: "Report problems instantly and track progress live." },
-    { icon: Icons.Users, title: "Community Driven", description: "Citizens work together to improve cities." },
-    { icon: Icons.Chart, title: "Analytics", description: "View insights of city issues." },
-    { icon: Icons.Shield, title: "Transparency", description: "Full accountability system." },
-    { icon: Icons.Clock, title: "Fast Response", description: "Quick issue resolution." },
-    { icon: Icons.City, title: "Multi-City", description: "Supports multiple cities." },
+    { 
+      icon: Icons.Map, 
+      title: "Real-time Reporting", 
+      description: "Report problems instantly and track progress live.",
+      iconColor: "text-amber-400",
+      borderColor: "hover:border-amber-400",
+      glowColor: "hover:shadow-amber-500/20",
+      bgGlow: "from-amber-500/10 to-yellow-500/10",
+    },
+    { 
+      icon: Icons.Users, 
+      title: "Community Driven", 
+      description: "Citizens work together to improve cities.",
+      iconColor: "text-cyan-400",
+      borderColor: "hover:border-cyan-400",
+      glowColor: "hover:shadow-cyan-500/20",
+      bgGlow: "from-cyan-500/10 to-teal-500/10",
+    },
+    { 
+      icon: Icons.Chart, 
+      title: "Analytics", 
+      description: "View insights of city issues.",
+      iconColor: "text-violet-400",
+      borderColor: "hover:border-violet-400",
+      glowColor: "hover:shadow-violet-500/20",
+      bgGlow: "from-violet-500/10 to-purple-500/10",
+    },
+    { 
+      icon: Icons.Shield, 
+      title: "Transparency", 
+      description: "Full accountability system.",
+      iconColor: "text-emerald-400",
+      borderColor: "hover:border-emerald-400",
+      glowColor: "hover:shadow-emerald-500/20",
+      bgGlow: "from-emerald-500/10 to-green-500/10",
+    },
+    { 
+      icon: Icons.Clock, 
+      title: "Fast Response", 
+      description: "Quick issue resolution.",
+      iconColor: "text-pink-400",
+      borderColor: "hover:border-pink-400",
+      glowColor: "hover:shadow-pink-500/20",
+      bgGlow: "from-pink-500/10 to-rose-500/10",
+    },
+    { 
+      icon: Icons.City, 
+      title: "Multi-City", 
+      description: "Supports multiple cities.",
+      iconColor: "text-blue-400",
+      borderColor: "hover:border-blue-400",
+      glowColor: "hover:shadow-blue-500/20",
+      bgGlow: "from-blue-500/10 to-indigo-500/10",
+    },
   ];
 
   return (
-    <div className="text-white min-h-screen">
-
+    <div className="bg-slate-950 text-white min-h-screen">
       {/* HERO */}
       <header ref={headerRef} className="text-center py-24">
-
-          <h1 className="text-5xl font-black">
+        <h1 className="text-5xl font-black">
           Empowering Citizens <span className="text-cyan-400">Fixing Cities</span>
         </h1>
-
         <p className="mt-4 text-gray-300">
           Build smarter cities together.
         </p>
-
       </header>
 
       {/* FEATURES */}
-      <main className="grid md:grid-cols-3 gap-6 px-6">
+      <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-6 pb-20">
         {features.map((f, i) => (
           <FeatureCard key={i} feature={f} index={i} />
         ))}
       </main>
-
     </div>
   );
 };
