@@ -209,8 +209,8 @@ const About = () => {
             <div className="group relative p-8 rounded-2xl bg-gray-900 border border-gray-800/60 hover:border-cyan-500/20 shadow-md transition-all duration-300 overflow-hidden">
               <p className="text-gray-400 text-base md:text-lg leading-relaxed relative z-10">
                 Engineered flawlessly with{" "}
-                {/* <span className="text-cyan-400 font-semibold transition-colors duration-300 group-hover:text-cyan-300">React</span>,{" "}
-                <span className="text-cyan-400 font-semibold transition-colors duration-300 group-hover:text-cyan-300">Node.js</span>,{" "} */}
+                <span className="text-cyan-400 font-semibold transition-colors duration-300 group-hover:text-cyan-300">React</span>,{" "}
+                <span className="text-cyan-400 font-semibold transition-colors duration-300 group-hover:text-cyan-300">Node.js</span>,{" "}
                 <span className="text-cyan-400 font-semibold transition-colors duration-300 group-hover:text-cyan-300">Express</span>,{" "}
                 <span className="text-cyan-400 font-semibold transition-colors duration-300 group-hover:text-cyan-300">MongoDB</span>,{" "}
                 <span className="text-cyan-400 font-semibold transition-colors duration-300 group-hover:text-cyan-300">Firebase</span>, and{" "}
