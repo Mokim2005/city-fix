@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const IssueForm = () => {
   const [imagePreview, setImagePreview] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
   const { user } = UserAuth();
   const axiosSecure = UseAxiosSecure();
   const navigate = useNavigate();
@@ -18,11 +19,27 @@ const IssueForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) setImagePreview(URL.createObjectURL(file));
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+      setValue("image", e.target.files);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith("image/")) {
+      setImagePreview(URL.createObjectURL(file));
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      setValue("image", dt.files);
+    }
   };
 
   const handleSendIssus = async (data) => {
@@ -71,104 +88,418 @@ const IssueForm = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4 py-10 relative overflow-hidden"
-    >
+    <>
+      <style>{`
+        .if-root {
+          min-height: 100vh;
+          background: #07090f;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 48px 20px;
+          font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="relative z-10 w-full max-w-5xl"
-      >
-        <div className="backdrop-blur-2xl bg-white/5 border border-white/10 rounded-3xl shadow-2xl p-6 sm:p-10">
+        .if-card {
+          width: 100%;
+          max-width: 760px;
+          background: #0c0f1a;
+          border: 1px solid #1a2040;
+          border-radius: 24px;
+          overflow: hidden;
+        }
 
-          {/* TITLE */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-              Report an Issue
-            </h1>
-            <p className="text-gray-300 mt-2">
-              Help improve your city by reporting problems
-            </p>
-          </div>
+        /* ── HEADER ── */
+        .if-header {
+          padding: 40px 40px 32px;
+          border-bottom: 1px solid #1a2040;
+          background: linear-gradient(135deg, #0c0f1a 0%, #0f1525 100%);
+        }
+        @media (max-width: 600px) { .if-header { padding: 28px 24px 24px; } }
 
-          {/* FORM */}
-          <form onSubmit={handleSubmit(handleSendIssus)} className="grid md:grid-cols-2 gap-6">
+        .if-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #22c55e;
+          margin-bottom: 12px;
+        }
+        .if-eyebrow-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #22c55e;
+          animation: blink 2s ease-in-out infinite;
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
 
-            {/* TITLE */}
-            <div className="md:col-span-2">
-              <input
-                {...register("title", { required: true })}
-                placeholder="Issue Title"
-                className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white outline-none focus:ring-2 focus:ring-green-500"
-              />
-              {errors.title && <p className="text-red-400 text-sm">Title required</p>}
+        .if-title {
+          font-size: clamp(24px, 4vw, 36px);
+          font-weight: 800;
+          color: #e8eaf0;
+          letter-spacing: -0.025em;
+          line-height: 1.15;
+        }
+        .if-title span {
+          background: linear-gradient(90deg, #22c55e, #10b981);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .if-subtitle {
+          font-size: 14px;
+          color: #4a5580;
+          margin-top: 8px;
+          font-weight: 400;
+        }
+
+        /* ── FORM BODY ── */
+        .if-body {
+          padding: 36px 40px 40px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        @media (max-width: 600px) { .if-body { padding: 24px; gap: 16px; } }
+
+        .if-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        @media (max-width: 600px) { .if-row { grid-template-columns: 1fr; } }
+
+        /* ── FIELD ── */
+        .if-field {
+          display: flex;
+          flex-direction: column;
+          gap: 7px;
+        }
+        .if-field.span2 { grid-column: span 2; }
+        @media (max-width: 600px) { .if-field.span2 { grid-column: span 1; } }
+
+        .if-label {
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #4a5580;
+        }
+
+        .if-input,
+        .if-select,
+        .if-textarea {
+          background: #0f1320;
+          border: 1px solid #1e2540;
+          border-radius: 12px;
+          padding: 13px 16px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #c8cfe8;
+          outline: none;
+          transition: border-color 0.2s, box-shadow 0.2s;
+          width: 100%;
+          box-sizing: border-box;
+          font-family: inherit;
+        }
+        .if-input::placeholder,
+        .if-textarea::placeholder { color: #2e3a5a; }
+
+        .if-input:focus,
+        .if-select:focus,
+        .if-textarea:focus {
+          border-color: #22c55e50;
+          box-shadow: 0 0 0 3px #22c55e15;
+        }
+
+        .if-input.err,
+        .if-select.err,
+        .if-textarea.err {
+          border-color: #ef444450;
+        }
+
+        .if-select {
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a5580' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 16px center;
+          cursor: pointer;
+        }
+        .if-select option { background: #0c0f1a; color: #c8cfe8; }
+
+        .if-textarea { resize: none; height: 120px; line-height: 1.6; }
+
+        .if-error {
+          font-size: 11px;
+          color: #f87171;
+          font-weight: 500;
+          margin-top: 2px;
+        }
+
+        /* ── UPLOAD ZONE ── */
+        .if-upload-zone {
+          border: 1.5px dashed #1e2540;
+          border-radius: 14px;
+          padding: 28px 20px;
+          text-align: center;
+          cursor: pointer;
+          transition: border-color 0.2s, background 0.2s;
+          background: #0f1320;
+          position: relative;
+        }
+        .if-upload-zone.drag-over {
+          border-color: #22c55e60;
+          background: #0d1f14;
+        }
+        .if-upload-zone:hover {
+          border-color: #22c55e40;
+          background: #0f1822;
+        }
+
+        .if-upload-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: #141d30;
+          border: 1px solid #1e2540;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 12px;
+          font-size: 20px;
+        }
+
+        .if-upload-title {
+          font-size: 14px;
+          font-weight: 600;
+          color: #c8cfe8;
+          margin-bottom: 4px;
+        }
+        .if-upload-sub {
+          font-size: 12px;
+          color: #4a5580;
+        }
+        .if-upload-sub span {
+          color: #22c55e;
+          font-weight: 600;
+        }
+
+        .if-upload-input {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          cursor: pointer;
+          width: 100%;
+          height: 100%;
+        }
+
+        .if-preview {
+          margin-top: 14px;
+          position: relative;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid #1e2540;
+        }
+        .if-preview img {
+          width: 100%;
+          max-height: 220px;
+          object-fit: cover;
+          display: block;
+        }
+        .if-preview-badge {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: #0c0f1a90;
+          backdrop-filter: blur(8px);
+          border: 1px solid #1e2540;
+          border-radius: 8px;
+          padding: 4px 10px;
+          font-size: 11px;
+          color: #22c55e;
+          font-weight: 600;
+        }
+
+        /* ── SUBMIT ── */
+        .if-submit-wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          margin-top: 4px;
+        }
+
+        .if-submit {
+          width: 100%;
+          padding: 15px;
+          border: none;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #16a34a, #15803d);
+          color: #fff;
+          font-size: 15px;
+          font-weight: 700;
+          cursor: pointer;
+          letter-spacing: 0.01em;
+          transition: all 0.2s ease;
+          font-family: inherit;
+          box-shadow: 0 4px 24px #22c55e25;
+        }
+        .if-submit:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 32px #22c55e35;
+          background: linear-gradient(135deg, #15803d, #166534);
+        }
+        .if-submit:active { transform: translateY(0); }
+
+        .if-user-tag {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          font-size: 12px;
+          color: #2e3a5a;
+          font-weight: 500;
+        }
+        .if-user-tag span {
+          color: #4a5580;
+          font-weight: 600;
+        }
+      `}</style>
+
+      <div className="if-root">
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          style={{ width: "100%", maxWidth: 760 }}
+        >
+          <div className="if-card">
+
+            {/* HEADER */}
+            <div className="if-header">
+              <div className="if-eyebrow">
+                <span className="if-eyebrow-dot" />
+                Civic Reporting
+              </div>
+              <h1 className="if-title">
+                Report an <span>Issue</span>
+              </h1>
+              <p className="if-subtitle">
+                Help improve your city — describe the problem and we'll make sure it's addressed.
+              </p>
             </div>
 
-            {/* CATEGORY FIXED */}
-            <select
-              {...register("category", { required: true })}
-              className="p-4 bg-gray-900/70 border border-white/20 rounded-xl text-white outline-none focus:ring-2 focus:ring-green-500"
-            >
-              <option value="" className="bg-gray-900 text-white">
-                Select Category
-              </option>
-              <option value="Road" className="bg-gray-900">Road</option>
-              <option value="Water" className="bg-gray-900">Water</option>
-              <option value="Electricity" className="bg-gray-900">Electricity</option>
-            </select>
+            {/* FORM */}
+            <form onSubmit={handleSubmit(handleSendIssus)} className="if-body">
 
-            {/* LOCATION */}
-            <input
-              {...register("location", { required: true })}
-              placeholder="Location"
-              className="p-4 bg-white/10 border border-white/20 rounded-xl text-white outline-none focus:ring-2 focus:ring-green-500"
-            />
-
-            {/* DESCRIPTION */}
-            <div className="md:col-span-2">
-              <textarea
-                {...register("description", { required: true })}
-                placeholder="Describe issue..."
-                className="w-full h-32 p-4 bg-white/10 border border-white/20 rounded-xl text-white outline-none focus:ring-2 focus:ring-green-500"
-              />
-            </div>
-
-            {/* IMAGE WITH BORDER FIX */}
-            <div className="md:col-span-2">
-              <div className="border border-white/30 rounded-xl p-3 bg-white/5">
+              {/* TITLE */}
+              <div className="if-field">
+                <label className="if-label">Issue Title</label>
                 <input
-                  {...register("image", { required: true })}
-                  type="file"
-                  onChange={handleImageChange}
-                  className="w-full text-white file:mr-4 file:px-4 file:py-2 file:rounded-lg file:border-0 file:bg-green-600 file:text-white hover:file:bg-green-700"
+                  {...register("title", { required: true })}
+                  placeholder="e.g. Broken streetlight on Main St."
+                  className={`if-input ${errors.title ? "err" : ""}`}
                 />
+                {errors.title && <span className="if-error">Title is required</span>}
               </div>
 
-              {imagePreview && (
-                <img
-                  src={imagePreview}
-                  className="mt-4 w-full max-h-64 object-cover rounded-xl border border-white/20"
+              {/* CATEGORY + LOCATION */}
+              <div className="if-row">
+                <div className="if-field">
+                  <label className="if-label">Category</label>
+                  <select
+                    {...register("category", { required: true })}
+                    className={`if-select ${errors.category ? "err" : ""}`}
+                  >
+                    <option value="">Select category</option>
+                    <option value="Road">Road</option>
+                    <option value="Water">Water</option>
+                    <option value="Electricity">Electricity</option>
+                  </select>
+                  {errors.category && <span className="if-error">Category is required</span>}
+                </div>
+
+                <div className="if-field">
+                  <label className="if-label">Location</label>
+                  <input
+                    {...register("location", { required: true })}
+                    placeholder="e.g. Dhaka, Mirpur-10"
+                    className={`if-input ${errors.location ? "err" : ""}`}
+                  />
+                  {errors.location && <span className="if-error">Location is required</span>}
+                </div>
+              </div>
+
+              {/* DESCRIPTION */}
+              <div className="if-field">
+                <label className="if-label">Description</label>
+                <textarea
+                  {...register("description", { required: true })}
+                  placeholder="Describe the issue in detail — what happened, when, and any relevant context..."
+                  className={`if-textarea ${errors.description ? "err" : ""}`}
                 />
-              )}
-            </div>
+                {errors.description && <span className="if-error">Description is required</span>}
+              </div>
 
-            {/* BUTTON GREEN + SMOOTH */}
-            <button
-              type="submit"
-              className="cityfix-btn cityfix-btn-primary md:col-span-2 py-4 rounded-xl shadow-lg"
-            >
-              Submit Issue
-            </button>
-          </form>
+              {/* IMAGE UPLOAD */}
+              <div className="if-field">
+                <label className="if-label">Photo Evidence</label>
+                <div
+                  className={`if-upload-zone ${isDragging ? "drag-over" : ""}`}
+                  onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDrop={handleDrop}
+                >
+                  <input
+                    {...register("image", { required: !imagePreview })}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="if-upload-input"
+                  />
+                  <div className="if-upload-icon">📷</div>
+                  <p className="if-upload-title">Drop image here or click to browse</p>
+                  <p className="if-upload-sub">
+                    <span>Click to upload</span> · PNG, JPG, WEBP supported
+                  </p>
+                </div>
 
-          {/* USER */}
-          <p className="text-center mt-6 text-gray-400 text-sm">
-            Logged in as: {user?.email}
-          </p>
-        </div>
-      </motion.div>
-    </div>
+                {imagePreview && (
+                  <div className="if-preview">
+                    <img src={imagePreview} alt="Preview" />
+                    <span className="if-preview-badge">✓ Image selected</span>
+                  </div>
+                )}
+                {errors.image && <span className="if-error">Photo is required</span>}
+              </div>
+
+              {/* SUBMIT */}
+              <div className="if-submit-wrap">
+                <motion.button
+                  type="submit"
+                  className="if-submit"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Submit Issue Report
+                </motion.button>
+
+                <div className="if-user-tag">
+                  Submitting as <span>{user?.email}</span>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </motion.div>
+      </div>
+    </>
   );
 };
 
