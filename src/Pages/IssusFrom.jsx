@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const IssueForm = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [isDragging, setIsDragging] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const { user } = UserAuth();
   const axiosSecure = UseAxiosSecure();
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const IssueForm = () => {
     formState: { errors },
     reset,
     setValue,
+    getValues,
   } = useForm();
 
   const handleImageChange = (e) => {
@@ -39,6 +41,26 @@ const IssueForm = () => {
       const dt = new DataTransfer();
       dt.items.add(file);
       setValue("image", dt.files);
+    }
+  };
+
+  const handleGenerateAIDescription = async () => {
+    const { title, category, location } = getValues();
+    if (!title || !category || !location) {
+      Swal.fire("Missing Fields", "Please fill in Title, Category, and Location first.", "warning");
+      return;
+    }
+    setIsGenerating(true);
+    try {
+      const res = await axios.post("http://localhost:5000/generate-description", { title, category, location });
+      const description = res.data?.description || res.data?.data?.description;
+      if (description) {
+        setValue("description", description);
+      }
+    } catch (err) {
+      Swal.fire("Error", "Failed to generate AI description. Please try again.", "error");
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -328,6 +350,34 @@ const IssueForm = () => {
           font-weight: 600;
         }
 
+        /* ── AI BUTTON ── */
+        .if-ai-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 10px 18px;
+          border: 1px solid #1e2540;
+          border-radius: 10px;
+          background: #0f1320;
+          color: #22c55e;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          font-family: inherit;
+          align-self: flex-start;
+        }
+        .if-ai-btn:hover:not(:disabled) {
+          border-color: #22c55e60;
+          background: #0d1f14;
+        }
+        .if-ai-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          color: #4a5580;
+        }
+
         /* ── SUBMIT ── */
         .if-submit-wrap {
           display: flex;
@@ -445,6 +495,14 @@ const IssueForm = () => {
                   placeholder="Describe the issue in detail — what happened, when, and any relevant context..."
                   className={`if-textarea ${errors.description ? "err" : ""}`}
                 />
+                <button
+                  type="button"
+                  className="if-ai-btn"
+                  onClick={handleGenerateAIDescription}
+                  disabled={isGenerating}
+                >
+                  {isGenerating ? "Generating..." : "Suggest AI Description"}
+                </button>
                 {errors.description && <span className="if-error">Description is required</span>}
               </div>
 
