@@ -350,34 +350,6 @@ const IssueForm = () => {
           font-weight: 600;
         }
 
-        /* ── AI BUTTON ── */
-        .if-ai-btn {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 10px 18px;
-          border: 1px solid #1e2540;
-          border-radius: 10px;
-          background: #0f1320;
-          color: #22c55e;
-          font-size: 13px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          font-family: inherit;
-          align-self: flex-start;
-        }
-        .if-ai-btn:hover:not(:disabled) {
-          border-color: #22c55e60;
-          background: #0d1f14;
-        }
-        .if-ai-btn:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-          color: #4a5580;
-        }
-
         /* ── SUBMIT ── */
         .if-submit-wrap {
           display: flex;
@@ -490,19 +462,19 @@ const IssueForm = () => {
               {/* DESCRIPTION */}
               <div className="if-field">
                 <label className="if-label">Description</label>
-                <textarea
-                  {...register("description", { required: true })}
-                  placeholder="Describe the issue in detail — what happened, when, and any relevant context..."
-                  className={`if-textarea ${errors.description ? "err" : ""}`}
-                />
                 <button
                   type="button"
-                  className="if-ai-btn"
+                  className="mt-2 mb-1 px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-md transition-colors duration-200 flex items-center gap-2 disabled:opacity-50"
                   onClick={handleGenerateAIDescription}
                   disabled={isGenerating}
                 >
                   {isGenerating ? "Generating..." : "Suggest AI Description"}
                 </button>
+                <textarea
+                  {...register("description", { required: true })}
+                  placeholder="Describe the issue in detail — what happened, when, and any relevant context..."
+                  className={`if-textarea ${errors.description ? "err" : ""}`}
+                />
                 {errors.description && <span className="if-error">Description is required</span>}
               </div>
 

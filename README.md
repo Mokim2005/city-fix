@@ -3,7 +3,7 @@ Markdown# CityFix - Public Infrastructure Issue Reporting System
 **A modern, responsive full-stack platform that empowers citizens to report public infrastructure issues (potholes, broken streetlights, garbage overflow, water leakage, damaged footpaths, etc.) and enables efficient management by municipal staff and admins.**
 
 **Live Site URL:**  https://city-fix-b6595.web.app  
-**Backend API:** https://city-fix-server-green.vercel.app 
+**Backend API:** http://localhost:5000 
 
 **Admin Credentials** (for demo/evaluation):
 
